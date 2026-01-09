@@ -5,6 +5,7 @@ import { Typography } from "antd";
 import { ScissorOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import TextSplitter from "./TextSplitter";
 import { useTranslations, useLocale } from "next-intl";
+import { getUserGuideUrl } from "@/app/utils";
 
 const { Title, Paragraph, Link } = Typography;
 
@@ -12,9 +13,7 @@ const ClientPage = () => {
   const tSplitter = useTranslations("text-splitter");
   const t = useTranslations("common");
   const locale = useLocale();
-  const isChineseLocale = locale === "zh" || locale === "zh-hant";
-
-  const userGuideUrl = isChineseLocale ? "https://docs.newzone.top/guide/tools/text-splitter.html" : "https://docs.newzone.top/en/guide/tools/text-splitter.html";
+  const userGuideUrl = getUserGuideUrl("text-splitter", locale);
 
   return (
     <>
