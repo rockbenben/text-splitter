@@ -5,7 +5,7 @@ import { Typography } from "antd";
 import { ScissorOutlined, QuestionCircleOutlined } from "@ant-design/icons";
 import TextSplitter from "./TextSplitter";
 import { useTranslations, useLocale } from "next-intl";
-import { getUserGuideUrl } from "@/app/utils";
+import { getDocUrl } from "@/app/utils";
 
 const { Title, Paragraph, Link } = Typography;
 
@@ -13,7 +13,7 @@ const ClientPage = () => {
   const tSplitter = useTranslations("text-splitter");
   const t = useTranslations("common");
   const locale = useLocale();
-  const userGuideUrl = getUserGuideUrl("text-splitter", locale);
+  const userGuideUrl = getDocUrl("guide/tools/text-splitter.html", locale);
 
   return (
     <>
