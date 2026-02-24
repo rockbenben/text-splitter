@@ -1,19 +1,18 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Upload, Button, Input, Checkbox, App, Form, Tooltip, Space, theme, Flex, Spin, Card, Row, Col, Divider, Collapse } from "antd";
-import { FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, SettingOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
-import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage } from "@/app/utils";
+import { Typography, Upload, Button, Input, Checkbox, App, Form, Tooltip, Space, theme, Flex, Spin, Card, Row, Col, Divider, Collapse, Alert, Switch } from "antd";
+import { FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, SettingOutlined, CopyOutlined, CheckOutlined, ScissorOutlined, ControlOutlined } from "@ant-design/icons";
+import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage, escapeRegExp } from "@/app/utils";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import useFileUpload from "@/app/hooks/useFileUpload";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useTextStats } from "@/app/hooks/useTextStats";
 import { useTranslations } from "next-intl";
-import JSZip from "jszip";
 import { saveAs } from "file-saver";
 
 const { TextArea } = Input;
 const { Dragger } = Upload;
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const TextSplitter = () => {
   const tSplitter = useTranslations("text-splitter");
@@ -25,15 +24,29 @@ const TextSplitter = () => {
   const [copiedIndexes, setCopiedIndexes] = useState(new Set<number>());
   const [limit, setLimit] = useLocalStorage("text-splitter-limit", 2000);
   const [customFileName, setCustomFileName] = useLocalStorage("text-splitter-customFileName", "");
-  const [largeMode, setLargeMode] = useState(false);
+
   // 多个自定义分割符号
   const [useCustomSplitter, setUseCustomSplitter] = useLocalStorage("text-splitter-useCustomSplitter", false);
   const [customSplitSymbols, setCustomSplitSymbols] = useLocalStorage("text-splitter-customSplitSymbols", "");
   const [hideResults, setHideResults] = useLocalStorage("text-splitter-hideResults", false);
+  const [activeCollapseKeys, setActiveCollapseKeys] = useLocalStorage<string[]>("text-splitter-activeCollapseKeys", []);
 
   const { isFileProcessing, fileList, multipleFiles, sourceText, setSourceText, handleFileUpload, handleUploadRemove, handleUploadChange, resetUpload } = useFileUpload();
 
   const sourceStats = useTextStats(sourceText);
+  const [autoHide, setAutoHide] = useState(false);
+
+  const updateResults = (texts: string[]) => {
+    setSplittedTexts(texts);
+    setCopiedIndexes(new Set());
+    if (texts.length > 500) {
+      setAutoHide(true);
+      message.warning("Result too large (>500), display hidden for performance.");
+    } else {
+      setAutoHide(false);
+      message.success(tSplitter("textSplit"));
+    }
+  };
 
   // 解析多个自定义分割符号，支持转义字符
   const getCustomSymbolsArray = () => parseSpaceSeparatedItems(customSplitSymbols);
@@ -56,9 +69,7 @@ const TextSplitter = () => {
         .map((line) => line.trim())
         .filter((line) => line.length > 0);
 
-      setSplittedTexts(paragraphs);
-      setCopiedIndexes(new Set());
-      message.success(tSplitter("textSplit"));
+      updateResults(paragraphs);
     } catch (error: unknown) {
       console.error("Split by paragraph failed:", error);
       const errMsg = getErrorMessage(error);
@@ -70,8 +81,8 @@ const TextSplitter = () => {
   const splitBySymbolsOnly = (text: string, symbols: string[]): string[] => {
     if (symbols.length === 0) return [text];
 
-    // 创建正则表达式，转义特殊字符
-    const escapedSymbols = symbols.map((symbol) => symbol.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"));
+    // 创建正则表达式，使用 escapeRegExp 转义特殊字符
+    const escapedSymbols = symbols.map((symbol) => escapeRegExp(symbol));
     const regex = new RegExp(`(${escapedSymbols.join("|")})`, "g");
 
     // 按符号分割
@@ -107,9 +118,7 @@ const TextSplitter = () => {
     if ((!limit || limit === 0) && useCustomSplitter && customSymbols.length > 0) {
       // 仅按自定义符号分割，不限制字符数
       const newSplittedTexts = splitBySymbolsOnly(sourceText, customSymbols);
-      setSplittedTexts(newSplittedTexts);
-      setCopiedIndexes(new Set());
-      message.success(tSplitter("textSplit"));
+      updateResults(newSplittedTexts);
       return;
     }
 
@@ -171,9 +180,7 @@ const TextSplitter = () => {
       start = end;
     }
 
-    setSplittedTexts(newSplittedTexts);
-    setCopiedIndexes(new Set());
-    message.success(tSplitter("textSplit"));
+    updateResults(newSplittedTexts);
   };
 
   const handleCopy = async (text: string, index: number) => {
@@ -203,6 +210,7 @@ const TextSplitter = () => {
   // 导出 ZIP 文件
   const exportAsZip = async (texts: string[], nameWithoutExt: string, ext: string) => {
     try {
+      const JSZip = (await import("jszip")).default;
       const zip = new JSZip();
       texts.forEach((text, index) => {
         const fileName = `${nameWithoutExt}_${index + 1}${ext}`;
@@ -239,11 +247,11 @@ const TextSplitter = () => {
       ext = ".txt";
     }
     console.log("nameWithoutExt:", nameWithoutExt, "ext:", ext);
-    // 如果分割文本超过 10 个，打包成 ZIP 文件
-    if (splittedTexts.length > 10) {
+    // 如果分割文本超过 3 个，打包成 ZIP 文件
+    if (splittedTexts.length > 3) {
       await exportAsZip(splittedTexts, nameWithoutExt, ext);
     } else {
-      // 少于或等于 10 个文件时，单独下载
+      // 少于或等于 3 个文件时，单独下载
       for (const [index, text] of splittedTexts.entries()) {
         const fileName = `${nameWithoutExt}_${index + 1}${ext}`;
         await downloadFile(text, fileName);
@@ -253,7 +261,7 @@ const TextSplitter = () => {
   };
 
   return (
-    <Spin spinning={isFileProcessing} tip="Processing..." size="large">
+    <Spin spinning={isFileProcessing} tip="Please wait..." size="large">
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={16}>
           <Card
@@ -279,7 +287,7 @@ const TextSplitter = () => {
                 </Button>
               </Tooltip>
             }
-            className="shadow-sm">
+            className="shadow-md border-transparent hover:shadow-lg transition-shadow duration-300">
             <Dragger
               customRequest={({ file }) => handleFileUpload(file as File)}
               accept=".txt,.md,.markdown,.json,.srt,.ass,.vtt,.csv,.tsv,.xml,.yaml,.yml,.log,.ini,.html,.css,.js,.py,.java,.sql"
@@ -294,31 +302,28 @@ const TextSplitter = () => {
               <p className="ant-upload-text">{t("dragAndDropText")}</p>
               <p className="ant-upload-hint">{t("supportedFormats")} .txt, .md, .markdown, .json, .srt...</p>
             </Dragger>
-
-            {!largeMode && (
-              <>
-                <TextArea
-                  placeholder={t("pasteUploadContent")}
-                  value={sourceStats.isEditable ? sourceText : sourceStats.displayText}
-                  onChange={sourceStats.isEditable ? (e) => setSourceText(e.target.value) : undefined}
-                  rows={8}
-                  className="mt-1"
-                  allowClear
-                  readOnly={!sourceStats.isEditable}
-                  aria-label={t("sourceArea")}
-                />
-                {sourceText && (
-                  <Paragraph type="secondary">
-                    {t("inputStatsTitle")}: {sourceStats.charCount} {t("charLabel")}, {sourceStats.lineCount} {t("lineLabel")}
-                  </Paragraph>
-                )}
-              </>
+            <TextArea
+              placeholder={t("pasteUploadContent")}
+              value={sourceStats.isEditable ? sourceText : sourceStats.displayText}
+              onChange={sourceStats.isEditable ? (e) => setSourceText(e.target.value) : undefined}
+              rows={8}
+              className="mt-1"
+              allowClear
+              readOnly={!sourceStats.isEditable}
+              aria-label={t("sourceArea")}
+            />
+            {sourceText && (
+              <Flex justify="end" className="mt-2">
+                <Typography.Text type="secondary" className="!text-xs">
+                  {sourceStats.charCount} {t("charLabel")} / {sourceStats.lineCount} {t("lineLabel")}
+                </Typography.Text>
+              </Flex>
             )}
           </Card>
         </Col>
 
         <Col xs={24} lg={8}>
-          <Space orientation="vertical" size="small" style={{ width: "100%" }}>
+          <Space orientation="vertical" size="small" className="w-full">
             <Card
               title={
                 <Space>
@@ -326,7 +331,7 @@ const TextSplitter = () => {
                   {t("configuration")}
                 </Space>
               }
-              className="shadow-sm">
+              className="shadow-md border-transparent hover:shadow-lg transition-shadow duration-300">
               <Form layout="vertical">
                 <Form.Item label={tSplitter("splitCharacterCount")} tooltip={tSplitter("emptyForSymbolOnly")}>
                   <Space.Compact className="w-full">
@@ -342,7 +347,7 @@ const TextSplitter = () => {
                   </Space.Compact>
                 </Form.Item>
 
-                <Form.Item style={{ marginTop: -12, marginBottom: 0 }}>
+                <Form.Item className="!-mt-6 !mb-0">
                   <Checkbox onChange={(e) => setUseCustomSplitter(e.target.checked)} checked={useCustomSplitter}>
                     {tSplitter("splitByCustomSymbol")}
                   </Checkbox>
@@ -358,7 +363,7 @@ const TextSplitter = () => {
                         aria-label={tSplitter("customSplitSymbol")}
                       />
                     </Form.Item>
-                    <Space size="small" style={{ marginTop: 4 }}>
+                    <Space size="small" className="!mt-2">
                       <Button size="small" onClick={() => setCustomSplitSymbols("。 ？ ！")}>
                         {tSplitter("chineseEndingSymbol")}
                       </Button>
@@ -369,7 +374,7 @@ const TextSplitter = () => {
                   </>
                 )}
 
-                <Divider style={{ margin: "12px 0" }} />
+                <Divider className="!my-3" />
 
                 <Form.Item label={tSplitter("exportFileName")}>
                   <Space.Compact className="w-full">
@@ -379,25 +384,27 @@ const TextSplitter = () => {
                 </Form.Item>
                 <Collapse
                   ghost
-                  style={{ marginTop: -12 }}
-                  expandIconPlacement="end"
+                  size="small"
+                  className="!-mt-4"
+                  activeKey={activeCollapseKeys}
+                  onChange={(keys) => setActiveCollapseKeys(typeof keys === "string" ? [keys] : keys)}
                   items={[
                     {
                       key: "1",
                       label: (
                         <Space>
-                          <SettingOutlined />
-                          <span>{t("advancedSettings")}</span>
+                          <ControlOutlined />
+                          <Text strong>{t("advancedSettings")}</Text>
                         </Space>
                       ),
                       children: (
                         <Flex vertical gap="small">
-                          <Checkbox checked={largeMode} onChange={(e) => setLargeMode(e.target.checked)}>
-                            {t("largeMode")}
-                          </Checkbox>
-                          <Checkbox onChange={(e) => setHideResults(e.target.checked)} checked={hideResults}>
-                            {t("hideResults")}
-                          </Checkbox>
+                          <Flex justify="space-between" align="center">
+                            <Tooltip title={t("hideResultsTooltip")}>
+                              <span>{t("hideResults")}</span>
+                            </Tooltip>
+                            <Switch size="small" checked={hideResults} onChange={setHideResults} />
+                          </Flex>
                         </Flex>
                       ),
                     },
@@ -406,7 +413,7 @@ const TextSplitter = () => {
               </Form>
             </Card>
 
-            <Card className="shadow-sm" styles={{ body: { padding: 16 } }}>
+            <Card className="shadow-md border-transparent hover:shadow-lg transition-shadow duration-300" styles={{ body: { padding: 16 } }}>
               <Button type="primary" block size="large" onClick={splitText} icon={<ScissorOutlined />} style={{ fontSize: 16, marginBottom: 12 }}>
                 {sourceText ? ((!limit || limit === 0) && useCustomSplitter && customSplitSymbols ? `${tSplitter("splitBySymbol")}` : `${tSplitter("splitText")}`) : tSplitter("splitText")}
               </Button>
@@ -428,17 +435,17 @@ const TextSplitter = () => {
       </Row>
 
       {splittedTexts.length > 0 && (
-        <div style={{ marginTop: 16 }}>
+        <div className="!mt-6">
           <Divider>
             <Space>
               <CheckOutlined style={{ color: token.colorSuccess }} />
-              <Title level={4} style={{ margin: 0 }}>
+              <Title level={4} className="!m-0">
                 {t("result")} ({splittedTexts.length} {tSplitter("segment")})
               </Title>
             </Space>
           </Divider>
 
-          <Flex justify="center" gap="middle" style={{ marginBottom: 24 }}>
+          <Flex justify="center" gap="middle" className="!mb-5">
             <Tooltip title={tSplitter("mergeText")}>
               <Button type="primary" ghost icon={<FileTextOutlined />} onClick={handleExportFullText} size="large">
                 {tSplitter("exportMergedText")}
@@ -451,7 +458,21 @@ const TextSplitter = () => {
             </Tooltip>
           </Flex>
 
-          {!hideResults && (
+          {autoHide && !hideResults && (
+            <Alert
+              message="Result too large (>500), display hidden for performance."
+              type="warning"
+              showIcon
+              className="mb-4"
+              action={
+                <Button size="small" type="text" onClick={() => setAutoHide(false)}>
+                  Show Anyway
+                </Button>
+              }
+            />
+          )}
+
+          {!hideResults && !autoHide && (
             <Row gutter={[16, 16]}>
               {splittedTexts.map((text, index) => (
                 <Col xs={24} md={12} xl={8} key={index}>
@@ -471,7 +492,7 @@ const TextSplitter = () => {
                     }
                     hoverable
                     style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                    <Paragraph ellipsis={{ rows: 6, expandable: true, symbol: "more" }} style={{ margin: 0, fontFamily: "monospace", whiteSpace: "pre-wrap" }}>
+                    <Paragraph ellipsis={{ rows: 6, expandable: true, symbol: "more" }} className="!m-0 !font-mono !whitespace-pre-wrap">
                       {text}
                     </Paragraph>
                   </Card>
