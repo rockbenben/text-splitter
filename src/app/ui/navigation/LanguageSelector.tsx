@@ -73,7 +73,7 @@ export function LanguageSelector() {
         value={langQuery}
         autoFocus={isMobile ? false : langOpen}
         onChange={(e) => setLangQuery(e.target.value)}
-        style={{ marginBottom: 12 }}
+        className="mb-2"
       />
       <div style={{ maxHeight: isMobile ? "60vh" : 360, overflowY: "auto", overflowX: "hidden", paddingBottom: 4 }}>
         <Row gutter={[8, 8]}>
@@ -124,7 +124,7 @@ export function LanguageSelector() {
       {isMobile ? (
         <>
           <Button type="text" icon={<TranslationOutlined />} aria-label="Select language" onClick={() => setLangOpen(true)} />
-          <Drawer title="Select Language / 选择语言" placement="bottom" onClose={() => setLangOpen(false)} open={langOpen} height="auto" styles={{ body: { padding: 16 } }}>
+          <Drawer title="Select Language / 选择语言" placement="bottom" onClose={() => setLangOpen(false)} open={langOpen} size="default" styles={{ body: { padding: 16 } }}>
             {renderLanguageList()}
           </Drawer>
         </>
