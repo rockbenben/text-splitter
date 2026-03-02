@@ -261,7 +261,7 @@ const TextSplitter = () => {
   };
 
   return (
-    <Spin spinning={isFileProcessing} tip="Please wait..." size="large">
+    <Spin spinning={isFileProcessing} description="Please wait..." size="large">
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={16}>
           <Card
