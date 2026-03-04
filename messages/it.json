@@ -197,12 +197,7 @@
     "homeTitle": "Suite ToolsByAI",
     "homeDescription": "20+ strumenti per traduzione, testo, JSON e conversione dati. Potenzia l'efficienza di sviluppatori e creatori.",
     "ogTitle": "ToolsByAI - Strumenti Dev IA Gratuiti e Open Source",
-    "ogDescription": "20+ utility per sviluppatori: traduzione, elaborazione dati e JSON. Rispetta la tua privacy con elaborazione locale.",
-    "ogUrl": "https://tools.newzone.top/it",
-    "ogSiteName": "Tools By AI",
-    "ogLogo": "https://tools.newzone.top/logo.png",
-    "authorName": "RockBen",
-    "authorUrl": "https://github.com/rockbenben"
+    "ogDescription": "20+ utility per sviluppatori: traduzione, elaborazione dati e JSON. Rispetta la tua privacy con elaborazione locale."
   },
   "CopyToClipboard": {
     "empty": "Contenuto vuoto, nulla da copiare",

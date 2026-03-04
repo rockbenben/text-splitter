@@ -197,12 +197,7 @@
     "homeTitle": "ToolsByAI Toolset",
     "homeDescription": "20+ Tools для перевода, текста и JSON. Помощь разработчикам.",
     "ogTitle": "ToolsByAI | Бесплатные ИИ-инструменты для Dev",
-    "ogDescription": "20+ open-source инструментов: перевод субтитров, i18n, JSON, Markdown. DeepSeek, ChatGPT. Локально и безопасно для разработчиков.",
-    "ogUrl": "https://tools.newzone.top/ru",
-    "ogSiteName": "Tools By AI",
-    "ogLogo": "https://tools.newzone.top/logo.png",
-    "authorName": "RockBen",
-    "authorUrl": "https://github.com/rockbenben"
+    "ogDescription": "20+ open-source инструментов: перевод субтитров, i18n, JSON, Markdown. DeepSeek, ChatGPT. Локально и безопасно для разработчиков."
   },
   "CopyToClipboard": {
     "empty": "Содержимое пусто, нечего копировать",

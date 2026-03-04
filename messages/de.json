@@ -197,12 +197,7 @@
     "homeTitle": "ToolsByAI Toolset",
     "homeDescription": "20+ Tools für Übersetzung, Text, JSON und Datenkonvertierung. Effizienzsteigerung für Entwickler und Creator.",
     "ogTitle": "ToolsByAI | Kostenlose KI-Dev- & Übersetzungstools",
-    "ogDescription": "20+ Open-Source-Tools: Untertitel-Übersetzung, i18n, JSON & Markdown. Mit DeepSeek & ChatGPT. Lokal, sicher & effizient für Entwickler.",
-    "ogUrl": "https://tools.newzone.top/de",
-    "ogSiteName": "Tools By AI",
-    "ogLogo": "https://tools.newzone.top/logo.png",
-    "authorName": "RockBen",
-    "authorUrl": "https://github.com/rockbenben"
+    "ogDescription": "20+ Open-Source-Tools: Untertitel-Übersetzung, i18n, JSON & Markdown. Mit DeepSeek & ChatGPT. Lokal, sicher & effizient für Entwickler."
   },
   "CopyToClipboard": {
     "empty": "Inhalt leer, nichts zu kopieren",

@@ -197,12 +197,7 @@
     "homeTitle": "مجموعة ToolsByAI",
     "homeDescription": "20+ أداة للترجمة والنص و JSON وتحويل البيانات. تعزيز كفاءة المطورين والمبدعين.",
     "ogTitle": "ToolsByAI - أدوات مطورين ذكية ومجانية المصدر",
-    "ogDescription": "20+ أداة للمطورين: الترجمة، معالجة البيانات و JSON. حماية لخصوصيتك مع معالجة محلية بالكامل في المتصفح.",
-    "ogUrl": "https://tools.newzone.top/ar",
-    "ogSiteName": "Tools By AI",
-    "ogLogo": "https://tools.newzone.top/logo.png",
-    "authorName": "RockBen",
-    "authorUrl": "https://github.com/rockbenben"
+    "ogDescription": "20+ أداة للمطورين: الترجمة، معالجة البيانات و JSON. حماية لخصوصيتك مع معالجة محلية بالكامل في المتصفح."
   },
   "CopyToClipboard": {
     "empty": "المحتوى فارغ، لا شيء للنسخ",

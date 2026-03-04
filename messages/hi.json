@@ -197,12 +197,7 @@
     "homeTitle": "ToolsByAI सूट",
     "homeDescription": "अनुवाद, टेक्स्ट, JSON और डेटा रूपांतरण के लिए 20+ उपकरण। डेवलपर्स और क्रिएटर्स की दक्षता बढ़ाएं।",
     "ogTitle": "ToolsByAI - मुफ्त और ओपन सोर्स डेवलपर टूल्स",
-    "ogDescription": "20+ डेवलपर उपयोगिताएँ: अनुवाद, डेटा और JSON प्रसंस्करण। ब्राउज़र में पूरी तरह से स्थानीय प्रसंस्करण के साथ अपनी गोपनीयता की रक्षा करें।",
-    "ogUrl": "https://tools.newzone.top/hi",
-    "ogSiteName": "Tools By AI",
-    "ogLogo": "https://tools.newzone.top/logo.png",
-    "authorName": "RockBen",
-    "authorUrl": "https://github.com/rockbenben"
+    "ogDescription": "20+ डेवलपर उपयोगिताएँ: अनुवाद, डेटा और JSON प्रसंस्करण। ब्राउज़र में पूरी तरह से स्थानीय प्रसंस्करण के साथ अपनी गोपनीयता की रक्षा करें।"
   },
   "CopyToClipboard": {
     "empty": "सामग्री खाली है, कॉपी करने के लिए कुछ नहीं",

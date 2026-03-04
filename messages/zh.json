@@ -197,12 +197,7 @@
     "homeTitle": "ToolsByAI 工具集",
     "homeDescription": "20+ 实用工具，涵盖多语言翻译、文本处理、JSON 编辑和数据转换，助力开发者和创作者提升效率。",
     "ogTitle": "ToolsByAI | 免费开源的 AI 翻译与数据处理工具集",
-    "ogDescription": "寻找高效开发工具？ToolsByAI 汇集字幕翻译、i18n 处理等 20+ 款免费开源应用。接入 DeepSeek 等主流模型，支持批量处理且数据隐私安全，立即开启 AI 提效之旅！",
-    "ogUrl": "https://tools.newzone.top/zh",
-    "ogSiteName": "Tools By AI",
-    "ogLogo": "https://tools.newzone.top/logo.png",
-    "authorName": "RockBen",
-    "authorUrl": "https://github.com/rockbenben"
+    "ogDescription": "寻找高效开发工具？ToolsByAI 汇集字幕翻译、i18n 处理等 20+ 款免费开源应用。接入 DeepSeek 等主流模型，支持批量处理且数据隐私安全，立即开启 AI 提效之旅！"
   },
   "CopyToClipboard": {
     "empty": "内容为空，无需复制",
