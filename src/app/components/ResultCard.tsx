@@ -1,17 +1,18 @@
 "use client";
 
-import { Card, Button, Space, Input, Typography } from "antd";
+import { Card, Button, Space, Input, Typography, Flex } from "antd";
 import { CopyOutlined, DownloadOutlined } from "@ant-design/icons";
 import { useTranslations } from "next-intl";
 
 const { TextArea } = Input;
-const { Paragraph } = Typography;
 
 interface ResultCardProps {
   /** Card title - defaults to "translationResult" translation key */
-  title?: string;
-  /** Result content to display */
+  title?: React.ReactNode;
+  /** Result content to display. If onChange is provided, this should be the state value. */
   content: string;
+  /** Callback for content changes. If provided, the TextArea becomes editable. */
+  onChange?: (value: string) => void;
   /** Formatted character count string */
   charCount?: string;
   /** Formatted line count string */
@@ -36,7 +37,7 @@ interface ResultCardProps {
  * Shared result card component for displaying processed/translated text.
  * Supports both translation tools and JSON processing tools.
  */
-const ResultCard = ({ title, content, charCount, lineCount, showStats = true, onCopy, onCopyNode, onExport, textDirection = "ltr", rows = 10, className = "" }: ResultCardProps) => {
+const ResultCard = ({ title, content, onChange, charCount, lineCount, showStats = true, onCopy, onCopyNode, onExport, textDirection = "ltr", rows = 10, className = "" }: ResultCardProps) => {
   const t = useTranslations("common");
   const tJson = useTranslations("json");
 
@@ -59,11 +60,20 @@ const ResultCard = ({ title, content, charCount, lineCount, showStats = true, on
           )}
         </Space>
       }>
-      <TextArea value={content} dir={textDirection} rows={rows} readOnly aria-label={displayTitle} />
+      <TextArea
+        value={content}
+        onChange={onChange ? (e) => onChange(e.target.value) : undefined}
+        dir={textDirection}
+        rows={rows}
+        readOnly={!onChange}
+        aria-label={typeof title === "string" ? title : t("translationResult")}
+      />
       {showStats && charCount && lineCount && (
-        <Paragraph type="secondary" className="text-right">
-          {t("outputStatsTitle")}: {charCount} {t("charLabel")}, {lineCount} {t("lineLabel")}
-        </Paragraph>
+        <Flex justify="end" className="mt-2">
+          <Typography.Text type="secondary" className="!text-xs">
+            {charCount} {t("charLabel")} / {lineCount} {t("lineLabel")}
+          </Typography.Text>
+        </Flex>
       )}
     </Card>
   );
