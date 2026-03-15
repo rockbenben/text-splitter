@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Typography, Upload, Button, Input, Checkbox, App, Form, Tooltip, Space, theme, Flex, Spin, Card, Row, Col, Divider, Collapse, Alert, Switch } from "antd";
 import { FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, SettingOutlined, CopyOutlined, CheckOutlined, ScissorOutlined, ControlOutlined } from "@ant-design/icons";
-import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage, escapeRegExp } from "@/app/utils";
+import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage, escapeRegExp, getFileTypePresetConfig } from "@/app/utils";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import useFileUpload from "@/app/hooks/useFileUpload";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
@@ -13,6 +13,8 @@ import { saveAs } from "file-saver";
 const { TextArea } = Input;
 const { Dragger } = Upload;
 const { Title, Paragraph, Text } = Typography;
+
+const uploadFileTypes = getFileTypePresetConfig("richText");
 
 const TextSplitter = () => {
   const tSplitter = useTranslations("text-splitter");
@@ -246,7 +248,6 @@ const TextSplitter = () => {
       nameWithoutExt = baseFileName;
       ext = ".txt";
     }
-    console.log("nameWithoutExt:", nameWithoutExt, "ext:", ext);
     // 如果分割文本超过 3 个，打包成 ZIP 文件
     if (splittedTexts.length > 3) {
       await exportAsZip(splittedTexts, nameWithoutExt, ext);
@@ -290,7 +291,7 @@ const TextSplitter = () => {
             className="shadow-md border-transparent hover:shadow-lg transition-shadow duration-300">
             <Dragger
               customRequest={({ file }) => handleFileUpload(file as File)}
-              accept=".txt,.md,.markdown,.json,.srt,.ass,.vtt,.csv,.tsv,.xml,.yaml,.yml,.log,.ini,.html,.css,.js,.py,.java,.sql"
+              accept={uploadFileTypes.accept}
               showUploadList
               beforeUpload={resetUpload}
               onRemove={handleUploadRemove}
@@ -300,7 +301,9 @@ const TextSplitter = () => {
                 <InboxOutlined />
               </p>
               <p className="ant-upload-text">{t("dragAndDropText")}</p>
-              <p className="ant-upload-hint">{t("supportedFormats")} .txt, .md, .markdown, .json, .srt...</p>
+              <p className="ant-upload-hint">
+                {t("supportedFormats")} {uploadFileTypes.formatLabel({ maxVisible: 5 })}
+              </p>
             </Dragger>
             <TextArea
               placeholder={t("pasteUploadContent")}
