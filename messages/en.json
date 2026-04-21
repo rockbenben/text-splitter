@@ -127,7 +127,13 @@
     "mergeText": "Merge All Segments (Separated by 2 Newlines)",
     "exportMergedText": "Export Merged Text",
     "exportIndividualFiles": "Batch Export Segments as Files",
-    "batchExport": "Batch Export"
+    "batchExport": "Batch Export",
+    "faq1q": "What character limits does this split for ChatGPT, Claude, Gemini, and translation tools?",
+    "faq1a": "AI model context limits (tokens): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinese is ~1-2 chars/token (Claude more generous), English ~4 chars/token. Translation limits: Google Translate and DeepL free both 5000 chars/request. Set 'Split Character Count' with buffer below the target AI's token capacity.",
+    "faq2q": "How do I split long posts for Twitter, Threads, Weibo, and Xiaohongshu?",
+    "faq2a": "Platform limits: Twitter 280 chars, Threads 500, Weibo 140 (CJK char = 1), Xiaohongshu 1000, LinkedIn 3000, Douban 140. Use 'Chinese paragraph' mode for CJK or 'English paragraph' for Latin — both preserve sentence integrity. Batch-export as separate files for sequential posting (1/N, 2/N numbering).",
+    "faq3q": "How do I handle mixed Chinese/English text or non-UTF-8 files (French GBK, Japanese Shift-JIS)?",
+    "faq3a": "For mixed CJK/English, use Chinese paragraph mode — it recognizes both Chinese (。！？) and English (. ! ?) sentence endings without splitting mid-word. Custom delimiter supports escape chars \\\\n\\\\n and \\\\t. For non-UTF-8 files (French GBK, Japanese Shift-JIS, Korean EUC-KR), **upload the file directly** rather than pasting — encoding is auto-detected to prevent garbled output."
   },
   "tools": {
     "subtitleTranslator": {

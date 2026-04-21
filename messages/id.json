@@ -127,7 +127,13 @@
     "mergeText": "Gabungkan semua segmen (dipisahkan oleh 2 baris baru)",
     "exportMergedText": "Ekspor Teks Gabungan",
     "exportIndividualFiles": "Ekspor setiap segmen sebagai file teks",
-    "batchExport": "Ekspor Batch"
+    "batchExport": "Ekspor Batch",
+    "faq1q": "Berapa batas karakter untuk ChatGPT, Claude, Gemini, dan alat terjemahan?",
+    "faq1a": "Batas konteks model AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target.",
+    "faq2q": "Bagaimana membagi post panjang untuk Twitter, Threads, LinkedIn?",
+    "faq2a": "Batas: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Gunakan mode 'Paragraf Inggris' untuk Indonesia dan Latin — menjaga integritas kalimat. Ekspor batch sebagai file terpisah untuk posting berurutan (1/N, 2/N).",
+    "faq3q": "Bagaimana menangani teks campuran atau file non-UTF-8 (Prancis GBK, Jepang Shift-JIS)?",
+    "faq3a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Pemisah khusus mendukung \\\\n\\\\n dan \\\\t. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
   },
   "tools": {
     "subtitleTranslator": {

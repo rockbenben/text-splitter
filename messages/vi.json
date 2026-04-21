@@ -127,7 +127,13 @@
     "mergeText": "Gộp tất cả các đoạn (cách nhau bởi 2 dòng mới)",
     "exportMergedText": "Xuất văn bản gộp",
     "exportIndividualFiles": "Xuất từng đoạn thành tệp văn bản",
-    "batchExport": "Xuất hàng loạt"
+    "batchExport": "Xuất hàng loạt",
+    "faq1q": "Giới hạn ký tự của ChatGPT, Claude, Gemini và công cụ dịch là bao nhiêu?",
+    "faq1a": "Giới hạn ngữ cảnh mô hình AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Số ký tự chia' với đệm dưới dung lượng AI mục tiêu.",
+    "faq2q": "Làm sao chia bài đăng dài cho Twitter, Threads, Facebook và LinkedIn?",
+    "faq2a": "Giới hạn: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000, Facebook 63206. Dùng chế độ 'Đoạn tiếng Anh' cho tiếng Việt và Latin — giữ tính toàn vẹn câu. Xuất hàng loạt dưới dạng tệp riêng cho đăng tuần tự (1/N, 2/N).",
+    "faq3q": "Xử lý văn bản hỗn hợp hoặc tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS) thế nào?",
+    "faq3a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Dấu phân cách tùy chỉnh hỗ trợ \\\\n\\\\n và \\\\t. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
   },
   "tools": {
     "subtitleTranslator": {

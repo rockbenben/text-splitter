@@ -127,7 +127,13 @@
     "mergeText": "合併所有分段（用兩個換行符分隔）",
     "exportMergedText": "導出合併文本",
     "exportIndividualFiles": "批量導出每個分割段為獨立文本文件",
-    "batchExport": "批量導出"
+    "batchExport": "批量導出",
+    "faq1q": "ChatGPT、Claude、Gemini 等 AI 模型和翻譯工具的字符限制是多少？",
+    "faq1a": "AI 模型上下文限制（以 token 爲單位）：ChatGPT GPT-4o 約 128K、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 萬、DeepSeek V3 128K。中文約 1-2 字/token（Claude 更寬松），英文約 4 字符/token。翻譯工具限制：Google Translate 和 DeepL 免費版均爲 5000 字符/次。設置「分割字符數」按目標 AI 或 API 的容量上限留出緩衝。",
+    "faq2q": "Twitter、微博、小紅書等社交平臺的長文怎麼一鍵分段發布？",
+    "faq2a": "各平臺限制：Twitter 280 字、Threads 500 字、微博 140 字（中文 1 字算 1 字）、小紅書正文 1000 字、豆瓣廣播 140 字、LinkedIn 3000 字。中文用「中文分段」模式、英文用「英文分段」模式，保留句子完整。批量導出爲獨立文件可按序號 1/N、2/N 依次發布。",
+    "faq3q": "中英混排、法語/日語等非 UTF-8 編碼的長文本怎麼處理？",
+    "faq3a": "中英混排用「中文分段」模式可同時識別中文（。！？）和英文（. ! ?）句末標點，不會在單詞中間切斷。自定義分隔符支持 \\\\n\\\\n（雙換行）、\\\\t（製表符）等轉義。法語（GBK）、日語（Shift-JIS）、韓語（EUC-KR）等非 UTF-8 文件請直接上傳（而非粘貼），工具會自動檢測編碼避免亂碼。"
   },
   "tools": {
     "subtitleTranslator": {

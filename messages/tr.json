@@ -127,7 +127,13 @@
     "mergeText": "Tüm bölümleri birleştir (2 yeni satırla ayrılmış)",
     "exportMergedText": "Birleştirilmiş Metni Dışa Aktar",
     "exportIndividualFiles": "Her bölümü metin dosyası olarak dışa aktar",
-    "batchExport": "Toplu Dışa Aktar"
+    "batchExport": "Toplu Dışa Aktar",
+    "faq1q": "ChatGPT, Claude, Gemini ve çeviri araçlarının karakter limitleri nelerdir?",
+    "faq1a": "AI modeli bağlam limitleri (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Çince ~1-2 karakter/token, İngilizce ~4 karakter/token. Çeviri: Google Translate ve DeepL ücretsiz her ikisi de 5000 karakter/istek. 'Bölme Karakter Sayısı'nı hedef AI'nin token kapasitesinin altında tamponla ayarlayın.",
+    "faq2q": "Twitter, Threads, LinkedIn için uzun gönderileri nasıl bölerim?",
+    "faq2a": "Limitler: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Türkçe ve Latin için 'İngilizce Paragraf' modunu kullanın — cümle bütünlüğünü korur. Sıralı yayın için ayrı dosyalar olarak toplu dışa aktarın (1/N, 2/N).",
+    "faq3q": "Karışık metin veya UTF-8 olmayan dosyalar (Fransızca GBK, Japonca Shift-JIS) nasıl işlenir?",
+    "faq3a": "Karışık metin için Çince Paragraf modunu kullanın — hem Çince (。！？) hem İngilizce (. ! ?) noktalama işaretlerini tanır, kelimeyi ortadan bölmez. Özel ayırıcılar \\\\n\\\\n ve \\\\t kaçış karakterlerini destekler. UTF-8 olmayan dosyalar için yapıştırmak yerine **dosyayı doğrudan yükleyin** — kodlama otomatik algılanır."
   },
   "tools": {
     "subtitleTranslator": {

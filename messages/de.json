@@ -127,7 +127,13 @@
     "mergeText": "Alle Segmente zusammenführen (getrennt durch 2 Zeilenumbrüche)",
     "exportMergedText": "Zusammengeführten Text exportieren",
     "exportIndividualFiles": "Jedes Segment als separate Textdatei exportieren",
-    "batchExport": "Batch-Export"
+    "batchExport": "Batch-Export",
+    "faq1q": "Welche Zeichenlimits gelten für ChatGPT, Claude, Gemini und Übersetzungstools?",
+    "faq1a": "KI-Modell-Kontextlimits (Tokens): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinesisch ~1-2 Zeichen/Token, Englisch ~4 Zeichen/Token. Übersetzungslimits: Google Translate und DeepL kostenlos beide 5000 Zeichen/Anfrage. Stellen Sie 'Split-Zeichenanzahl' mit Puffer unter dem Token-Limit des Ziel-KI ein.",
+    "faq2q": "Wie teile ich lange Posts für Twitter, Threads, Mastodon und LinkedIn?",
+    "faq2a": "Plattform-Limits: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Xing 2000. Nutzen Sie 'Englische Absätze'-Modus für Deutsch und lateinische Sprachen — bewahrt Satzintegrität. Batch-Export als separate Dateien für sequenzielle Veröffentlichung (1/N, 2/N).",
+    "faq3q": "Wie behandle ich gemischten Text oder Nicht-UTF-8-Dateien (Französisch GBK, Japanisch Shift-JIS)?",
+    "faq3a": "Für gemischten CJK/Latin-Text nutzen Sie Chinesische-Absätze-Modus — erkennt sowohl chinesische (。！？) als auch lateinische (. ! ?) Satzzeichen ohne Wortmitte-Split. Benutzerdefinierte Trenner unterstützen \\\\n\\\\n und \\\\t. Für Nicht-UTF-8-Dateien **Datei direkt hochladen** (nicht einfügen) — Encoding wird automatisch erkannt."
   },
   "tools": {
     "subtitleTranslator": {

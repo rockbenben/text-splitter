@@ -127,7 +127,13 @@
     "mergeText": "Mesclar todos os segmentos (separados por 2 novas linhas)",
     "exportMergedText": "Exportar Texto Mesclado",
     "exportIndividualFiles": "Exportar cada segmento como arquivo texto",
-    "batchExport": "Exportar Lote"
+    "batchExport": "Exportar Lote",
+    "faq1q": "Quais limites de caracteres para ChatGPT, Claude, Gemini e ferramentas de tradução?",
+    "faq1a": "Limites de contexto de modelos IA (tokens): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinês ~1-2 car/token, inglês ~4 car/token. Tradução: Google Translate e DeepL grátis ambos 5000 car/requisição. Configure 'Número de caracteres' com margem abaixo da capacidade da IA alvo.",
+    "faq2q": "Como dividir posts longos para Twitter, Threads, Mastodon e LinkedIn?",
+    "faq2a": "Limites: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000. Use modo 'Parágrafo inglês' para português e línguas latinas — preserva integridade de frases. Exporte em lote como arquivos separados para publicação sequencial (1/N, 2/N).",
+    "faq3q": "Como lidar com texto misto ou arquivos não-UTF-8 (francês GBK, japonês Shift-JIS)?",
+    "faq3a": "Para texto misto, use modo Parágrafo chinês — reconhece pontuação chinesa (。！？) e inglesa (. ! ?) sem cortar palavras. Delimitadores customizados suportam \\\\n\\\\n e \\\\t. Para arquivos não-UTF-8, **carregue o arquivo diretamente** em vez de colar — codificação detectada automaticamente."
   },
   "tools": {
     "subtitleTranslator": {
