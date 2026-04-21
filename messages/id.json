@@ -96,7 +96,7 @@
     "retryCount": "Jumlah Percobaan Ulang",
     "retryCountTooltip": "Jumlah percobaan ulang saat terjemahan gagal",
     "retryTimeout": "Batas Waktu",
-    "retryTimeoutTooltip": "Waktu tunggu maksimum per permintaan terjemahan",
+    "retryTimeoutTooltip": "Waktu tunggu maksimum per permintaan (detik). Pemikiran LLM membutuhkan waktu lebih lama; direkomendasikan 180 detik atau lebih.",
     "customExportFilename": "Pola Nama File Ekspor",
     "customExportFilenameTooltip": "'{'name'}' = nama file asli, '{'lang'}' = bahasa, '{'ext'}' = ekstensi, '{'date'}' = tanggal, '{'time'}' = waktu",
     "partialFailureTitle": "{count} baris gagal diterjemahkan",

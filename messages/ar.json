@@ -96,7 +96,7 @@
     "retryCount": "عدد المحاولات",
     "retryCountTooltip": "عدد محاولات إعادة التشغيل عند فشل الترجمة",
     "retryTimeout": "المهلة",
-    "retryTimeoutTooltip": "الحد الأقصى لوقت الانتظار لكل طلب ترجمة",
+    "retryTimeoutTooltip": "أقصى مدة انتظار لكل طلب (بالثواني). يستغرق التفكير في نماذج اللغة الكبيرة وقتًا أطول؛ يُنصح بـ 180 ثانية أو أكثر.",
     "customExportFilename": "نمط اسم ملف التصدير",
     "customExportFilenameTooltip": "'{'name'}' = اسم الملف الأصلي، '{'lang'}' = اللغة، '{'ext'}' = الامتداد، '{'date'}' = التاريخ، '{'time'}' = الوقت",
     "partialFailureTitle": "فشلت {count} سطر في الترجمة",

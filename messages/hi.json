@@ -96,7 +96,7 @@
     "retryCount": "पुनः प्रयास गणना",
     "retryCountTooltip": "अनुवाद विफल होने पर पुनः प्रयासों की संख्या",
     "retryTimeout": "समय सीमा",
-    "retryTimeoutTooltip": "प्रति अनुवाद अनुरोध अधिकतम प्रतीक्षा समय",
+    "retryTimeoutTooltip": "प्रति अनुरोध अधिकतम प्रतीक्षा (सेकंड)। LLM सोचने में अधिक समय लेता है; 180 सेकंड या अधिक की सिफारिश की जाती है।",
     "customExportFilename": "निर्यात फ़ाइल नाम पैटर्न",
     "customExportFilenameTooltip": "'{'name'}' = मूल फ़ाइल नाम, '{'lang'}' = भाषा, '{'ext'}' = एक्सटेंशन, '{'date'}' = दिनांक, '{'time'}' = समय",
     "partialFailureTitle": "{count} पंक्तियाँ अनुवाद करने में विफल",

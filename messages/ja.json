@@ -96,7 +96,7 @@
     "retryCount": "リトライ回数",
     "retryCountTooltip": "翻訳失敗時のリトライ試行回数",
     "retryTimeout": "タイムアウト",
-    "retryTimeoutTooltip": "翻訳リクエストごとの最大待機時間",
+    "retryTimeoutTooltip": "リクエストあたりの最大待機時間（秒）。LLMの思考時間は長いため、180秒以上を推奨します。",
     "customExportFilename": "エクスポートファイル名の形式",
     "customExportFilenameTooltip": "'{'name'}' = 元のファイル名, '{'lang'}' = 言語, '{'ext'}' = 拡張子, '{'date'}' = 日付, '{'time'}' = 時間",
     "partialFailureTitle": "{count}行の翻訳に失敗しました",

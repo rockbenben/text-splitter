@@ -96,7 +96,7 @@
     "retryCount": "Intentos de reintento",
     "retryCountTooltip": "Número de intentos cuando falla la traducción",
     "retryTimeout": "Tiempo de espera",
-    "retryTimeoutTooltip": "Tiempo máximo de espera por solicitud de traducción",
+    "retryTimeoutTooltip": "Espera máxima por solicitud (segundos). El pensamiento de LLM tarda más; se recomiendan 180 s o más.",
     "customExportFilename": "Patrón de nombre de archivo",
     "customExportFilenameTooltip": "'{'name'}' = nombre original, '{'lang'}' = idioma, '{'ext'}' = extensión, '{'date'}' = fecha, '{'time'}' = hora",
     "partialFailureTitle": "{count} línea(s) fallaron",

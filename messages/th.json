@@ -96,7 +96,7 @@
     "retryCount": "จำนวนครั้งที่ลองใหม่",
     "retryCountTooltip": "จำนวนครั้งที่ลองใหม่เมื่อการแปลล้มเหลว",
     "retryTimeout": "หมดเวลา",
-    "retryTimeoutTooltip": "เวลารอสูงสุดต่อคำขอการแปล",
+    "retryTimeoutTooltip": "เวลารอสูงสุดต่อคำขอ (วินาที). LLM ใช้เวลาคิดนานกว่า; แนะนำ 180 วินาทีขึ้นไป.",
     "customExportFilename": "รูปแบบชื่อไฟล์ส่งออก",
     "customExportFilenameTooltip": "'{'name'}' = ชื่อไฟล์เดิม, '{'lang'}' = ภาษา, '{'ext'}' = นามสกุล, '{'date'}' = วันที่, '{'time'}' = เวลา",
     "partialFailureTitle": "แปลล้มเหลว {count} บรรทัด",

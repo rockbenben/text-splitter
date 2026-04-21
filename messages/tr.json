@@ -96,7 +96,7 @@
     "retryCount": "Yeniden Deneme Sayısı",
     "retryCountTooltip": "Çeviri başarısız olduğunda yeniden deneme sayısı",
     "retryTimeout": "Zaman Aşımı",
-    "retryTimeoutTooltip": "Çeviri isteği başına maksimum bekleme süresi",
+    "retryTimeoutTooltip": "İstek başına maksimum bekleme süresi (saniye). LLM düşünmesi daha uzun sürer; 180 saniye veya daha fazlası önerilir.",
     "customExportFilename": "Dışa Aktarma Dosya Adı Kalıbı",
     "customExportFilenameTooltip": "'{'name'}' = orijinal dosya adı, '{'lang'}' = dil, '{'ext'}' = uzantı, '{'date'}' = tarih, '{'time'}' = saat",
     "partialFailureTitle": "{count} satır çevrilemedi",

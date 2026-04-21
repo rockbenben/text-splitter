@@ -96,7 +96,7 @@
     "retryCount": "Retry Count",
     "retryCountTooltip": "Number of retry attempts when translation fails",
     "retryTimeout": "Timeout",
-    "retryTimeoutTooltip": "Maximum wait time per translation request",
+    "retryTimeoutTooltip": "Maximum wait per request (seconds). LLM thinking takes longer; 180s or more recommended.",
     "customExportFilename": "Export Filename Pattern",
     "customExportFilenameTooltip": "'{'name'}' = original filename, '{'lang'}' = language, '{'ext'}' = extension, '{'date'}' = date, '{'time'}' = time",
     "partialFailureTitle": "{count} line(s) failed",

@@ -96,7 +96,7 @@
     "retryCount": "Wiederholungsversuche",
     "retryCountTooltip": "Anzahl der Wiederholungen bei Übersetzungsfehlern",
     "retryTimeout": "Zeitüberschreitung",
-    "retryTimeoutTooltip": "Maximale Wartezeit pro Übersetzungsanfrage",
+    "retryTimeoutTooltip": "Maximale Wartezeit pro Anfrage (in Sekunden). Das Denken von LLMs dauert länger; 180 Sekunden oder mehr werden empfohlen.",
     "customExportFilename": "Dateinamenmuster",
     "customExportFilenameTooltip": "'{'name'}' = Originalname, '{'lang'}' = Sprache, '{'ext'}' = Endung, '{'date'}' = Datum, '{'time'}' = Zeit",
     "partialFailureTitle": "{count} Zeile(n) fehlgeschlagen",

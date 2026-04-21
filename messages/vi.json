@@ -96,7 +96,7 @@
     "retryCount": "Số lần thử lại",
     "retryCountTooltip": "Số lần thử lại khi dịch thất bại",
     "retryTimeout": "Thời gian chờ",
-    "retryTimeoutTooltip": "Thời gian chờ tối đa cho mỗi yêu cầu dịch",
+    "retryTimeoutTooltip": "Thời gian chờ tối đa mỗi yêu cầu (giây). LLM suy nghĩ mất nhiều thời gian hơn; khuyến nghị 180 giây trở lên.",
     "customExportFilename": "Mẫu tên tệp xuất",
     "customExportFilenameTooltip": "'{'name'}' = tên tệp gốc, '{'lang'}' = ngôn ngữ, '{'ext'}' = phần mở rộng, '{'date'}' = ngày, '{'time'}' = thời gian",
     "partialFailureTitle": "{count} dòng dịch thất bại",

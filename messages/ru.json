@@ -96,7 +96,7 @@
     "retryCount": "Количество повторов",
     "retryCountTooltip": "Количество попыток повтора при сбое перевода",
     "retryTimeout": "Тайм-аут",
-    "retryTimeoutTooltip": "Максимальное время ожидания запроса перевода",
+    "retryTimeoutTooltip": "Максимальное ожидание на запрос (секунды). Рассуждение LLM занимает больше времени; рекомендуется 180 с и более.",
     "customExportFilename": "Шаблон имени файла",
     "customExportFilenameTooltip": "'{'name'}' = имя оригинала, '{'lang'}' = язык, '{'ext'}' = расширение, '{'date'}' = дата, '{'time'}' = время",
     "partialFailureTitle": "Не удалось перевести {count} строк",
