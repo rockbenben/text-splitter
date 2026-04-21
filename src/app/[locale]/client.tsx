@@ -17,7 +17,7 @@ const ClientPage = () => {
 
   return (
     <>
-      <Title level={3}>
+      <Title level={1} style={{ fontSize: "1.6em", fontWeight: 600, marginTop: 0 }}>
         <ScissorOutlined /> {tSplitter("clientTitle")}
       </Title>
       <Paragraph type="secondary" ellipsis={{ rows: 3, expandable: true, symbol: "more" }}>
