@@ -1,33 +1,21 @@
 "use client";
 
 import React from "react";
-import { Typography } from "antd";
-import { ScissorOutlined, QuestionCircleOutlined } from "@ant-design/icons";
+import { ScissorOutlined } from "@ant-design/icons";
 import TextSplitter from "./TextSplitter";
 import { useTranslations, useLocale } from "next-intl";
 import { getDocUrl } from "@/app/utils";
-
-const { Title, Paragraph, Link } = Typography;
+import ToolPage from "@/app/components/styled/ToolPage";
 
 const ClientPage = () => {
   const tSplitter = useTranslations("text-splitter");
-  const t = useTranslations("common");
   const locale = useLocale();
   const userGuideUrl = getDocUrl("guide/tools/text-splitter.html", locale);
 
   return (
-    <>
-      <Title level={1} style={{ fontSize: "1.6em", fontWeight: 600, marginTop: 0 }}>
-        <ScissorOutlined /> {tSplitter("clientTitle")}
-      </Title>
-      <Paragraph type="secondary" ellipsis={{ rows: 3, expandable: true, symbol: "more" }}>
-        <Link href={userGuideUrl} target="_blank" rel="noopener noreferrer">
-          <QuestionCircleOutlined /> {t("userGuide")}
-        </Link>{" "}
-        {tSplitter("clientDescription")} {t("privacyNotice")}
-      </Paragraph>
+    <ToolPage icon={<ScissorOutlined />} title={tSplitter("clientTitle")} description={tSplitter("clientDescription")} guideUrl={userGuideUrl}>
       <TextSplitter />
-    </>
+    </ToolPage>
   );
 };
 
