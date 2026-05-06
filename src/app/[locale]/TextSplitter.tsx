@@ -1,7 +1,8 @@
 "use client";
 import React, { useState } from "react";
-import { Typography, Upload, Button, Input, Checkbox, App, Form, Tooltip, Space, theme, Flex, Spin, Card, Row, Col, Divider, Collapse, Alert, Switch } from "antd";
-import { FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, SettingOutlined, CopyOutlined, CheckOutlined, ScissorOutlined, ControlOutlined } from "@ant-design/icons";
+import PageCard from "@/app/components/styled/PageCard";
+import { Typography, Upload, Button, Input, InputNumber, App, Form, Tooltip, Space, theme, Flex, Spin, Row, Col, Segmented, Alert, Switch, Divider } from "antd";
+import { FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, SettingOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
 import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage, escapeRegExp, getFileTypePresetConfig } from "@/app/utils";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import useFileUpload from "@/app/hooks/useFileUpload";
@@ -24,14 +25,13 @@ const TextSplitter = () => {
   const { message } = App.useApp();
   const [splittedTexts, setSplittedTexts] = useState<string[]>([]);
   const [copiedIndexes, setCopiedIndexes] = useState(new Set<number>());
+  // 默认 2000 字符（适合 LLM 上下文切分的典型块大小）；设为 0 则改用分隔符切分
   const [limit, setLimit] = useLocalStorage("text-splitter-limit", 2000);
   const [customFileName, setCustomFileName] = useLocalStorage("text-splitter-customFileName", "");
 
-  // 多个自定义分割符号
-  const [useCustomSplitter, setUseCustomSplitter] = useLocalStorage("text-splitter-useCustomSplitter", false);
   const [customSplitSymbols, setCustomSplitSymbols] = useLocalStorage("text-splitter-customSplitSymbols", "");
   const [hideResults, setHideResults] = useLocalStorage("text-splitter-hideResults", false);
-  const [activeCollapseKeys, setActiveCollapseKeys] = useLocalStorage<string[]>("text-splitter-activeCollapseKeys", []);
+  const [mode, setMode] = useLocalStorage<"count" | "cn-paragraph" | "en-paragraph">("text-splitter-mode", "count");
 
   const { isFileProcessing, fileList, multipleFiles, sourceText, setSourceText, handleFileUpload, handleUploadRemove, handleUploadChange, resetUpload } = useFileUpload();
 
@@ -113,27 +113,28 @@ const TextSplitter = () => {
       return;
     }
 
-    // 自定义分割符号数组
-    const customSymbols = useCustomSplitter ? getCustomSymbolsArray() : [];
-
-    // 如果字符数限制为空或0，且启用了自定义分割符号，则仅按符号分割
-    if ((!limit || limit === 0) && useCustomSplitter && customSymbols.length > 0) {
-      // 仅按自定义符号分割，不限制字符数
-      const newSplittedTexts = splitBySymbolsOnly(sourceText, customSymbols);
-      updateResults(newSplittedTexts);
+    // limit 为 0 或空 => 纯按分隔符切分，此时分隔符字段必填。
+    if (!limit || limit === 0) {
+      const symbols = getCustomSymbolsArray();
+      if (symbols.length === 0) {
+        message.error(tSplitter("customSplitSymbol"));
+        return;
+      }
+      updateResults(splitBySymbolsOnly(sourceText, symbols));
       return;
     }
 
-    // 原有的按字符数限制分割逻辑
+    // limit > 0：按长度切块。若用户填了分隔符，切点自动吸附到最近的分隔符（避免截句）；
+    // 留空则硬按长度切。是否对齐完全由分隔符字段是否有值决定，无需单独开关。
+    const alignSymbols = getCustomSymbolsArray();
     const singleLineText = sourceText.replace(/[\r\n]+/g, " ");
     const newSplittedTexts: string[] = [];
     let start = 0;
 
     while (start < singleLineText.length) {
-      let end = start + (limit || 2000);
+      let end = start + limit;
 
-      // 如果启用了按句子结束符或自定义符号分割
-      if (end < singleLineText.length && useCustomSplitter && customSymbols.length > 0) {
+      if (end < singleLineText.length && alignSymbols.length > 0) {
         // 从结束位置向前搜索确定精确的分割点
         const findSplitPoint = (symbols: string[]) => {
           if (symbols.length === 0) return null;
@@ -170,7 +171,7 @@ const TextSplitter = () => {
         };
 
         // 使用自定义符号查找分割点
-        const newEnd = findSplitPoint(customSymbols);
+        const newEnd = findSplitPoint(alignSymbols);
         end = newEnd || end;
       }
 
@@ -262,10 +263,10 @@ const TextSplitter = () => {
   };
 
   return (
-    <Spin spinning={isFileProcessing} description="Please wait..." size="large">
+    <Spin spinning={isFileProcessing} description={t("pleaseWait")} size="large">
       <Row gutter={[24, 24]}>
         <Col xs={24} lg={16}>
-          <Card
+          <PageCard
             title={
               <Space>
                 <FileTextOutlined />
@@ -287,8 +288,7 @@ const TextSplitter = () => {
                   {t("resetUpload")}
                 </Button>
               </Tooltip>
-            }
-            className="shadow-md border-transparent hover:shadow-lg transition-shadow duration-300">
+            }>
             <Dragger
               customRequest={({ file }) => handleFileUpload(file as File)}
               accept={uploadFileTypes.accept}
@@ -322,50 +322,64 @@ const TextSplitter = () => {
                 </Typography.Text>
               </Flex>
             )}
-          </Card>
+          </PageCard>
         </Col>
 
         <Col xs={24} lg={8}>
-          <Space orientation="vertical" size="small" className="w-full">
-            <Card
-              title={
-                <Space>
-                  <SettingOutlined />
-                  {t("configuration")}
-                </Space>
-              }
-              className="shadow-md border-transparent hover:shadow-lg transition-shadow duration-300">
-              <Form layout="vertical">
-                <Form.Item label={tSplitter("splitCharacterCount")} tooltip={tSplitter("emptyForSymbolOnly")}>
-                  <Space.Compact className="w-full">
-                    <Input
-                      type="number"
-                      value={limit || ""}
-                      onChange={(e) => setLimit(e.target.value ? parseInt(e.target.value, 10) : 0)}
-                      placeholder={tSplitter("emptyForSymbolOnly")}
-                      allowClear
+          <PageCard
+            title={
+              <Space>
+                <SettingOutlined />
+                {t("configuration")}
+              </Space>
+            }>
+            <Form layout="vertical" className="[&_.ant-form-item]:!mb-3">
+              {/* 三种模式：
+                  - count: 按长度切块；limit>0 时可选"对齐分隔符"使断点落在分隔符上。
+                           limit=0 或为空时自动变为纯按分隔符切分（要求必须填分隔符）。
+                  - cn/en-paragraph: 调 splitParagraph() 做语言感知的段落检测 */}
+              <Form.Item label={t("operation")} className="!mb-2">
+                <Segmented
+                  block
+                  value={mode}
+                  onChange={(value) => setMode(value as typeof mode)}
+                  options={[
+                    { label: tSplitter("splitByLength"), value: "count" },
+                    { label: tSplitter("splitByChineseParagraph"), value: "cn-paragraph" },
+                    { label: tSplitter("splitByEnglishParagraph"), value: "en-paragraph" },
+                  ]}
+                />
+              </Form.Item>
+              <Typography.Text type="secondary" className="!text-xs !block !mb-3">
+                {mode === "count" && tSplitter("splitByLengthHint")}
+                {mode === "cn-paragraph" && tSplitter("splitByChineseParagraphTooltip")}
+                {mode === "en-paragraph" && tSplitter("splitByEnglishParagraphTooltip")}
+              </Typography.Text>
+
+              {/* count 模式：长度阈值（min=0；=0 时纯按分隔符切）+ 可选的对齐分隔符细化边界 */}
+              {mode === "count" && (
+                <>
+                  <Form.Item label={tSplitter("splitCharacterCount")} help={tSplitter("emptyForSymbolOnly")}>
+                    <InputNumber
+                      min={0}
+                      value={limit ?? null}
+                      onChange={(value) => setLimit(value ?? 0)}
+                      placeholder="2000"
+                      addonAfter={t("charLabel")}
+                      className="!w-full"
                       aria-label={tSplitter("splitCharacterCount")}
                     />
-                    <Space.Addon style={{ minWidth: 80 }}>{t("charLabel")}</Space.Addon>
-                  </Space.Compact>
-                </Form.Item>
+                  </Form.Item>
 
-                <Form.Item className="!-mt-6 !mb-0">
-                  <Checkbox onChange={(e) => setUseCustomSplitter(e.target.checked)} checked={useCustomSplitter}>
-                    {tSplitter("splitByCustomSymbol")}
-                  </Checkbox>
-                </Form.Item>
-
-                {useCustomSplitter && (
-                  <>
-                    <Form.Item help={tSplitter("supportEscapeChars")}>
-                      <Input
-                        value={customSplitSymbols}
-                        onChange={(e) => setCustomSplitSymbols(e.target.value)}
-                        placeholder={tSplitter("customSplitSymbol")}
-                        aria-label={tSplitter("customSplitSymbol")}
-                      />
-                    </Form.Item>
+                  {/* 分隔符字段总是可见。limit>0 时有值则对齐，空则硬按长度切；limit=0 时必填。 */}
+                  <Form.Item label={tSplitter("customSplitSymbol")} help={tSplitter("supportEscapeChars")}>
+                    <Input
+                      value={customSplitSymbols}
+                      onChange={(e) => setCustomSplitSymbols(e.target.value)}
+                      placeholder={tSplitter("customSplitSymbol")}
+                      aria-label={tSplitter("customSplitSymbol")}
+                      allowClear
+                    />
                     <Space size="small" className="!mt-2">
                       <Button size="small" onClick={() => setCustomSplitSymbols("。 ？ ！")}>
                         {tSplitter("chineseEndingSymbol")}
@@ -374,68 +388,53 @@ const TextSplitter = () => {
                         {tSplitter("englishEndingSymbol")}
                       </Button>
                     </Space>
-                  </>
-                )}
+                  </Form.Item>
+                </>
+              )}
 
-                <Divider className="!my-3" />
+              {/* 通用：结果过多时隐藏预览（保留导出功能） */}
+              <Form.Item className="!mb-3">
+                <Flex justify="space-between" align="center">
+                  <Tooltip title={t("hideResultsTooltip")}>
+                    <span>{t("hideResults")}</span>
+                  </Tooltip>
+                  <Switch size="small" checked={hideResults} onChange={setHideResults} />
+                </Flex>
+              </Form.Item>
 
-                <Form.Item label={tSplitter("exportFileName")}>
-                  <Space.Compact className="w-full">
-                    <Input value={customFileName} onChange={(e) => setCustomFileName(e.target.value)} placeholder="split_text" aria-label={tSplitter("exportFileName")} />
-                    <Space.Addon>.txt</Space.Addon>
-                  </Space.Compact>
-                </Form.Item>
-                <Collapse
-                  ghost
-                  size="small"
-                  className="!-mt-4"
-                  activeKey={activeCollapseKeys}
-                  onChange={(keys) => setActiveCollapseKeys(typeof keys === "string" ? [keys] : keys)}
-                  items={[
-                    {
-                      key: "1",
-                      label: (
-                        <Space>
-                          <ControlOutlined />
-                          <Text strong>{t("advancedSettings")}</Text>
-                        </Space>
-                      ),
-                      children: (
-                        <Flex vertical gap="small">
-                          <Flex justify="space-between" align="center">
-                            <Tooltip title={t("hideResultsTooltip")}>
-                              <span>{t("hideResults")}</span>
-                            </Tooltip>
-                            <Switch size="small" checked={hideResults} onChange={setHideResults} />
-                          </Flex>
-                        </Flex>
-                      ),
-                    },
-                  ]}
-                />
-              </Form>
-            </Card>
-
-            <Card className="shadow-md border-transparent hover:shadow-lg transition-shadow duration-300" styles={{ body: { padding: 16 } }}>
-              <Button type="primary" block size="large" onClick={splitText} icon={<ScissorOutlined />} style={{ fontSize: 16, marginBottom: 12 }}>
-                {sourceText ? ((!limit || limit === 0) && useCustomSplitter && customSplitSymbols ? `${tSplitter("splitBySymbol")}` : `${tSplitter("splitText")}`) : tSplitter("splitText")}
-              </Button>
-              <Flex gap="small">
-                <Tooltip title={tSplitter("splitByChineseParagraphTooltip")}>
-                  <Button block onClick={() => splitByParagraph("cn")}>
-                    {tSplitter("splitByChineseParagraph")}
-                  </Button>
-                </Tooltip>
-                <Tooltip title={tSplitter("splitByEnglishParagraphTooltip")}>
-                  <Button block onClick={() => splitByParagraph("en")}>
-                    {tSplitter("splitByEnglishParagraph")}
-                  </Button>
-                </Tooltip>
-              </Flex>
-            </Card>
-          </Space>
+              {/* 导出文件名放最后：既用于批量导出，也用于 ZIP 命名 */}
+              <Form.Item label={tSplitter("exportFileName")} className="!mb-0">
+                <Space.Compact className="w-full">
+                  <Input value={customFileName} onChange={(e) => setCustomFileName(e.target.value)} placeholder="split_text" aria-label={tSplitter("exportFileName")} allowClear />
+                  <Space.Addon>.txt</Space.Addon>
+                </Space.Compact>
+              </Form.Item>
+            </Form>
+          </PageCard>
         </Col>
       </Row>
+
+      {/* 主执行按钮：按 mode 分派到对应的 split 函数。
+          count 模式下，limit=0 走 splitText() 的纯分隔符分支。 */}
+      <Button
+        type="primary"
+        size="large"
+        block
+        className="!mt-4"
+        icon={<ScissorOutlined />}
+        onClick={() => {
+          if (mode === "count") splitText();
+          else if (mode === "cn-paragraph") splitByParagraph("cn");
+          else splitByParagraph("en");
+        }}>
+        {mode === "count" && (!limit || limit === 0)
+          ? tSplitter("splitBySymbol")
+          : mode === "cn-paragraph"
+          ? tSplitter("splitByChineseParagraph")
+          : mode === "en-paragraph"
+          ? tSplitter("splitByEnglishParagraph")
+          : tSplitter("splitText")}
+      </Button>
 
       {splittedTexts.length > 0 && (
         <div className="!mt-6">
@@ -479,7 +478,7 @@ const TextSplitter = () => {
             <Row gutter={[16, 16]}>
               {splittedTexts.map((text, index) => (
                 <Col xs={24} md={12} xl={8} key={index}>
-                  <Card
+                  <PageCard
                     size="small"
                     title={`#${index + 1}`}
                     extra={
@@ -498,7 +497,7 @@ const TextSplitter = () => {
                     <Paragraph ellipsis={{ rows: 6, expandable: true, symbol: "more" }} className="!m-0 !font-mono !whitespace-pre-wrap">
                       {text}
                     </Paragraph>
-                  </Card>
+                  </PageCard>
                 </Col>
               ))}
             </Row>
