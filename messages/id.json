@@ -39,8 +39,7 @@
     "multiLanguageModeTooltip": "Terjemahkan ke beberapa bahasa sekaligus, disimpan secara terpisah",
     "translate": "Terjemahkan",
     "totalLanguages": "Total Bahasa:",
-    "resetUpload": "Bersihkan",
-    "resetUploadTooltip": "Bersihkan input saat ini dan file yang diunggah",
+    "resetUploadTooltip": "Bersihkan input dan file yang diunggah saat ini",
     "resetUploadSuccess": "Dibersihkan",
     "extractText": "Ekstrak Teks",
     "translationResult": "Hasil",
@@ -94,8 +93,8 @@
     "settingsApplied": "Pengaturan diterapkan",
     "retryCount": "Jumlah Percobaan Ulang",
     "retryCountTooltip": "Jumlah percobaan ulang saat terjemahan gagal",
-    "retryTimeout": "Batas Waktu",
-    "retryTimeoutTooltip": "Waktu tunggu maksimum per permintaan (detik). Pemikiran LLM membutuhkan waktu lebih lama; direkomendasikan 180 detik atau lebih.",
+    "requestTimeoutSec": "Batas Waktu",
+    "requestTimeoutSecTooltip": "Waktu tunggu maksimum per permintaan (detik). Pemikiran LLM membutuhkan waktu lebih lama; direkomendasikan 180 detik atau lebih.",
     "customExportFilename": "Pola Nama File Ekspor",
     "customExportFilenameTooltip": "'{'name'}' = nama file asli, '{'lang'}' = bahasa, '{'ext'}' = ekstensi, '{'date'}' = tanggal, '{'time'}' = waktu",
     "partialFailureTitle": "{count} baris gagal diterjemahkan",
@@ -112,12 +111,25 @@
     "apiStatusConnected": "✓ Terhubung",
     "apiStatusFailed": "Koneksi gagal",
     "testConnection": "Uji koneksi",
-    "moreProviderSettings": "Pengaturan Provider lain"
+    "moreProviderSettings": "Pengaturan Provider lain",
+    "format": "Format",
+    "formatTooltip": "Format: hapus baris kosong dan spasi di awal/akhir",
+    "resultToSource": "Hasil ➔ Sumber",
+    "resultToSourceTooltip": "Timpa kotak input dengan teks hasil",
+    "readOnlyMode": "Mode Hanya-Baca",
+    "readOnlyModeTooltip": "Teks terlalu panjang, otomatis beralih ke mode hanya-baca untuk menjaga performa halaman",
+    "clearInputTooltip": "Bersihkan konten input dan file yang diunggah",
+    "fileExported": "File diekspor: {fileName}",
+    "exportSuccess": "Ekspor berhasil: {fileName}",
+    "batchDownloaded": "Pemrosesan selesai, file diunduh otomatis",
+    "sourceTextPlaceholder": "Masukkan atau tempel teks yang akan diproses...",
+    "smartLineBreak": "Jeda Baris Cerdas",
+    "replaceText": "Ganti Teks",
+    "generateJson": "Hasilkan JSON",
+    "gtxFreeAPIUnavailable": "API Google Translate gratis (GTX) saat ini tidak tersedia. Silakan periksa koneksi jaringan Anda.",
+    "translategemmaUnavailable": "Node TranslateGemma tidak tersedia. Harap pastikan server lokal (LM Studio / llama.cpp / Ollama) berjalan dan URL benar."
   },
-  "text-splitter": {
-    "title": "Pemisah Teks Online - Splitter Cerdas untuk AI & Sosmed",
-    "description": "Bagi teks panjang agar sesuai batas ChatGPT atau Twitter. Pemisahan cerdas berdasarkan kalimat atau bab. Mendukung file besar dan aturan kustom.",
-    "clientTitle": "Pemisah Teks",
+  "TextSplitter": {
     "clientDescription": "Membagi teks panjang dengan cerdas. Berdasarkan karakter atau kalimat. Ideal untuk AI, media sosial, pengeditan. Untuk teks non-UTF-8 (mis: beberapa file Prancis), unggah file secara langsung untuk deteksi pengkodean otomatis.",
     "noExportableText": "Tidak ada konten yang dapat diekspor terdeteksi, periksa input",
     "splitCharacterCount": "Karakter per Segmen",
@@ -142,66 +154,50 @@
     "mergeText": "Gabungkan semua segmen (dipisahkan oleh 2 baris baru)",
     "exportMergedText": "Ekspor Teks Gabungan",
     "exportIndividualFiles": "Ekspor setiap segmen sebagai file teks",
-    "batchExport": "Ekspor Batch",
-    "faq1q": "Berapa batas karakter untuk ChatGPT, Claude, Gemini, dan alat terjemahan?",
-    "faq1a": "Batas konteks model AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target.",
-    "faq2q": "Bagaimana membagi post panjang untuk Twitter, Threads, LinkedIn?",
-    "faq2a": "Batas: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Gunakan mode 'Paragraf Inggris' untuk Indonesia dan Latin — menjaga integritas kalimat. Ekspor batch sebagai file terpisah untuk posting berurutan (1/N, 2/N).",
-    "faq3q": "Bagaimana menangani teks campuran atau file non-UTF-8 (Prancis GBK, Jepang Shift-JIS)?",
-    "faq3a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Pemisah khusus mendukung \\\\n\\\\n dan \\\\t. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
+    "batchExport": "Ekspor Batch"
   },
   "tools": {
-    "subtitleTranslator": {
-      "title": "Penerjemah Subtitle",
-      "description": "Terjemahan batch SRT, ASS, VTT, LRC. 50+ bahasa."
-    },
-    "jsonTranslate": {
-      "title": "Penerjemah JSON i18n",
-      "description": "Alat terjemahan JSON multi-bahasa yang efisien"
-    },
-    "mdTranslator": {
-      "title": "Penerjemah Markdown",
-      "description": "Terjemahan Markdown batch, pertahankan format dan kode"
-    },
     "textSplitter": {
       "title": "Pemisah Teks",
-      "description": "Pemisahan teks panjang cerdas untuk AI dan media sosial"
-    },
-    "jsonValueExtractor": {
-      "title": "Pengekstrak Nilai JSON",
-      "description": "Ekstrak nilai JSON batch, output terformat"
-    },
-    "jsonNodeEdit": {
-      "title": "Pengeditan JSON Batch",
-      "description": "Edit node JSON batch, awalan/akhiran/ganti"
-    },
-    "jsonValueTransformer": {
-      "title": "Pemeta Nilai JSON",
-      "description": "Pemetaan dan migrasi nilai dengan JSONPath"
-    },
-    "jsonValueSwapper": {
-      "title": "Penukar Nilai JSON",
-      "description": "Tukar nilai dua bidang dengan satu klik"
-    },
-    "jsonNodeInserter": {
-      "title": "Penyisip Node JSON",
-      "description": "Sisipkan node baru di posisi yang ditentukan secara batch"
-    },
-    "jsonSortClassify": {
-      "title": "Urutkan & Klasifikasikan JSON",
-      "description": "Urutkan dan kelompokkan array, aturan kustom"
-    },
-    "jsonMatchUpdate": {
-      "title": "Pembaruan JSON Match",
-      "description": "Pembaruan batch berdasarkan pencocokan bidang"
-    },
-    "dataParserFlare": {
-      "title": "Konverter Flare",
-      "description": "Konversi bookmark browser dan format Flare"
-    },
-    "dataParserImgPrompt": {
-      "title": "Generator Data IMGPrompt",
-      "description": "Hasilkan data JSON IMGPrompt secara batch"
+      "description": "Pemisahan teks panjang cerdas untuk AI dan media sosial",
+      "metaTitle": "Pemisah Teks | Chunker Cerdas untuk ChatGPT, Claude & Twitter",
+      "metaDescription": "Teks terlalu panjang untuk AI? Bagi teks panjang agar sesuai batas ChatGPT atau Twitter. Pemisahan cerdas per kalimat atau bab. Cepat dan gratis!",
+      "faq": [
+        {
+          "q": "Berapa batas karakter untuk ChatGPT, Claude, Gemini, dan alat terjemahan?",
+          "a": "Batas konteks model AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target."
+        },
+        {
+          "q": "Bagaimana membagi post panjang untuk Twitter, Threads, LinkedIn?",
+          "a": "Batas: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000, Mastodon 500, WhatsApp Status 700. Gunakan mode 'Paragraf Inggris' untuk Indonesia dan Latin — menjaga integritas kalimat. Ekspor batch sebagai file terpisah untuk posting berurutan (1/N, 2/N)."
+        },
+        {
+          "q": "Bagaimana menangani teks campuran atau file non-UTF-8 (Prancis GBK, Jepang Shift-JIS)?",
+          "a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Pemisah khusus mendukung \\\\n\\\\n dan \\\\t. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
+        }
+      ],
+      "howto": [
+        {
+          "name": "Masukkan teks panjang ke alat",
+          "text": "Tempel teks sangat panjang (bab novel, pidato, makalah penelitian) atau unggah file TXT. Untuk file non-UTF-8 (Prancis GBK, Jepang Shift-JIS, Korea EUC-KR), unggah file langsung untuk deteksi pengkodean otomatis."
+        },
+        {
+          "name": "Atur jumlah karakter sesuai model AI atau platform",
+          "text": "ChatGPT gratis 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; alat terjemahan 5000. Alat membagi pada batas paragraf tanpa memotong kalimat."
+        },
+        {
+          "name": "Ekspor untuk input AI atau posting media sosial",
+          "text": "Salin segmen individu langsung ke ChatGPT/Claude/Gemini. Ekspor batch sebagai file bernomor 1/N, 2/N untuk posting berurutan di Twitter/Threads. Ekspor gabungan untuk menyimpan teks panjang yang terorganisir."
+        }
+      ],
+      "features": [
+        "Batas konteks model AI: ChatGPT GPT-4o 128K token, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "Template platform sosial: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000",
+        "Deteksi tanda baca cerdas untuk teks CJK campuran (。！？) dan Latin (. ! ?)",
+        "Deteksi otomatis non-UTF-8 (GBK, Shift-JIS, EUC-KR) mencegah karakter rusak",
+        "Pemisah khusus dengan dukungan karakter escape \\\\n\\\\n, \\\\t",
+        "Ekspor batch bernomor 1/N, 2/N untuk posting berurutan"
+      ]
     }
   },
   "navigation": {
@@ -220,6 +216,87 @@
     "homeDescription": "20+ alat untuk terjemahan, teks, JSON, dan konversi data. Tingkatkan efisiensi pengembang dan kreator.",
     "ogTitle": "ToolsByAI - Alat Dev AI Gratis dan Open Source",
     "ogDescription": "20+ utilitas untuk pengembang: terjemahan, pemrosesan data, dan JSON. Hormati privasi Anda dengan pemrosesan lokal di browser."
+  },
+  "languages": {
+    "auto": "Deteksi Otomatis",
+    "en": "Inggris",
+    "zh": "Mandarin",
+    "zh-hant": "Mandarin Tradisional",
+    "pt-br": "Portugis (Brasil)",
+    "pt-pt": "Portugis (Portugal)",
+    "it": "Italia",
+    "de": "Jerman",
+    "ru": "Rusia",
+    "es": "Spanyol",
+    "fr": "Prancis",
+    "ja": "Jepang",
+    "ko": "Korea",
+    "ar": "Arab",
+    "tr": "Turki",
+    "pl": "Polandia",
+    "uk": "Ukraina",
+    "nl": "Belanda",
+    "el": "Yunani",
+    "hu": "Hungaria",
+    "sv": "Swedia",
+    "da": "Denmark",
+    "fi": "Finlandia",
+    "cs": "Ceko",
+    "sk": "Slovakia",
+    "bg": "Bulgaria",
+    "sl": "Slovenia",
+    "lt": "Lituania",
+    "lv": "Latvia",
+    "ro": "Rumania",
+    "et": "Estonia",
+    "id": "Indonesia",
+    "ms": "Melayu",
+    "hi": "Hindi",
+    "bn": "Bengali",
+    "vi": "Vietnam",
+    "nb": "Norwegia",
+    "he": "Ibrani",
+    "th": "Thailand",
+    "fil": "Filipina (Tagalog)",
+    "uz": "Uzbek",
+    "ky": "Kirgiz",
+    "tk": "Turkmen",
+    "kk": "Kazakh",
+    "bho": "Bhojpuri",
+    "kn": "Kannada",
+    "am": "Amharik",
+    "gu": "Gujarati",
+    "jv": "Jawa",
+    "fa": "Persia",
+    "ta": "Tamil",
+    "sw": "Swahili",
+    "ha": "Hausa",
+    "te": "Telugu",
+    "mr": "Marathi",
+    "ur": "Urdu",
+    "hr": "Bahasa Kroasia",
+    "ug": "Bahasa Uighur",
+    "lo": "Bahasa Laos",
+    "sr": "Bahasa Serbia",
+    "bs": "Bahasa Bosnia",
+    "sq": "Bahasa Albania",
+    "mk": "Bahasa Makedonia",
+    "af": "Bahasa Afrikaans",
+    "az": "Bahasa Azerbaijan",
+    "be": "Bahasa Belarus",
+    "hy": "Bahasa Armenia",
+    "ka": "Bahasa Georgia",
+    "is": "Bahasa Islandia",
+    "mt": "Bahasa Malta",
+    "ca": "Bahasa Katalan",
+    "ml": "Bahasa Malayalam",
+    "si": "Bahasa Sinhala",
+    "pa": "Bahasa Punjabi",
+    "ne": "Bahasa Nepal",
+    "my": "Bahasa Burma",
+    "mn": "Bahasa Mongolia",
+    "tg": "Bahasa Tajik",
+    "yue": "Bahasa Kanton"
   },
   "CopyToClipboard": {
     "empty": "Konten kosong, tidak ada yang disalin",

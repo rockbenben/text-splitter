@@ -39,7 +39,6 @@
     "multiLanguageModeTooltip": "Gleichzeitig in mehrere Sprachen übersetzen, als separate Dateien gespeichert",
     "translate": "Übersetzen",
     "totalLanguages": "Anzahl Zielsprachen:",
-    "resetUpload": "Leeren",
     "resetUploadTooltip": "Aktuelle Eingabe und hochgeladene Dateien löschen",
     "resetUploadSuccess": "Geleert",
     "extractText": "Text extrahieren",
@@ -49,6 +48,9 @@
     "exportFile": "Exportieren",
     "exportAllFile": "Alle exportieren",
     "exportedFile": "Exportiert",
+    "fileExported": "Datei exportiert: {fileName}",
+    "exportSuccess": "Export erfolgreich: {fileName}",
+    "batchDownloaded": "Verarbeitung abgeschlossen, Datei wurde automatisch heruntergeladen",
     "extractedText": "Extrahierter Text",
     "translating": "Übersetze...",
     "multiTranslating": "Übersetze, Zielsprachen gesamt:",
@@ -62,6 +64,7 @@
     "llmUnavailable": "LLM-Knoten vorübergehend nicht verfügbar, bitte Konfiguration in 'API-Einstellungen' prüfen",
     "noFileUploaded": "Bitte laden Sie zuerst eine Datei hoch",
     "translationExported": "Übersetzung abgeschlossen, Dateien exportiert",
+    "sourceTextPlaceholder": "Text zum Verarbeiten eingeben oder einfügen...",
     "noSourceText": "Bitte Text eingeben oder einfügen",
     "textExtracted": "Text extrahiert, ",
     "sourceArea": "Eingabebereich",
@@ -71,6 +74,16 @@
     "updateCount": "Aktualisierte Einträge",
     "startProcess": "Verarbeitung starten",
     "result": "Ergebnis",
+    "format": "Formatieren",
+    "formatTooltip": "Formatieren: Leerzeilen entfernen und führende/nachfolgende Leerzeichen bereinigen",
+    "resultToSource": "Ergebnis ➔ Quelle",
+    "resultToSourceTooltip": "Eingabefeld mit dem Ergebnistext überschreiben",
+    "readOnlyMode": "Nur-Lese-Modus",
+    "readOnlyModeTooltip": "Text zu lang; automatisch in den Nur-Lese-Modus gewechselt, um die Seitenleistung zu erhalten",
+    "clearInputTooltip": "Eingabe und hochgeladene Dateien löschen",
+    "smartLineBreak": "Intelligenter Zeilenumbruch",
+    "replaceText": "Text ersetzen",
+    "generateJson": "JSON generieren",
     "multiValueHint": "Mehrere Werte durch Leerzeichen trennen",
     "exportSettingTooltip": "Konfiguration in Datei exportieren",
     "importSettingTooltip": "Konfiguration aus Datei importieren",
@@ -94,8 +107,8 @@
     "settingsApplied": "Einstellungen angewendet",
     "retryCount": "Wiederholungsversuche",
     "retryCountTooltip": "Anzahl der Wiederholungen bei Übersetzungsfehlern",
-    "retryTimeout": "Zeitüberschreitung",
-    "retryTimeoutTooltip": "Maximale Wartezeit pro Anfrage (in Sekunden). Das Denken von LLMs dauert länger; 180 Sekunden oder mehr werden empfohlen.",
+    "requestTimeoutSec": "Zeitüberschreitung",
+    "requestTimeoutSecTooltip": "Maximale Wartezeit pro Anfrage (in Sekunden). Das Denken von LLMs dauert länger; 180 Sekunden oder mehr werden empfohlen.",
     "customExportFilename": "Dateinamenmuster",
     "customExportFilenameTooltip": "'{'name'}' = Originalname, '{'lang'}' = Sprache, '{'ext'}' = Endung, '{'date'}' = Datum, '{'time'}' = Zeit",
     "partialFailureTitle": "{count} Zeile(n) fehlgeschlagen",
@@ -112,12 +125,11 @@
     "apiStatusConnected": "✓ Verbunden",
     "apiStatusFailed": "Verbindung fehlgeschlagen",
     "testConnection": "Verbindung testen",
-    "moreProviderSettings": "Weitere Provider-Einstellungen"
+    "moreProviderSettings": "Weitere Provider-Einstellungen",
+    "gtxFreeAPIUnavailable": "Die kostenlose Google Translate API (GTX) ist derzeit nicht verfügbar. Bitte überprüfen Sie Ihre Netzwerkverbindung.",
+    "translategemmaUnavailable": "TranslateGemma-Knoten nicht verfügbar. Bitte stellen Sie sicher, dass der lokale Server (LM Studio / llama.cpp / Ollama) läuft und die URL korrekt ist."
   },
-  "text-splitter": {
-    "title": "Text Splitter | Smarte Teilung für KI & Social",
-    "description": "Text zu lang für ChatGPT? Teile Content smart nach Sätzen oder Zeichen. Perfekt für Social Media & LLM-Prompts. Einfach & effizient.",
-    "clientTitle": "Text-Splitter",
+  "TextSplitter": {
     "clientDescription": "Langtext smart teilen. Nach Zeichenanzahl oder Sätzen. Ideal für KI, Social Media, Bearbeitung. Für Nicht-UTF-8-Text (z.B. manche französische Dateien) Datei direkt hochladen für automatische Kodierungserkennung.",
     "noExportableText": "Kein exportierbarer Inhalt erkannt, bitte Eingabe prüfen",
     "splitCharacterCount": "Trennzeichenanzahl",
@@ -142,66 +154,50 @@
     "mergeText": "Alle Segmente zusammenführen (getrennt durch 2 Zeilenumbrüche)",
     "exportMergedText": "Zusammengeführten Text exportieren",
     "exportIndividualFiles": "Jedes Segment als separate Textdatei exportieren",
-    "batchExport": "Batch-Export",
-    "faq1q": "Welche Zeichenlimits gelten für ChatGPT, Claude, Gemini und Übersetzungstools?",
-    "faq1a": "KI-Modell-Kontextlimits (Tokens): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinesisch ~1-2 Zeichen/Token, Englisch ~4 Zeichen/Token. Übersetzungslimits: Google Translate und DeepL kostenlos beide 5000 Zeichen/Anfrage. Stellen Sie 'Split-Zeichenanzahl' mit Puffer unter dem Token-Limit des Ziel-KI ein.",
-    "faq2q": "Wie teile ich lange Posts für Twitter, Threads, Mastodon und LinkedIn?",
-    "faq2a": "Plattform-Limits: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Xing 2000. Nutzen Sie 'Englische Absätze'-Modus für Deutsch und lateinische Sprachen — bewahrt Satzintegrität. Batch-Export als separate Dateien für sequenzielle Veröffentlichung (1/N, 2/N).",
-    "faq3q": "Wie behandle ich gemischten Text oder Nicht-UTF-8-Dateien (Französisch GBK, Japanisch Shift-JIS)?",
-    "faq3a": "Für gemischten CJK/Latin-Text nutzen Sie Chinesische-Absätze-Modus — erkennt sowohl chinesische (。！？) als auch lateinische (. ! ?) Satzzeichen ohne Wortmitte-Split. Benutzerdefinierte Trenner unterstützen \\\\n\\\\n und \\\\t. Für Nicht-UTF-8-Dateien **Datei direkt hochladen** (nicht einfügen) — Encoding wird automatisch erkannt."
+    "batchExport": "Batch-Export"
   },
   "tools": {
-    "subtitleTranslator": {
-      "title": "Untertitel-Übersetzer",
-      "description": "Batch-Übersetzung für SRT, ASS, VTT, LRC. 50+ Sprachen."
-    },
-    "jsonTranslate": {
-      "title": "i18n JSON-Übersetzer",
-      "description": "Effizientes mehrsprachiges JSON-Übersetzungstool"
-    },
-    "mdTranslator": {
-      "title": "Markdown-Übersetzer",
-      "description": "Markdown-Batch-Übersetzung, Format und Code behalten"
-    },
     "textSplitter": {
       "title": "Text-Splitter",
-      "description": "Smarte Langtext-Teilung für KI und Social Media"
-    },
-    "jsonValueExtractor": {
-      "title": "JSON Wert-Extraktor",
-      "description": "JSON-Werte im Batch extrahieren, formatierte Ausgabe"
-    },
-    "jsonNodeEdit": {
-      "title": "JSON Batch Edit",
-      "description": "JSON-Knoten im Batch bearbeiten, Präfix/Suffix/Ersetzen"
-    },
-    "jsonValueTransformer": {
-      "title": "JSON Wert-Mapper",
-      "description": "Feldwert-Mapping und Migration mit JSONPath"
-    },
-    "jsonValueSwapper": {
-      "title": "JSON Wert-Tauscher",
-      "description": "Werte zweier Felder per Klick tauschen"
-    },
-    "jsonNodeInserter": {
-      "title": "JSON Knoten-Inserter",
-      "description": "Neue Knoten an Position im Batch einfügen"
-    },
-    "jsonSortClassify": {
-      "title": "JSON Sort & Classify",
-      "description": "Arrays sortieren und gruppieren, benutzerdefinierte Regeln"
-    },
-    "jsonMatchUpdate": {
-      "title": "JSON Match Update",
-      "description": "Daten basierend auf Feldabgleich im Batch aktualisieren"
-    },
-    "dataParserFlare": {
-      "title": "Flare Lesezeichen-Konverter",
-      "description": "Browser-Lesezeichen und Flare-Format konvertieren"
-    },
-    "dataParserImgPrompt": {
-      "title": "IMGPrompt Datengenerator",
-      "description": "IMGPrompt JSON-Daten im Batch generieren"
+      "description": "Smarte Langtext-Teilung für KI und Social Media",
+      "metaTitle": "Textaufteilung | Smart Chunker für ChatGPT, Claude & Twitter",
+      "metaDescription": "Text zu lang für ChatGPT? Teile Content smart nach Sätzen oder Zeichen. Perfekt für Social Media & LLM-Prompts. Einfach & effizient.",
+      "faq": [
+        {
+          "q": "Welche Zeichenlimits gelten für ChatGPT, Claude, Gemini und Übersetzungstools?",
+          "a": "KI-Modell-Kontextlimits (Tokens): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinesisch ~1-2 Zeichen/Token, Englisch ~4 Zeichen/Token. Übersetzungslimits: Google Translate und DeepL kostenlos beide 5000 Zeichen/Anfrage. Stellen Sie 'Split-Zeichenanzahl' mit Puffer unter dem Token-Limit des Ziel-KI ein."
+        },
+        {
+          "q": "Wie teile ich lange Posts für Twitter, Threads, Mastodon und LinkedIn?",
+          "a": "Plattform-Limits: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Xing 2000. Nutzen Sie 'Englische Absätze'-Modus für Deutsch und lateinische Sprachen — bewahrt Satzintegrität. Batch-Export als separate Dateien für sequenzielle Veröffentlichung (1/N, 2/N)."
+        },
+        {
+          "q": "Wie behandle ich gemischten Text oder Nicht-UTF-8-Dateien (Französisch GBK, Japanisch Shift-JIS)?",
+          "a": "Für gemischten CJK/Latin-Text nutzen Sie Chinesische-Absätze-Modus — erkennt sowohl chinesische (。！？) als auch lateinische (. ! ?) Satzzeichen ohne Wortmitte-Split. Benutzerdefinierte Trenner unterstützen \\\\n\\\\n und \\\\t. Für Nicht-UTF-8-Dateien **Datei direkt hochladen** (nicht einfügen) — Encoding wird automatisch erkannt."
+        }
+      ],
+      "howto": [
+        {
+          "name": "Langen Text in das Tool eingeben",
+          "text": "Sehr langen Text (Romankapitel, Reden, Forschungsarbeiten) einfügen oder TXT-Datei hochladen. Für Nicht-UTF-8-Dateien (Französisch GBK, Japanisch Shift-JIS) Datei direkt hochladen für Auto-Encoding-Erkennung."
+        },
+        {
+          "name": "Zeichenanzahl nach KI-Modell oder Plattform einstellen",
+          "text": "ChatGPT kostenlos 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; Übersetzungstools 5000. Tool teilt an Absatzgrenzen ohne Satzunterbrechung."
+        },
+        {
+          "name": "Für KI-Eingabe oder Social Posting exportieren",
+          "text": "Einzelsegmente direkt in ChatGPT/Claude/Gemini kopieren. Batch-Export als nummerierte 1/N, 2/N-Dateien für sequenzielle Twitter/Threads-Beiträge. Zusammengeführter Export für organisiertes Langform-Text-Speichern."
+        }
+      ],
+      "features": [
+        "KI-Modell-Kontextlimits: ChatGPT GPT-4o 128K Tokens, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "Social-Media-Vorlagen: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
+        "Intelligente Satzzeichenerkennung für gemischten CJK- (。！？) und Latin-Text (. ! ?)",
+        "Nicht-UTF-8-Auto-Erkennung (GBK, Shift-JIS, EUC-KR) verhindert Zeichensalat",
+        "Benutzerdefinierte Trenner mit \\\\n\\\\n, \\\\t Escape-Zeichen",
+        "Batch-Export nummeriert 1/N, 2/N für sequenzielles Posten"
+      ]
     }
   },
   "navigation": {
@@ -216,10 +212,91 @@
   "Metadata": {
     "title": "ToolsByAI | Kostenlose KI-Dev- & Übersetzungstools",
     "description": "20+ Open-Source-Tools: Untertitel-Übersetzung, i18n, JSON & Markdown. Mit DeepSeek & ChatGPT. Lokal, sicher & effizient für Entwickler.",
-    "homeTitle": "ToolsByAI Toolset",
+    "homeTitle": "ToolsByAI Werkzeugkasten",
     "homeDescription": "20+ Tools für Übersetzung, Text, JSON und Datenkonvertierung. Effizienzsteigerung für Entwickler und Creator.",
     "ogTitle": "ToolsByAI | Kostenlose KI-Dev- & Übersetzungstools",
     "ogDescription": "20+ Open-Source-Tools: Untertitel-Übersetzung, i18n, JSON & Markdown. Mit DeepSeek & ChatGPT. Lokal, sicher & effizient für Entwickler."
+  },
+  "languages": {
+    "auto": "Automatisch",
+    "en": "Englisch",
+    "zh": "Chinesisch",
+    "zh-hant": "Traditionelles Chinesisch",
+    "pt-br": "Portugiesisch (Brasilien)",
+    "pt-pt": "Portugiesisch (Portugal)",
+    "it": "Italienisch",
+    "de": "Deutsch",
+    "ru": "Russisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "ja": "Japanisch",
+    "ko": "Koreanisch",
+    "ar": "Arabisch",
+    "tr": "Türkisch",
+    "pl": "Polnisch",
+    "uk": "Ukrainisch",
+    "nl": "Niederländisch",
+    "el": "Griechisch",
+    "hu": "Ungarisch",
+    "sv": "Schwedisch",
+    "da": "Dänisch",
+    "fi": "Finnisch",
+    "cs": "Tschechisch",
+    "sk": "Slowakisch",
+    "bg": "Bulgarisch",
+    "sl": "Slowenisch",
+    "lt": "Litauisch",
+    "lv": "Lettisch",
+    "ro": "Rumänisch",
+    "et": "Estnisch",
+    "id": "Indonesisch",
+    "ms": "Malaiisch",
+    "hi": "Hindi",
+    "bn": "Bengalisch",
+    "vi": "Vietnamesisch",
+    "nb": "Norwegisch",
+    "he": "Hebräisch",
+    "th": "Thailändisch",
+    "fil": "Philippinisch (Tagalog)",
+    "uz": "Usbekisch",
+    "ky": "Kirgisisch",
+    "tk": "Turkmenisch",
+    "kk": "Kasachisch",
+    "bho": "Bhojpuri",
+    "kn": "Kannada",
+    "am": "Amharisch",
+    "gu": "Gujarati",
+    "jv": "Javanisch",
+    "fa": "Persisch",
+    "ta": "Tamil",
+    "sw": "Swahili",
+    "ha": "Hausa",
+    "te": "Telugu",
+    "mr": "Marathi",
+    "ur": "Urdu",
+    "hr": "Kroatisch",
+    "ug": "Uigurisch",
+    "lo": "Laotisch",
+    "sr": "Serbisch",
+    "bs": "Bosnisch",
+    "sq": "Albanisch",
+    "mk": "Mazedonisch",
+    "af": "Afrikaans",
+    "az": "Aserbaidschanisch",
+    "be": "Weißrussisch",
+    "hy": "Armenisch",
+    "ka": "Georgisch",
+    "is": "Isländisch",
+    "mt": "Maltesisch",
+    "ca": "Katalanisch",
+    "ml": "Malayalam",
+    "si": "Singhalesisch",
+    "pa": "Punjabi",
+    "ne": "Nepalesisch",
+    "my": "Birmanisch",
+    "mn": "Mongolisch",
+    "tg": "Tadschikisch",
+    "yue": "Kantonesisch"
   },
   "CopyToClipboard": {
     "empty": "Inhalt leer, nichts zu kopieren",

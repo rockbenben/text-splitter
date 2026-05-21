@@ -39,7 +39,6 @@
     "multiLanguageModeTooltip": "Traduire vers plusieurs langues simultanément, enregistrées séparément",
     "translate": "Traduire",
     "totalLanguages": "Total langues :",
-    "resetUpload": "Effacer",
     "resetUploadTooltip": "Effacer l'entrée actuelle et les fichiers téléchargés",
     "resetUploadSuccess": "Effacé",
     "extractText": "Extraire le texte",
@@ -49,6 +48,9 @@
     "exportFile": "Exporter",
     "exportAllFile": "Tout exporter",
     "exportedFile": "Exporté",
+    "fileExported": "Fichier exporté : {fileName}",
+    "exportSuccess": "Export réussi : {fileName}",
+    "batchDownloaded": "Traitement terminé, le fichier a été téléchargé automatiquement",
     "extractedText": "Texte extrait",
     "translating": "Traduction...",
     "multiTranslating": "Traduction en cours, total langues :",
@@ -62,6 +64,7 @@
     "llmUnavailable": "Nœud LLM indisponible, vérifiez la configuration dans 'Paramètres API'",
     "noFileUploaded": "Veuillez d'abord télécharger un fichier",
     "translationExported": "Traduction terminée, fichiers exportés",
+    "sourceTextPlaceholder": "Entrez ou collez le texte à traiter...",
     "noSourceText": "Veuillez entrer ou coller du texte",
     "textExtracted": "Texte extrait, ",
     "sourceArea": "Zone d'entrée",
@@ -71,6 +74,16 @@
     "updateCount": "Entrées mises à jour",
     "startProcess": "Démarrer",
     "result": "Résultat",
+    "format": "Formater",
+    "formatTooltip": "Formater : supprimer les lignes vides et les espaces en début/fin",
+    "resultToSource": "Résultat ➔ Source",
+    "resultToSourceTooltip": "Écraser la zone de saisie avec le texte du résultat",
+    "readOnlyMode": "Mode lecture seule",
+    "readOnlyModeTooltip": "Texte trop long ; basculé automatiquement en mode lecture seule pour maintenir les performances",
+    "clearInputTooltip": "Effacer le contenu saisi et les fichiers téléchargés",
+    "smartLineBreak": "Saut de ligne intelligent",
+    "replaceText": "Remplacer le texte",
+    "generateJson": "Générer JSON",
     "multiValueHint": "Séparez les valeurs multiples par des espaces",
     "exportSettingTooltip": "Exporter la configuration vers un fichier",
     "importSettingTooltip": "Importer la configuration depuis un fichier",
@@ -94,8 +107,8 @@
     "settingsApplied": "Paramètres appliqués",
     "retryCount": "Nombre de tentatives",
     "retryCountTooltip": "Nombre de tentatives en cas d'échec de la traduction",
-    "retryTimeout": "Délai d'attente",
-    "retryTimeoutTooltip": "Attente maximale par requête (secondes). La réflexion des LLM prend plus de temps ; 180 s ou plus recommandé.",
+    "requestTimeoutSec": "Délai d'attente",
+    "requestTimeoutSecTooltip": "Attente maximale par requête (secondes). La réflexion des LLM prend plus de temps ; 180 s ou plus recommandé.",
     "customExportFilename": "Modèle de nom de fichier",
     "customExportFilenameTooltip": "'{'name'}' = nom original, '{'lang'}' = langue, '{'ext'}' = extension, '{'date'}' = date, '{'time'}' = heure",
     "partialFailureTitle": "{count} ligne(s) ont échoué",
@@ -112,12 +125,11 @@
     "apiStatusConnected": "✓ Connecté",
     "apiStatusFailed": "Échec de connexion",
     "testConnection": "Tester la connexion",
-    "moreProviderSettings": "Plus de paramètres Provider"
+    "moreProviderSettings": "Plus de paramètres Provider",
+    "gtxFreeAPIUnavailable": "L'API Google Translate gratuite (GTX) est actuellement indisponible. Veuillez vérifier votre connexion réseau.",
+    "translategemmaUnavailable": "Nœud TranslateGemma indisponible. Veuillez vérifier que le serveur local (LM Studio / llama.cpp / Ollama) est en cours d'exécution et que l'URL est correcte."
   },
-  "text-splitter": {
-    "title": "Text Splitter | Découpe intelligente pour IA",
-    "description": "Texte trop long pour l'IA ? Découpez intelligemment par phrases ou caractères. Idéal pour ChatGPT et réseaux sociaux. Simple et précis.",
-    "clientTitle": "Découpeur de Texte",
+  "TextSplitter": {
     "clientDescription": "Découpe intelligemment les textes longs. Par caractères ou phrases. Idéal pour IA, réseaux sociaux, édition. Pour les textes non-UTF-8 (ex: certains fichiers français), téléchargez le fichier directement pour la détection auto de l'encodage.",
     "noExportableText": "Aucun contenu exportable détecté, vérifiez l'entrée",
     "splitCharacterCount": "Caractères par segment",
@@ -142,66 +154,50 @@
     "mergeText": "Fusionner tous les segments (séparés par 2 sauts de ligne)",
     "exportMergedText": "Exporter texte fusionné",
     "exportIndividualFiles": "Exporter chaque segment en fichier texte",
-    "batchExport": "Export par lot",
-    "faq1q": "Quelles sont les limites de caractères pour ChatGPT, Claude, Gemini et les outils de traduction ?",
-    "faq1a": "Limites de contexte des modèles IA (tokens) : ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinois ~1-2 car/token, anglais ~4 car/token. Outils de traduction : Google Translate et DeepL gratuits tous deux 5000 car/requête. Réglez 'Nombre de caractères' avec marge sous la capacité de l'IA cible.",
-    "faq2q": "Comment découper les longs posts pour Twitter, Threads, Mastodon et LinkedIn ?",
-    "faq2a": "Limites : Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4000. Utilisez mode 'Paragraphe anglais' pour le français et autres langues latines — préserve l'intégrité des phrases. Export groupé en fichiers individuels pour publication séquentielle (1/N, 2/N).",
-    "faq3q": "Comment gérer le texte mixte ou les fichiers non-UTF-8 (français GBK, japonais Shift-JIS) ?",
-    "faq3a": "Pour texte mixte, le mode Paragraphe chinois reconnaît à la fois les ponctuations chinoise (。！？) et latine (. ! ?) sans couper mi-mot. Les séparateurs personnalisés supportent \\\\n\\\\n et \\\\t. Pour les fichiers non-UTF-8, **importez directement le fichier** plutôt que coller — l'encodage est détecté automatiquement pour éviter les caractères illisibles."
+    "batchExport": "Export par lot"
   },
   "tools": {
-    "subtitleTranslator": {
-      "title": "Traducteur Sous-titres",
-      "description": "Traduction par lot SRT, ASS, VTT, LRC. 50+ langues."
-    },
-    "jsonTranslate": {
-      "title": "Traducteur JSON i18n",
-      "description": "Outil de traduction JSON multilingue efficace"
-    },
-    "mdTranslator": {
-      "title": "Traducteur Markdown",
-      "description": "Traduction Markdown par lot, format et code préservés"
-    },
     "textSplitter": {
       "title": "Découpeur de Texte",
-      "description": "Découpe intelligente de texte long pour IA et réseaux sociaux"
-    },
-    "jsonValueExtractor": {
-      "title": "Extracteur Valeur JSON",
-      "description": "Extraire valeurs JSON par lot, sortie formatée"
-    },
-    "jsonNodeEdit": {
-      "title": "Édition JSON par Lot",
-      "description": "Éditer nœuds JSON par lot, préfixe/suffixe/remplacer"
-    },
-    "jsonValueTransformer": {
-      "title": "Mappeur Valeur JSON",
-      "description": "Mappage et migration de valeurs avec JSONPath"
-    },
-    "jsonValueSwapper": {
-      "title": "Échangeur Valeur JSON",
-      "description": "Échanger valeurs de deux champs en un clic"
-    },
-    "jsonNodeInserter": {
-      "title": "Inséreur Nœud JSON",
-      "description": "Insérer nouveaux nœuds à position spécifiée par lot"
-    },
-    "jsonSortClassify": {
-      "title": "Tri & Classification JSON",
-      "description": "Trier et grouper tableaux, règles personnalisées"
-    },
-    "jsonMatchUpdate": {
-      "title": "Mise à jour Match JSON",
-      "description": "Mise à jour par lot basée sur correspondance de champs"
-    },
-    "dataParserFlare": {
-      "title": "Convertisseur Flare",
-      "description": "Conversion favoris navigateur et format Flare"
-    },
-    "dataParserImgPrompt": {
-      "title": "Générateur Données IMGPrompt",
-      "description": "Générer données JSON IMGPrompt par lot"
+      "description": "Découpe intelligente de texte long pour IA et réseaux sociaux",
+      "metaTitle": "Découpeur de texte | Chunker pour ChatGPT, Claude, Twitter",
+      "metaDescription": "Texte trop long pour l'IA ? Découpez intelligemment par phrases ou caractères. Idéal pour ChatGPT et réseaux sociaux. Simple et précis.",
+      "faq": [
+        {
+          "q": "Quelles sont les limites de caractères pour ChatGPT, Claude, Gemini et les outils de traduction ?",
+          "a": "Limites de contexte des modèles IA (tokens) : ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinois ~1-2 car/token, anglais ~4 car/token. Outils de traduction : Google Translate et DeepL gratuits tous deux 5000 car/requête. Réglez 'Nombre de caractères' avec marge sous la capacité de l'IA cible."
+        },
+        {
+          "q": "Comment découper les longs posts pour Twitter, Threads, Mastodon et LinkedIn ?",
+          "a": "Limites : Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4000. Utilisez mode 'Paragraphe anglais' pour le français et autres langues latines — préserve l'intégrité des phrases. Export groupé en fichiers individuels pour publication séquentielle (1/N, 2/N)."
+        },
+        {
+          "q": "Comment gérer le texte mixte ou les fichiers non-UTF-8 (français GBK, japonais Shift-JIS) ?",
+          "a": "Pour texte mixte, le mode Paragraphe chinois reconnaît à la fois les ponctuations chinoise (。！？) et latine (. ! ?) sans couper mi-mot. Les séparateurs personnalisés supportent \\\\n\\\\n et \\\\t. Pour les fichiers non-UTF-8, **importez directement le fichier** plutôt que coller — l'encodage est détecté automatiquement pour éviter les caractères illisibles."
+        }
+      ],
+      "howto": [
+        {
+          "name": "Saisir le texte long dans l'outil",
+          "text": "Collez un texte très long (chapitres de roman, discours, articles de recherche) ou importez un fichier TXT. Pour les fichiers non-UTF-8 (français GBK, japonais Shift-JIS), importez directement pour détection auto d'encodage."
+        },
+        {
+          "name": "Régler le nombre de caractères selon l'IA ou la plateforme",
+          "text": "ChatGPT gratuit 4000, Plus 32K, Claude 200K, Gemini 1M ; Twitter 280, Threads 500, Mastodon 500 ; outils de traduction 5000. Découpe aux limites de paragraphe sans couper les phrases."
+        },
+        {
+          "name": "Exporter pour entrée IA ou publication sociale",
+          "text": "Copiez des segments individuels directement dans ChatGPT/Claude/Gemini. Export batch en fichiers numérotés 1/N, 2/N pour publication séquentielle Twitter/Threads. Export fusionné pour sauvegarde de texte long organisé."
+        }
+      ],
+      "features": [
+        "Limites de contexte des modèles IA : ChatGPT GPT-4o 128K tokens, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "Modèles de plateformes sociales : Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
+        "Détection intelligente de la ponctuation mixte CJK (。！？) et latine (. ! ?)",
+        "Détection auto non-UTF-8 (GBK, Shift-JIS, EUC-KR) évite les caractères illisibles",
+        "Séparateurs personnalisés avec échappement \\\\n\\\\n, \\\\t",
+        "Export batch numéroté 1/N, 2/N pour publication séquentielle"
+      ]
     }
   },
   "navigation": {
@@ -221,6 +217,87 @@
     "ogTitle": "ToolsByAI | Outils de Traduction & Dev IA Gratuits",
     "ogDescription": "Suite de 20+ outils open source : traduction de sous-titres, i18n, JSON & Markdown. Supporte DeepSeek & ChatGPT. Données locales et sécurisées."
   },
+  "languages": {
+    "auto": "Détection auto",
+    "en": "Anglais",
+    "zh": "Chinois",
+    "zh-hant": "Chinois traditionnel",
+    "pt-br": "Portugais (Brésil)",
+    "pt-pt": "Portugais (Portugal)",
+    "it": "Italien",
+    "de": "Allemand",
+    "ru": "Russe",
+    "es": "Espagnol",
+    "fr": "Français",
+    "ja": "Japonais",
+    "ko": "Coréen",
+    "ar": "Arabe",
+    "tr": "Turc",
+    "pl": "Polonais",
+    "uk": "Ukrainien",
+    "nl": "Néerlandais",
+    "el": "Grec",
+    "hu": "Hongrois",
+    "sv": "Suédois",
+    "da": "Danois",
+    "fi": "Finnois",
+    "cs": "Tchèque",
+    "sk": "Slovaque",
+    "bg": "Bulgare",
+    "sl": "Slovène",
+    "lt": "Lituanien",
+    "lv": "Letton",
+    "ro": "Roumain",
+    "et": "Estonien",
+    "id": "Indonésien",
+    "ms": "Malais",
+    "hi": "Hindi",
+    "bn": "Bengali",
+    "vi": "Vietnamien",
+    "nb": "Norvégien",
+    "he": "Hébreu",
+    "th": "Thaï",
+    "fil": "Philippin (Tagalog)",
+    "uz": "Ouzbek",
+    "ky": "Kirghize",
+    "tk": "Turkmène",
+    "kk": "Kazakh",
+    "bho": "Bhojpuri",
+    "kn": "Kannada",
+    "am": "Amharique",
+    "gu": "Gujarati",
+    "jv": "Javanais",
+    "fa": "Persan",
+    "ta": "Tamoul",
+    "sw": "Swahili",
+    "ha": "Haoussa",
+    "te": "Télougou",
+    "mr": "Marathi",
+    "ur": "Ourdou",
+    "hr": "Croate",
+    "ug": "Ouïghour",
+    "lo": "Lao",
+    "sr": "Serbe",
+    "bs": "Bosniaque",
+    "sq": "Albanais",
+    "mk": "Macédonien",
+    "af": "Afrikaans",
+    "az": "Azerbaïdjanais",
+    "be": "Biélorusse",
+    "hy": "Arménien",
+    "ka": "Géorgien",
+    "is": "Islandais",
+    "mt": "Maltais",
+    "ca": "Catalan",
+    "ml": "Malayalam",
+    "si": "Cingalais",
+    "pa": "Pendjabi",
+    "ne": "Népalais",
+    "my": "Birman",
+    "mn": "Mongol",
+    "tg": "Tadjik",
+    "yue": "Cantonais"
+  },
   "CopyToClipboard": {
     "empty": "Contenu vide, rien à copier",
     "unsupported": "Navigateur non supporté, copiez manuellement",
@@ -228,7 +305,7 @@
     "failure": "Échec copie, copiez manuellement"
   },
   "feedback": {
-    "feedback1": "Feedback & Suggestions",
+    "feedback1": "Commentaires & Suggestions",
     "feedback2": "Si vous rencontrez des problèmes ou avez des suggestions, dites-le moi ! Votre feedback influence le développement futur et nous aide à créer de meilleurs outils.",
     "feedback3": "Décrivez votre cas d'usage, problème ou idée. Je lis chaque message et répondrai/optimiserai dès que possible.",
     "reaction0": "J'aime",

@@ -39,7 +39,6 @@
     "multiLanguageModeTooltip": "Aynı anda birden fazla dile çevirin, ayrı dosyalar olarak kaydedilir",
     "translate": "Çevir",
     "totalLanguages": "Toplam Dil:",
-    "resetUpload": "Temizle",
     "resetUploadTooltip": "Mevcut girişi ve yüklenen dosyaları temizle",
     "resetUploadSuccess": "Temizlendi",
     "extractText": "Metni Çıkar",
@@ -94,8 +93,8 @@
     "settingsApplied": "Ayarlar uygulandı",
     "retryCount": "Yeniden Deneme Sayısı",
     "retryCountTooltip": "Çeviri başarısız olduğunda yeniden deneme sayısı",
-    "retryTimeout": "Zaman Aşımı",
-    "retryTimeoutTooltip": "İstek başına maksimum bekleme süresi (saniye). LLM düşünmesi daha uzun sürer; 180 saniye veya daha fazlası önerilir.",
+    "requestTimeoutSec": "Zaman Aşımı",
+    "requestTimeoutSecTooltip": "İstek başına maksimum bekleme süresi (saniye). LLM düşünmesi daha uzun sürer; 180 saniye veya daha fazlası önerilir.",
     "customExportFilename": "Dışa Aktarma Dosya Adı Kalıbı",
     "customExportFilenameTooltip": "'{'name'}' = orijinal dosya adı, '{'lang'}' = dil, '{'ext'}' = uzantı, '{'date'}' = tarih, '{'time'}' = saat",
     "partialFailureTitle": "{count} satır çevrilemedi",
@@ -112,12 +111,25 @@
     "apiStatusConnected": "✓ Bağlandı",
     "apiStatusFailed": "Bağlantı başarısız",
     "testConnection": "Bağlantıyı test et",
-    "moreProviderSettings": "Daha fazla Provider ayarı"
+    "moreProviderSettings": "Daha fazla Provider ayarı",
+    "format": "Biçimlendir",
+    "formatTooltip": "Biçimlendir: boş satırları ve baş/son boşlukları kaldır",
+    "resultToSource": "Sonuç ➔ Kaynak",
+    "resultToSourceTooltip": "Giriş kutusunun içeriğini sonuç metniyle değiştir",
+    "readOnlyMode": "Salt Okunur Mod",
+    "readOnlyModeTooltip": "Metin çok uzun; sayfa performansını korumak için salt okunur mod otomatik olarak etkinleştirildi",
+    "clearInputTooltip": "Giriş içeriğini ve yüklenen dosyaları temizle",
+    "fileExported": "Dışa aktarılan dosya: {fileName}",
+    "exportSuccess": "Dışa aktarma başarılı: {fileName}",
+    "batchDownloaded": "İşlem tamamlandı, dosyalar otomatik olarak indirildi",
+    "sourceTextPlaceholder": "İşlenecek metni girin veya yapıştırın...",
+    "smartLineBreak": "Akıllı satır sonu",
+    "replaceText": "Metni değiştir",
+    "generateJson": "JSON Oluştur",
+    "gtxFreeAPIUnavailable": "Ücretsiz Google Translate API (GTX) şu anda kullanılamıyor. Lütfen ağ bağlantınızı kontrol edin.",
+    "translategemmaUnavailable": "TranslateGemma düğümü kullanılamıyor. Lütfen yerel sunucunun (LM Studio / llama.cpp / Ollama) çalıştığını ve URL'nin doğru olduğunu doğrulayın."
   },
-  "text-splitter": {
-    "title": "Online Metin Bölücü - AI ve Sosyal Medya İçin Akıllı Ayrıştırma",
-    "description": "Uzun metinleri ChatGPT veya Twitter limitlerine uygun parçalara bölün. Cümle veya bölüm bazlı akıllı ayrıştırma. Büyük dosyaları ve özel kuralları destekler.",
-    "clientTitle": "Metin Bölücü",
+  "TextSplitter": {
     "clientDescription": "Uzun metinleri akıllıca böler. Karakter veya cümlelere göre. AI, sosyal medya, düzenleme için ideal. UTF-8 olmayan metinler için (örn: bazı Fransızca dosyalar), otomatik kodlama algılama için dosyayı doğrudan yükleyin.",
     "noExportableText": "Dışa aktarılabilir içerik algılanmadı, girişi kontrol edin",
     "splitCharacterCount": "Bölüm Başına Karakter",
@@ -142,66 +154,50 @@
     "mergeText": "Tüm bölümleri birleştir (2 yeni satırla ayrılmış)",
     "exportMergedText": "Birleştirilmiş Metni Dışa Aktar",
     "exportIndividualFiles": "Her bölümü metin dosyası olarak dışa aktar",
-    "batchExport": "Toplu Dışa Aktar",
-    "faq1q": "ChatGPT, Claude, Gemini ve çeviri araçlarının karakter limitleri nelerdir?",
-    "faq1a": "AI modeli bağlam limitleri (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Çince ~1-2 karakter/token, İngilizce ~4 karakter/token. Çeviri: Google Translate ve DeepL ücretsiz her ikisi de 5000 karakter/istek. 'Bölme Karakter Sayısı'nı hedef AI'nin token kapasitesinin altında tamponla ayarlayın.",
-    "faq2q": "Twitter, Threads, LinkedIn için uzun gönderileri nasıl bölerim?",
-    "faq2a": "Limitler: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Türkçe ve Latin için 'İngilizce Paragraf' modunu kullanın — cümle bütünlüğünü korur. Sıralı yayın için ayrı dosyalar olarak toplu dışa aktarın (1/N, 2/N).",
-    "faq3q": "Karışık metin veya UTF-8 olmayan dosyalar (Fransızca GBK, Japonca Shift-JIS) nasıl işlenir?",
-    "faq3a": "Karışık metin için Çince Paragraf modunu kullanın — hem Çince (。！？) hem İngilizce (. ! ?) noktalama işaretlerini tanır, kelimeyi ortadan bölmez. Özel ayırıcılar \\\\n\\\\n ve \\\\t kaçış karakterlerini destekler. UTF-8 olmayan dosyalar için yapıştırmak yerine **dosyayı doğrudan yükleyin** — kodlama otomatik algılanır."
+    "batchExport": "Toplu Dışa Aktar"
   },
   "tools": {
-    "subtitleTranslator": {
-      "title": "Altyazı Çevirici",
-      "description": "Toplu SRT, ASS, VTT, LRC çevirisi. 50+ dil."
-    },
-    "jsonTranslate": {
-      "title": "i18n JSON Çevirici",
-      "description": "Verimli çok dilli JSON çeviri aracı"
-    },
-    "mdTranslator": {
-      "title": "Markdown Çevirici",
-      "description": "Toplu Markdown çevirisi, format ve kodu korur"
-    },
     "textSplitter": {
       "title": "Metin Bölücü",
-      "description": "AI ve sosyal medya için akıllı uzun metin bölme"
-    },
-    "jsonValueExtractor": {
-      "title": "JSON Değer Çıkarıcı",
-      "description": "JSON değerlerini toplu çıkar, formatlı çıktı"
-    },
-    "jsonNodeEdit": {
-      "title": "Toplu JSON Düzenleme",
-      "description": "JSON düğümlerini toplu düzenle, önek/sonek/değiştir"
-    },
-    "jsonValueTransformer": {
-      "title": "JSON Değer Eşleyici",
-      "description": "JSONPath ile değer eşleme ve taşıma"
-    },
-    "jsonValueSwapper": {
-      "title": "JSON Değer Değiştirici",
-      "description": "Tek tıkla iki alanın değerlerini değiştir"
-    },
-    "jsonNodeInserter": {
-      "title": "JSON Düğüm Ekleyici",
-      "description": "Belirtilen konuma toplu yeni düğümler ekle"
-    },
-    "jsonSortClassify": {
-      "title": "JSON Sırala & Sınıflandır",
-      "description": "Dizileri sırala ve grupla, özel kurallar"
-    },
-    "jsonMatchUpdate": {
-      "title": "JSON Match Update",
-      "description": "Alan eşleşmesine dayalı toplu güncelleme"
-    },
-    "dataParserFlare": {
-      "title": "Flare Dönüştürücü",
-      "description": "Tarayıcı yer imleri ve Flare formatı dönüşümü"
-    },
-    "dataParserImgPrompt": {
-      "title": "IMGPrompt Veri Oluşturucu",
-      "description": "Toplu IMGPrompt JSON verileri oluştur"
+      "description": "AI ve sosyal medya için akıllı uzun metin bölme",
+      "metaTitle": "Metin Bölücü | ChatGPT, Claude ve Twitter için Akıllı Ayrıştırma",
+      "metaDescription": "AI için metin çok uzun mu? Uzun metinleri ChatGPT veya Twitter limitlerine uygun parçalara bölün. Cümle veya bölüm bazlı akıllı ayrıştırma.",
+      "faq": [
+        {
+          "q": "ChatGPT, Claude, Gemini ve çeviri araçlarının karakter limitleri nelerdir?",
+          "a": "AI modeli bağlam limitleri (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Çince ~1-2 karakter/token, İngilizce ~4 karakter/token. Çeviri: Google Translate ve DeepL ücretsiz her ikisi de 5000 karakter/istek. 'Bölme Karakter Sayısı'nı hedef AI'nin token kapasitesinin altında tamponla ayarlayın."
+        },
+        {
+          "q": "Twitter, Threads, LinkedIn için uzun gönderileri nasıl bölerim?",
+          "a": "Limitler: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Türkçe ve Latin için 'İngilizce Paragraf' modunu kullanın — cümle bütünlüğünü korur. Sıralı yayın için ayrı dosyalar olarak toplu dışa aktarın (1/N, 2/N)."
+        },
+        {
+          "q": "Karışık metin veya UTF-8 olmayan dosyalar (Fransızca GBK, Japonca Shift-JIS) nasıl işlenir?",
+          "a": "Karışık metin için Çince Paragraf modunu kullanın — hem Çince (。！？) hem İngilizce (. ! ?) noktalama işaretlerini tanır, kelimeyi ortadan bölmez. Özel ayırıcılar \\\\n\\\\n ve \\\\t kaçış karakterlerini destekler. UTF-8 olmayan dosyalar için yapıştırmak yerine **dosyayı doğrudan yükleyin** — kodlama otomatik algılanır."
+        }
+      ],
+      "howto": [
+        {
+          "name": "Uzun metni araca girin",
+          "text": "Çok uzun metni (roman bölümleri, konuşmalar, araştırma makaleleri) yapıştırın veya TXT dosyası yükleyin. UTF-8 olmayan dosyalar için (Fransızca GBK, Japonca Shift-JIS) dosyayı doğrudan yükleyin."
+        },
+        {
+          "name": "AI modeli veya platforma göre karakter sayısı ayarlayın",
+          "text": "ChatGPT ücretsiz 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; çeviri araçları 5000. Araç cümleleri kesmeden paragraf sınırlarında böler."
+        },
+        {
+          "name": "AI girişi veya sosyal paylaşım için dışa aktarın",
+          "text": "Tek tek segmentleri doğrudan ChatGPT/Claude/Gemini'ye kopyalayın. Twitter/Threads'te sıralı paylaşım için 1/N, 2/N numaralı ayrı dosyalar olarak toplu dışa aktarın. Organize uzun metin kaydetmek için birleştirilmiş dışa aktarım."
+        }
+      ],
+      "features": [
+        "AI model bağlam limitleri: ChatGPT GPT-4o 128K token, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "Sosyal platform şablonları: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
+        "Karışık CJK (。！？) ve Latin (. ! ?) metinler için akıllı noktalama algılama",
+        "UTF-8 olmayan otomatik algılama (GBK, Shift-JIS, EUC-KR) bozuk karakterleri önler",
+        "\\\\n\\\\n, \\\\t kaçış karakter desteği ile özel ayırıcılar",
+        "Sıralı paylaşım için 1/N, 2/N numaralı toplu dışa aktarım"
+      ]
     }
   },
   "navigation": {
@@ -220,6 +216,87 @@
     "homeDescription": "Çeviri, metin, JSON ve veri dönüşümü için 20+ araç. Geliştirici ve yaratıcı verimliliğini artırın.",
     "ogTitle": "ToolsByAI - Ücretsiz ve Açık Kaynak Geliştirici Araçları",
     "ogDescription": "Çeviri, veri işleme ve JSON düzenleme için 20+ araç. Yerel işlem gücüyle gizliliğinizi koruyan açık kaynaklı platform."
+  },
+  "languages": {
+    "auto": "Otomatik Algılama",
+    "en": "İngilizce",
+    "zh": "Çince",
+    "zh-hant": "Geleneksel Çince",
+    "pt-br": "Portekizce (Brezilya)",
+    "pt-pt": "Portekizce (Portekiz)",
+    "it": "İtalyanca",
+    "de": "Almanca",
+    "ru": "Rusça",
+    "es": "İspanyolca",
+    "fr": "Fransızca",
+    "ja": "Japonca",
+    "ko": "Korece",
+    "ar": "Arapça",
+    "tr": "Türkçe",
+    "pl": "Lehçe",
+    "uk": "Ukraynaca",
+    "nl": "Felemenkçe",
+    "el": "Yunanca",
+    "hu": "Macarca",
+    "sv": "İsveççe",
+    "da": "Danca",
+    "fi": "Fince",
+    "cs": "Çekçe",
+    "sk": "Slovakça",
+    "bg": "Bulgarca",
+    "sl": "Slovence",
+    "lt": "Litvanca",
+    "lv": "Letonca",
+    "ro": "Rumence",
+    "et": "Estonca",
+    "id": "Endonezce",
+    "ms": "Malayca",
+    "hi": "Hintçe",
+    "bn": "Bengalce",
+    "vi": "Vietnamca",
+    "nb": "Norveççe",
+    "he": "İbranice",
+    "th": "Tayca",
+    "fil": "Filipince (Tagalog)",
+    "uz": "Özbekçe",
+    "ky": "Kırgızca",
+    "tk": "Türkmence",
+    "kk": "Kazakça",
+    "bho": "Bhojpuri",
+    "kn": "Kannada",
+    "am": "Amharca",
+    "gu": "Gucaratça",
+    "jv": "Cava Dili",
+    "fa": "Farsça",
+    "ta": "Tamilce",
+    "sw": "Svahili",
+    "ha": "Hausa",
+    "te": "Telugu",
+    "mr": "Marathi",
+    "ur": "Urduca",
+    "hr": "Hırvatça",
+    "ug": "Uygurca",
+    "lo": "Laoca",
+    "sr": "Sırpça",
+    "bs": "Boşnakça",
+    "sq": "Arnavutça",
+    "mk": "Makedonca",
+    "af": "Afrikaans",
+    "az": "Azerice",
+    "be": "Belarusça",
+    "hy": "Ermenice",
+    "ka": "Gürcüce",
+    "is": "İzlandaca",
+    "mt": "Maltaca",
+    "ca": "Katalanca",
+    "ml": "Malayalamca",
+    "si": "Sinhala dili",
+    "pa": "Pencapça",
+    "ne": "Nepalce",
+    "my": "Birmanca",
+    "mn": "Moğolca",
+    "tg": "Tacikçe",
+    "yue": "Kantonca"
   },
   "CopyToClipboard": {
     "empty": "İçerik boş, kopyalanacak bir şey yok",

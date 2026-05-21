@@ -39,8 +39,7 @@
     "multiLanguageModeTooltip": "Dịch sang nhiều ngôn ngữ cùng lúc, lưu thành các tệp riêng biệt",
     "translate": "Dịch",
     "totalLanguages": "Tổng số ngôn ngữ:",
-    "resetUpload": "Xóa",
-    "resetUploadTooltip": "Xóa đầu vào hiện tại và tệp đã tải lên",
+    "resetUploadTooltip": "Xóa nội dung hiện tại và các tệp đã tải lên",
     "resetUploadSuccess": "Đã xóa",
     "extractText": "Trích xuất văn bản",
     "translationResult": "Kết quả",
@@ -94,8 +93,8 @@
     "settingsApplied": "Đã áp dụng cài đặt",
     "retryCount": "Số lần thử lại",
     "retryCountTooltip": "Số lần thử lại khi dịch thất bại",
-    "retryTimeout": "Thời gian chờ",
-    "retryTimeoutTooltip": "Thời gian chờ tối đa mỗi yêu cầu (giây). LLM suy nghĩ mất nhiều thời gian hơn; khuyến nghị 180 giây trở lên.",
+    "requestTimeoutSec": "Thời gian chờ",
+    "requestTimeoutSecTooltip": "Thời gian chờ tối đa mỗi yêu cầu (giây). LLM suy nghĩ mất nhiều thời gian hơn; khuyến nghị 180 giây trở lên.",
     "customExportFilename": "Mẫu tên tệp xuất",
     "customExportFilenameTooltip": "'{'name'}' = tên tệp gốc, '{'lang'}' = ngôn ngữ, '{'ext'}' = phần mở rộng, '{'date'}' = ngày, '{'time'}' = thời gian",
     "partialFailureTitle": "{count} dòng dịch thất bại",
@@ -112,12 +111,25 @@
     "apiStatusConnected": "✓ Đã kết nối",
     "apiStatusFailed": "Kết nối thất bại",
     "testConnection": "Kiểm tra kết nối",
-    "moreProviderSettings": "Thêm cài đặt Provider"
+    "moreProviderSettings": "Thêm cài đặt Provider",
+    "format": "Định dạng",
+    "formatTooltip": "Định dạng: xóa dòng trống và khoảng trắng đầu/cuối",
+    "resultToSource": "Kết quả ➔ Nguồn",
+    "resultToSourceTooltip": "Ghi đè văn bản kết quả vào ô nhập liệu",
+    "readOnlyMode": "Chế độ chỉ đọc",
+    "readOnlyModeTooltip": "Văn bản quá dài, đã tự động chuyển sang chế độ chỉ đọc để đảm bảo hiệu suất trang",
+    "clearInputTooltip": "Xóa nội dung đã nhập và tệp đã tải lên",
+    "fileExported": "Đã xuất tệp: {fileName}",
+    "exportSuccess": "Xuất thành công: {fileName}",
+    "batchDownloaded": "Xử lý hoàn tất, tệp đã được tải xuống tự động",
+    "sourceTextPlaceholder": "Nhập hoặc dán văn bản cần xử lý...",
+    "smartLineBreak": "Xuống dòng thông minh",
+    "replaceText": "Thay thế văn bản",
+    "generateJson": "Tạo JSON",
+    "gtxFreeAPIUnavailable": "API Google Translate miễn phí (GTX) hiện không khả dụng. Vui lòng kiểm tra kết nối mạng của bạn.",
+    "translategemmaUnavailable": "Node TranslateGemma không khả dụng. Vui lòng xác minh máy chủ cục bộ (LM Studio / llama.cpp / Ollama) đang chạy và URL chính xác."
   },
-  "text-splitter": {
-    "title": "Chia Văn Bản Online - Tách Thông Minh Cho AI & Social",
-    "description": "Chia văn bản dài để vừa giới hạn ChatGPT hoặc Twitter. Tách theo câu hoặc chương thông minh. Hỗ trợ tệp lớn và quy tắc tùy chỉnh.",
-    "clientTitle": "Bộ chia văn bản",
+  "TextSplitter": {
     "clientDescription": "Chia văn bản dài một cách thông minh. Theo ký tự hoặc câu. Lý tưởng cho AI, mạng xã hội, chỉnh sửa. Đối với văn bản không phải UTF-8 (ví dụ: một số tệp tiếng Pháp), hãy tải tệp lên trực tiếp để tự động phát hiện mã hóa.",
     "noExportableText": "Không phát hiện nội dung có thể xuất, kiểm tra đầu vào",
     "splitCharacterCount": "Ký tự mỗi đoạn",
@@ -142,66 +154,50 @@
     "mergeText": "Gộp tất cả các đoạn (cách nhau bởi 2 dòng mới)",
     "exportMergedText": "Xuất văn bản gộp",
     "exportIndividualFiles": "Xuất từng đoạn thành tệp văn bản",
-    "batchExport": "Xuất hàng loạt",
-    "faq1q": "Giới hạn ký tự của ChatGPT, Claude, Gemini và công cụ dịch là bao nhiêu?",
-    "faq1a": "Giới hạn ngữ cảnh mô hình AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Số ký tự chia' với đệm dưới dung lượng AI mục tiêu.",
-    "faq2q": "Làm sao chia bài đăng dài cho Twitter, Threads, Facebook và LinkedIn?",
-    "faq2a": "Giới hạn: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000, Facebook 63206. Dùng chế độ 'Đoạn tiếng Anh' cho tiếng Việt và Latin — giữ tính toàn vẹn câu. Xuất hàng loạt dưới dạng tệp riêng cho đăng tuần tự (1/N, 2/N).",
-    "faq3q": "Xử lý văn bản hỗn hợp hoặc tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS) thế nào?",
-    "faq3a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Dấu phân cách tùy chỉnh hỗ trợ \\\\n\\\\n và \\\\t. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
+    "batchExport": "Xuất hàng loạt"
   },
   "tools": {
-    "subtitleTranslator": {
-      "title": "Dịch giả Phụ đề",
-      "description": "Dịch hàng loạt SRT, ASS, VTT, LRC. 50+ ngôn ngữ."
-    },
-    "jsonTranslate": {
-      "title": "Dịch giả JSON i18n",
-      "description": "Công cụ dịch JSON đa ngôn ngữ hiệu quả"
-    },
-    "mdTranslator": {
-      "title": "Dịch giả Markdown",
-      "description": "Dịch Markdown hàng loạt, giữ định dạng và mã"
-    },
     "textSplitter": {
       "title": "Bộ chia văn bản",
-      "description": "Chia văn bản dài thông minh cho AI và mạng xã hội"
-    },
-    "jsonValueExtractor": {
-      "title": "Trình trích xuất Giá trị JSON",
-      "description": "Trích xuất giá trị JSON hàng loạt, đầu ra có định dạng"
-    },
-    "jsonNodeEdit": {
-      "title": "Chỉnh sửa JSON Hàng loạt",
-      "description": "Chỉnh sửa nút JSON hàng loạt, tiền tố/hậu tố/thay thế"
-    },
-    "jsonValueTransformer": {
-      "title": "Trình ánh xạ Giá trị JSON",
-      "description": "Ánh xạ và di chuyển giá trị với JSONPath"
-    },
-    "jsonValueSwapper": {
-      "title": "Trình hoán đổi Giá trị JSON",
-      "description": "Hoán đổi giá trị hai trường bằng một cú nhấp chuột"
-    },
-    "jsonNodeInserter": {
-      "title": "Trình chèn Nút JSON",
-      "description": "Chèn nút mới tại vị trí được chỉ định hàng loạt"
-    },
-    "jsonSortClassify": {
-      "title": "Sắp xếp & Phân loại JSON",
-      "description": "Sắp xếp và nhóm mảng, quy tắc tùy chỉnh"
-    },
-    "jsonMatchUpdate": {
-      "title": "Cập nhật JSON Match",
-      "description": "Cập nhật hàng loạt dựa trên khớp trường"
-    },
-    "dataParserFlare": {
-      "title": "Trình chuyển đổi Flare",
-      "description": "Chuyển đổi bookmark trình duyệt và định dạng Flare"
-    },
-    "dataParserImgPrompt": {
-      "title": "Trình tạo dữ liệu IMGPrompt",
-      "description": "Tạo dữ liệu JSON IMGPrompt hàng loạt"
+      "description": "Chia văn bản dài thông minh cho AI và mạng xã hội",
+      "metaTitle": "Chia Văn Bản | Cắt Thông Minh Cho ChatGPT, Claude, Twitter",
+      "metaDescription": "Văn bản quá dài cho AI? Chia văn bản dài để vừa giới hạn ChatGPT hoặc Twitter. Tách theo câu hoặc chương thông minh. Hỗ trợ tệp lớn và quy tắc tùy chỉnh.",
+      "faq": [
+        {
+          "q": "Giới hạn ký tự của ChatGPT, Claude, Gemini và công cụ dịch là bao nhiêu?",
+          "a": "Giới hạn ngữ cảnh mô hình AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Số ký tự chia' với đệm dưới dung lượng AI mục tiêu."
+        },
+        {
+          "q": "Làm sao chia bài đăng dài cho Twitter, Threads, Facebook và LinkedIn?",
+          "a": "Giới hạn: Twitter 280, Threads 500, Zalo 1000, Facebook 63206, LinkedIn 3000, Mastodon 500. Dùng chế độ 'Đoạn tiếng Anh' cho tiếng Việt và Latin — giữ tính toàn vẹn câu. Xuất hàng loạt dưới dạng tệp riêng cho đăng tuần tự (1/N, 2/N)."
+        },
+        {
+          "q": "Xử lý văn bản hỗn hợp hoặc tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS) thế nào?",
+          "a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Dấu phân cách tùy chỉnh hỗ trợ \\\\n\\\\n và \\\\t. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
+        }
+      ],
+      "howto": [
+        {
+          "name": "Nhập văn bản dài vào công cụ",
+          "text": "Dán văn bản rất dài (chương tiểu thuyết, bài phát biểu, bài nghiên cứu) hoặc tải lên tệp TXT. Với tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS), tải tệp trực tiếp để tự phát hiện mã hóa."
+        },
+        {
+          "name": "Đặt số ký tự theo mô hình AI hoặc nền tảng",
+          "text": "ChatGPT miễn phí 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; công cụ dịch 5000. Công cụ chia tại biên đoạn văn không cắt câu."
+        },
+        {
+          "name": "Xuất cho nhập AI hoặc đăng mạng xã hội",
+          "text": "Sao chép từng đoạn riêng trực tiếp vào ChatGPT/Claude/Gemini. Xuất hàng loạt thành tệp đánh số 1/N, 2/N cho đăng tuần tự Twitter/Threads. Xuất gộp để lưu văn bản dài có tổ chức."
+        }
+      ],
+      "features": [
+        "Giới hạn ngữ cảnh mô hình AI: ChatGPT GPT-4o 128K token, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "Mẫu nền tảng xã hội: Twitter 280, Threads 500, Zalo 1000, LinkedIn 3000",
+        "Phát hiện dấu câu thông minh cho văn bản CJK hỗn hợp (。！？) và Latin (. ! ?)",
+        "Tự phát hiện không phải UTF-8 (GBK, Shift-JIS, EUC-KR) ngăn ký tự lỗi",
+        "Dấu phân cách tùy chỉnh với hỗ trợ ký tự thoát \\\\n\\\\n, \\\\t",
+        "Xuất hàng loạt đánh số 1/N, 2/N cho đăng tuần tự"
+      ]
     }
   },
   "navigation": {
@@ -220,6 +216,87 @@
     "homeDescription": "20+ công cụ cho dịch, văn bản, JSON và chuyển đổi dữ liệu. Tăng cường hiệu quả cho nhà phát triển và người sáng tạo.",
     "ogTitle": "ToolsByAI - Công Cụ Dev AI Miễn Phí & Mã Nguồn Mở",
     "ogDescription": "20+ tiện ích cho nhà phát triển: dịch thuật, xử lý dữ liệu và JSON. Bảo vệ quyền riêng tư với xử lý cục bộ ngay trên trình duyệt."
+  },
+  "languages": {
+    "auto": "Tự động phát hiện",
+    "en": "Tiếng Anh",
+    "zh": "Tiếng Trung",
+    "zh-hant": "Tiếng Trung Phồn thể",
+    "pt-br": "Tiếng Bồ Đào Nha (Brazil)",
+    "pt-pt": "Tiếng Bồ Đào Nha (Bồ Đào Nha)",
+    "it": "Tiếng Ý",
+    "de": "Tiếng Đức",
+    "ru": "Tiếng Nga",
+    "es": "Tiếng Tây Ban Nha",
+    "fr": "Tiếng Pháp",
+    "ja": "Tiếng Nhật",
+    "ko": "Tiếng Hàn",
+    "ar": "Tiếng Ả Rập",
+    "tr": "Tiếng Thổ Nhĩ Kỳ",
+    "pl": "Tiếng Ba Lan",
+    "uk": "Tiếng Ukraina",
+    "nl": "Tiếng Hà Lan",
+    "el": "Tiếng Hy Lạp",
+    "hu": "Tiếng Hungary",
+    "sv": "Tiếng Thụy Điển",
+    "da": "Tiếng Đan Mạch",
+    "fi": "Tiếng Phần Lan",
+    "cs": "Tiếng Séc",
+    "sk": "Tiếng Slovak",
+    "bg": "Tiếng Bulgaria",
+    "sl": "Tiếng Slovenia",
+    "lt": "Tiếng Litva",
+    "lv": "Tiếng Latvia",
+    "ro": "Tiếng Rumani",
+    "et": "Tiếng Estonia",
+    "id": "Tiếng Indonesia",
+    "ms": "Tiếng Mã Lai",
+    "hi": "Tiếng Hindi",
+    "bn": "Tiếng Bengali",
+    "vi": "Tiếng Việt",
+    "nb": "Tiếng Na Uy",
+    "he": "Tiếng Do Thái",
+    "th": "Tiếng Thái",
+    "fil": "Tiếng Philippines (Tagalog)",
+    "uz": "Tiếng Uzbek",
+    "ky": "Tiếng Kyrgyz",
+    "tk": "Tiếng Turkmen",
+    "kk": "Tiếng Kazakh",
+    "bho": "Tiếng Bhojpuri",
+    "kn": "Tiếng Kannada",
+    "am": "Tiếng Amharic",
+    "gu": "Tiếng Gujarati",
+    "jv": "Tiếng Java",
+    "fa": "Tiếng Ba Tư",
+    "ta": "Tiếng Tamil",
+    "sw": "Tiếng Swahili",
+    "ha": "Tiếng Hausa",
+    "te": "Tiếng Telugu",
+    "mr": "Tiếng Marathi",
+    "ur": "Tiếng Urdu",
+    "hr": "Tiếng Croatia",
+    "ug": "Tiếng Duy Ngô Nhĩ",
+    "lo": "Tiếng Lào",
+    "sr": "Tiếng Serbia",
+    "bs": "Tiếng Bosnia",
+    "sq": "Tiếng Albania",
+    "mk": "Tiếng Macedonia",
+    "af": "Tiếng Afrikaans",
+    "az": "Tiếng Azerbaijan",
+    "be": "Tiếng Belarus",
+    "hy": "Tiếng Armenia",
+    "ka": "Tiếng Georgia",
+    "is": "Tiếng Iceland",
+    "mt": "Tiếng Malta",
+    "ca": "Tiếng Catalan",
+    "ml": "Tiếng Malayalam",
+    "si": "Tiếng Sinhala",
+    "pa": "Tiếng Punjabi",
+    "ne": "Tiếng Nepal",
+    "my": "Tiếng Miến Điện",
+    "mn": "Tiếng Mông Cổ",
+    "tg": "Tiếng Tajikistan",
+    "yue": "Tiếng Quảng Đông"
   },
   "CopyToClipboard": {
     "empty": "Nội dung trống, không có gì để sao chép",

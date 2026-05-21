@@ -8,12 +8,12 @@ import { getDocUrl } from "@/app/utils";
 import ToolPage from "@/app/components/styled/ToolPage";
 
 const ClientPage = () => {
-  const tSplitter = useTranslations("text-splitter");
+  const tSplitter = useTranslations("TextSplitter");
   const locale = useLocale();
   const userGuideUrl = getDocUrl("guide/tools/text-splitter.html", locale);
 
   return (
-    <ToolPage icon={<ScissorOutlined />} title={tSplitter("clientTitle")} description={tSplitter("clientDescription")} guideUrl={userGuideUrl}>
+    <ToolPage icon={<ScissorOutlined />} toolKey="textSplitter" description={tSplitter("clientDescription")} guideUrl={userGuideUrl}>
       <TextSplitter />
     </ToolPage>
   );

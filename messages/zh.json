@@ -3,7 +3,7 @@
     "userGuide": "使用说明",
     "privacyNotice": "您的 API 密钥及数据仅存储在本地浏览器，确保隐私安全。如有问题或建议，欢迎通过社群或反馈页面联系我们。",
     "dragAndDropText": "点击或将文件拖拽至此上传",
-    "supportedFormats": "支持格式：",
+    "supportedFormats": "支持的格式：",
     "configuration": "配置选项",
     "operation": "操作",
     "optional": "可选",
@@ -25,7 +25,7 @@
     "charLabel": "字符",
     "lineLabel": "行",
     "advancedSettings": "高级设置",
-    "singleFileModeTooltip": "仅保留一个文件，新上传的文件会替换当前文件",
+    "singleFileModeTooltip": "每次只处理一个文件，上传新文件时自动替换",
     "singleFileMode": "单文件模式",
     "hideResultsTooltip": "隐藏结果预览，避免大量内容导致页面卡顿",
     "hideResults": "隐藏结果预览",
@@ -39,13 +39,18 @@
     "multiLanguageModeTooltip": "同时翻译为多种语言，分别保存为独立文件",
     "translate": "开始翻译",
     "totalLanguages": "目标语言数：",
-    "resetUpload": "清空",
     "resetUploadTooltip": "清空当前输入内容和已上传文件",
     "resetUploadSuccess": "已清空",
     "extractText": "提取纯文本",
     "translationResult": "翻译结果",
     "copy": "复制",
     "remove": "删除",
+    "format": "格式化",
+    "formatTooltip": "格式化：移除空行及首尾空格",
+    "resultToSource": "结果 ➔ 原文",
+    "resultToSourceTooltip": "将结果文本覆盖到输入框",
+    "readOnlyMode": "只读模式",
+    "readOnlyModeTooltip": "文本过长，为保证页面性能已自动切换为只读模式",
     "exportFile": "导出",
     "exportAllFile": "导出所有文件",
     "exportedFile": "已导出",
@@ -94,8 +99,8 @@
     "settingsApplied": "设置已应用",
     "retryCount": "重试次数",
     "retryCountTooltip": "翻译失败时的重试次数",
-    "retryTimeout": "超时时间",
-    "retryTimeoutTooltip": "单次请求的最大等待时间（秒）。LLM 思考耗时较长，建议 180 秒以上",
+    "requestTimeoutSec": "超时时间",
+    "requestTimeoutSecTooltip": "单次请求的最大等待时间（秒）。LLM 思考耗时较长，建议 180 秒以上",
     "customExportFilename": "导出文件名格式",
     "customExportFilenameTooltip": "'{'name'}' = 原始文件名, '{'lang'}' = 语言, '{'ext'}' = 扩展名, '{'date'}' = 日期, '{'time'}' = 时间",
     "partialFailureTitle": "翻译失败 {count} 行",
@@ -112,12 +117,19 @@
     "apiStatusConnected": "✓ 已连接",
     "apiStatusFailed": "连接失败",
     "testConnection": "测试连接",
-    "moreProviderSettings": "更多 Provider 设置"
+    "moreProviderSettings": "更多 Provider 设置",
+    "clearInputTooltip": "清空输入内容和上传的文件",
+    "fileExported": "已导出文件：{fileName}",
+    "exportSuccess": "导出成功：{fileName}",
+    "batchDownloaded": "处理完成，文件已自动下载",
+    "sourceTextPlaceholder": "请输入或粘贴待处理文本...",
+    "smartLineBreak": "智能换行",
+    "replaceText": "替换文本",
+    "generateJson": "生成 JSON",
+    "gtxFreeAPIUnavailable": "GTX Free 接口当前不可用，请检查您的网络连接",
+    "translategemmaUnavailable": "TranslateGemma 节点不可用，请确认本地服务器（LM Studio / llama.cpp / Ollama）已启动且 URL 正确"
   },
-  "text-splitter": {
-    "title": "文本分割工具 | 智能拆分长文本，适配 AI 输入与社交发布",
-    "description": "长文本超出 AI 输入限制？不仅支持按字符分割，还能智能识别中英文段落。适配 ChatGPT、微博等字数限制，支持自定义分隔符与批量导出，快速解决文本分段难题！",
-    "clientTitle": "文本分割工具",
+  "TextSplitter": {
     "clientDescription": "智能拆分长文本，支持按字符数或整句分段，适用于 AI 输入、社交媒体发布和文档编辑。对于非 UTF-8 编码文本（如部分法语文件），请直接上传文件，系统将自动识别编码以避免乱码。",
     "noExportableText": "未检测到可导出内容，请检查输入",
     "splitCharacterCount": "分割字符数",
@@ -142,66 +154,50 @@
     "mergeText": "合并所有分段（用两个换行符分隔）",
     "exportMergedText": "导出合并文本",
     "exportIndividualFiles": "批量导出每个分割段为独立文本文件",
-    "batchExport": "批量导出",
-    "faq1q": "ChatGPT、Claude、Gemini 等 AI 模型和翻译工具的字符限制是多少？",
-    "faq1a": "AI 模型上下文限制（以 token 为单位）：ChatGPT GPT-4o 约 128K、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K。中文约 1-2 字/token（Claude 更宽松），英文约 4 字符/token。翻译工具限制：Google Translate 和 DeepL 免费版均为 5000 字符/次。设置「分割字符数」按目标 AI 或 API 的容量上限留出缓冲。",
-    "faq2q": "Twitter、微博、小红书等社交平台的长文怎么一键分段发布？",
-    "faq2a": "各平台限制：Twitter 280 字、Threads 500 字、微博 140 字（中文 1 字算 1 字）、小红书正文 1000 字、豆瓣广播 140 字、LinkedIn 3000 字。中文用「中文分段」模式、英文用「英文分段」模式，保留句子完整。批量导出为独立文件可按序号 1/N、2/N 依次发布。",
-    "faq3q": "中英混排、法语/日语等非 UTF-8 编码的长文本怎么处理？",
-    "faq3a": "中英混排用「中文分段」模式可同时识别中文（。！？）和英文（. ! ?）句末标点，不会在单词中间切断。自定义分隔符支持 \\\\n\\\\n（双换行）、\\\\t（制表符）等转义。法语（GBK）、日语（Shift-JIS）、韩语（EUC-KR）等非 UTF-8 文件请直接上传（而非粘贴），工具会自动检测编码避免乱码。"
+    "batchExport": "批量导出"
   },
   "tools": {
-    "subtitleTranslator": {
-      "title": "字幕翻译器",
-      "description": "批量翻译 SRT、ASS、VTT、LRC 字幕，支持 50+ 语言"
-    },
-    "jsonTranslate": {
-      "title": "i18n JSON 翻译",
-      "description": "高效的多语言 JSON 翻译工具"
-    },
-    "mdTranslator": {
-      "title": "Markdown 翻译",
-      "description": "批量翻译 Markdown 文档，保留格式和代码"
-    },
     "textSplitter": {
       "title": "文本分割",
-      "description": "智能分割长文本，适用于 AI 输入和社交媒体"
-    },
-    "jsonValueExtractor": {
-      "title": "JSON 值提取",
-      "description": "批量提取 JSON 字段值，支持格式化输出"
-    },
-    "jsonNodeEdit": {
-      "title": "JSON 批量编辑",
-      "description": "批量编辑 JSON 节点值，支持前后缀和替换"
-    },
-    "jsonValueTransformer": {
-      "title": "JSON 键值映射",
-      "description": "字段值映射和迁移，支持 JSONPath 定位"
-    },
-    "jsonValueSwapper": {
-      "title": "JSON 键值互换",
-      "description": "一键交换两个字段的值"
-    },
-    "jsonNodeInserter": {
-      "title": "JSON 节点插入",
-      "description": "在指定位置批量插入新节点"
-    },
-    "jsonSortClassify": {
-      "title": "JSON 排序分类",
-      "description": "数组排序和分组，支持自定义规则"
-    },
-    "jsonMatchUpdate": {
-      "title": "JSON 匹配更新",
-      "description": "根据字段匹配批量更新数据"
-    },
-    "dataParserFlare": {
-      "title": "Flare 书签转换",
-      "description": "浏览器书签与 Flare 格式互转"
-    },
-    "dataParserImgPrompt": {
-      "title": "IMGPrompt 数据生成",
-      "description": "批量生成 IMGPrompt JSON 数据"
+      "description": "智能分割长文本，适用于 AI 输入和社交媒体",
+      "metaTitle": "文本分割工具 | 长文本智能拆分适配 ChatGPT、Twitter",
+      "metaDescription": "长文本超出 AI 输入限制？不仅支持按字符分割，还能智能识别中英文段落。适配 ChatGPT、微博等字数限制，支持自定义分隔符与批量导出，快速解决文本分段难题！",
+      "faq": [
+        {
+          "q": "ChatGPT、Claude、Gemini 等 AI 模型和翻译工具的字符限制是多少？",
+          "a": "AI 模型上下文限制（以 token 为单位）：ChatGPT GPT-4o 约 128K、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K。中文约 1-2 字/token（Claude 更宽松），英文约 4 字符/token。翻译工具限制：Google Translate 和 DeepL 免费版均为 5000 字符/次。设置「分割字符数」按目标 AI 或 API 的容量上限留出缓冲。"
+        },
+        {
+          "q": "Twitter、微博、小红书等社交平台的长文怎么一键分段发布？",
+          "a": "各平台限制：Twitter 280 字、Threads 500 字、微博 140 字（中文 1 字算 1 字）、小红书正文 1000 字、豆瓣广播 140 字、LinkedIn 3000 字。中文用「中文分段」模式、英文用「英文分段」模式，保留句子完整。批量导出为独立文件可按序号 1/N、2/N 依次发布。"
+        },
+        {
+          "q": "中英混排、法语/日语等非 UTF-8 编码的长文本怎么处理？",
+          "a": "中英混排用「中文分段」模式可同时识别中文（。！？）和英文（. ! ?）句末标点，不会在单词中间切断。自定义分隔符支持 \\\\n\\\\n（双换行）、\\\\t（制表符）等转义。法语（GBK）、日语（Shift-JIS）、韩语（EUC-KR）等非 UTF-8 文件请直接上传（而非粘贴），工具会自动检测编码避免乱码。"
+        }
+      ],
+      "howto": [
+        {
+          "name": "输入长文本到工具",
+          "text": "粘贴超长文本（小说章节、演讲稿、论文）或上传 TXT 文件。法语 GBK、日语 Shift-JIS 等非 UTF-8 文件请直接上传以自动识别编码。"
+        },
+        {
+          "name": "根据 AI 模型或平台设置字符数",
+          "text": "ChatGPT 免费版 4000、Plus 32000、Claude 200K、Gemini 1M；微博 140、Twitter 280、小红书 1000；翻译工具 5000。工具在段落边界分割不切断句子。"
+        },
+        {
+          "name": "导出为 AI 输入或社交发布",
+          "text": "复制单段内容直接粘贴到 ChatGPT/Claude/Gemini。批量导出为独立文件按 1/N、2/N 编号，方便按顺序发布到 Twitter/微博/小红书。合并导出用于保存为整理后的长文。"
+        }
+      ],
+      "features": [
+        "AI 模型上下文限制：ChatGPT GPT-4o 128K tokens、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K",
+        "社交平台字数模板：Twitter 280、微博 140、小红书 1000、Threads 500",
+        "中英混排智能识别中文（。！？）和英文（. ! ?）句末标点",
+        "非 UTF-8 文件自动识别（GBK、Shift-JIS、EUC-KR）避免乱码",
+        "自定义分隔符支持 \\\\n\\\\n、\\\\t 等转义字符",
+        "批量导出带 1/N、2/N 编号，方便顺序发布"
+      ]
     }
   },
   "navigation": {
@@ -220,6 +216,87 @@
     "homeDescription": "20+ 实用工具，涵盖多语言翻译、文本处理、JSON 编辑和数据转换，助力开发者和创作者提升效率。",
     "ogTitle": "ToolsByAI | 免费开源的 AI 翻译与数据处理工具集",
     "ogDescription": "寻找高效开发工具？ToolsByAI 汇集字幕翻译、i18n 处理等 20+ 款免费开源应用。接入 DeepSeek 等主流模型，支持批量处理且数据隐私安全，立即开启 AI 提效之旅！"
+  },
+  "languages": {
+    "auto": "自动检测",
+    "en": "英语",
+    "zh": "中文",
+    "zh-hant": "繁体中文",
+    "pt-br": "葡萄牙语（巴西）",
+    "pt-pt": "葡萄牙语（葡萄牙）",
+    "it": "意大利语",
+    "de": "德语",
+    "ru": "俄语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "ja": "日语",
+    "ko": "韩语",
+    "ar": "阿拉伯语",
+    "tr": "土耳其语",
+    "pl": "波兰语",
+    "uk": "乌克兰语",
+    "nl": "荷兰语",
+    "el": "希腊语",
+    "hu": "匈牙利语",
+    "sv": "瑞典语",
+    "da": "丹麦语",
+    "fi": "芬兰语",
+    "cs": "捷克语",
+    "sk": "斯洛伐克语",
+    "bg": "保加利亚语",
+    "sl": "斯洛文尼亚语",
+    "lt": "立陶宛语",
+    "lv": "拉脱维亚语",
+    "ro": "罗马尼亚语",
+    "et": "爱沙尼亚语",
+    "id": "印尼语",
+    "ms": "马来语",
+    "hi": "印地语",
+    "bn": "孟加拉语",
+    "vi": "越南语",
+    "nb": "挪威语",
+    "he": "希伯来语",
+    "th": "泰语",
+    "fil": "菲律宾语(塔加拉语)",
+    "uz": "乌兹别克语",
+    "ky": "吉尔吉斯语",
+    "tk": "土库曼语",
+    "kk": "哈萨克语",
+    "bho": "博杰普尔语",
+    "kn": "卡纳达语",
+    "am": "阿姆哈拉语",
+    "gu": "古吉拉特语",
+    "jv": "爪哇语",
+    "fa": "波斯语",
+    "ta": "泰米尔语",
+    "sw": "斯瓦希里语",
+    "ha": "豪萨语",
+    "te": "泰卢固语",
+    "mr": "马拉地语",
+    "ur": "乌尔都语",
+    "hr": "克罗地亚语",
+    "ug": "维吾尔语",
+    "lo": "老挝语",
+    "sr": "塞尔维亚语",
+    "bs": "波斯尼亚语",
+    "sq": "阿尔巴尼亚语",
+    "mk": "马其顿语",
+    "af": "南非荷兰语",
+    "az": "阿塞拜疆语",
+    "be": "白俄罗斯语",
+    "hy": "亚美尼亚语",
+    "ka": "格鲁吉亚语",
+    "is": "冰岛语",
+    "mt": "马耳他语",
+    "ca": "加泰罗尼亚语",
+    "ml": "马拉雅拉姆语",
+    "si": "僧伽罗语",
+    "pa": "旁遮普语",
+    "ne": "尼泊尔语",
+    "my": "缅甸语",
+    "mn": "蒙古语",
+    "tg": "塔吉克语",
+    "yue": "粤语"
   },
   "CopyToClipboard": {
     "empty": "内容为空，无需复制",

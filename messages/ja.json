@@ -39,8 +39,7 @@
     "multiLanguageModeTooltip": "同時に複数の言語に翻訳し、それぞれ独立したファイルとして保存します",
     "translate": "翻訳開始",
     "totalLanguages": "翻訳先言語数：",
-    "resetUpload": "クリア",
-    "resetUploadTooltip": "現在の入力内容とアップロードされたファイルをクリア",
+    "resetUploadTooltip": "現在の入力内容とアップロードしたファイルをクリア",
     "resetUploadSuccess": "クリアしました",
     "extractText": "テキスト抽出",
     "translationResult": "翻訳結果",
@@ -94,8 +93,8 @@
     "settingsApplied": "設定が適用されました",
     "retryCount": "リトライ回数",
     "retryCountTooltip": "翻訳失敗時のリトライ試行回数",
-    "retryTimeout": "タイムアウト",
-    "retryTimeoutTooltip": "リクエストあたりの最大待機時間（秒）。LLMの思考時間は長いため、180秒以上を推奨します。",
+    "requestTimeoutSec": "タイムアウト",
+    "requestTimeoutSecTooltip": "リクエストあたりの最大待機時間（秒）。LLMの思考時間は長いため、180秒以上を推奨します。",
     "customExportFilename": "エクスポートファイル名の形式",
     "customExportFilenameTooltip": "'{'name'}' = 元のファイル名, '{'lang'}' = 言語, '{'ext'}' = 拡張子, '{'date'}' = 日付, '{'time'}' = 時間",
     "partialFailureTitle": "{count}行の翻訳に失敗しました",
@@ -112,12 +111,25 @@
     "apiStatusConnected": "✓ 接続済み",
     "apiStatusFailed": "接続失敗",
     "testConnection": "接続テスト",
-    "moreProviderSettings": "その他のProvider設定"
+    "moreProviderSettings": "その他のProvider設定",
+    "format": "フォーマット",
+    "formatTooltip": "フォーマット：空行および先頭・末尾の空白を除去",
+    "resultToSource": "結果 ➔ 原文",
+    "resultToSourceTooltip": "結果テキストを入力欄に上書き",
+    "readOnlyMode": "読み取り専用モード",
+    "readOnlyModeTooltip": "テキストが長すぎるため、ページのパフォーマンスを確保するため自動的に読み取り専用モードに切り替わりました",
+    "clearInputTooltip": "入力内容とアップロードされたファイルをクリア",
+    "fileExported": "ファイルをエクスポートしました：{fileName}",
+    "exportSuccess": "エクスポート成功：{fileName}",
+    "batchDownloaded": "処理完了、ファイルを自動ダウンロードしました",
+    "sourceTextPlaceholder": "処理するテキストを入力または貼り付けてください...",
+    "smartLineBreak": "スマート改行",
+    "replaceText": "テキスト置換",
+    "generateJson": "JSON生成",
+    "gtxFreeAPIUnavailable": "GTX Free API は現在利用できません。ネットワーク接続を確認してください。",
+    "translategemmaUnavailable": "TranslateGemma ノードが利用できません。ローカルサーバー（LM Studio / llama.cpp / Ollama）が起動し、URL が正しいことを確認してください。"
   },
-  "text-splitter": {
-    "title": "テキスト分割ツール | AI入力・SNS用に長文を分割",
-    "description": "AIの入力制限でお困りですか？文字数や段落で長文をスマートに分割。ChatGPTやSNSの制限に対応し、テキスト結合や一括エクスポートも可能。今すぐ解決！",
-    "clientTitle": "テキスト分割ツール",
+  "TextSplitter": {
     "clientDescription": "長文をスマートに分割。文字数または完全な文での分割に対応し、AI入力、SNS投稿、ドキュメント編集に適しています。非UTF-8エンコードテキスト（一部のフランス語ファイルなど）の場合、ファイルを直接アップロードしてください。システムが自動的にエンコードを認識し、文字化けを防ぎます。",
     "noExportableText": "エクスポート可能な内容が検出されませんでした。入力を確認してください",
     "splitCharacterCount": "分割文字数",
@@ -142,66 +154,50 @@
     "mergeText": "すべての分段を結合（2つの改行で区切る）",
     "exportMergedText": "結合テキストをエクスポート",
     "exportIndividualFiles": "各分割段を独立したテキストファイルとして一括エクスポート",
-    "batchExport": "一括エクスポート",
-    "faq1q": "ChatGPT、Claude、Gemini などの AI モデルと翻訳ツールの文字制限は？",
-    "faq1a": "AI モデルコンテキスト制限（token 単位）：ChatGPT GPT-4o 約 128K、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K。日本語は約 1-2 字/token、英語は約 4 文字/token。翻訳ツール制限：Google Translate と DeepL 無料版は 5000 文字/回。「分割文字数」を目標 AI の容量制限より余裕を持って設定してください。",
-    "faq2q": "X（Twitter）、Threads、微博などの長文投稿はどう分割する？",
-    "faq2a": "プラットフォーム制限：X 280 字、Threads 500 字、微博 140 字、LinkedIn 3000 字、Bluesky 300 字。日本語混じり文は「中国語段落」モード（日中共通の句読点認識）、英文は「英文段落」モードを使用し、句読点で切れずに分割。個別ファイルとしてバッチ出力すれば 1/N、2/N の連続投稿に便利です。",
-    "faq3q": "中英混在や、フランス語・日本語の非 UTF-8 ファイルはどう処理する？",
-    "faq3a": "中英混在は「中国語段落」モードで中国語（。！？）と英語（. ! ?）の両方の文末記号を認識、単語途中で切れません。カスタム区切り文字は \\\\n\\\\n（改行2つ）や \\\\t（タブ）などのエスケープに対応。フランス語（GBK）、日本語（Shift-JIS）、韓国語（EUC-KR）の非 UTF-8 ファイルは**直接アップロード**（貼り付けでなく）すれば、エンコーディング自動検出で文字化けを防げます。"
+    "batchExport": "一括エクスポート"
   },
   "tools": {
-    "subtitleTranslator": {
-      "title": "字幕翻訳機",
-      "description": "SRT、ASS、VTT、LRC字幕を一括翻訳、50以上の言語に対応"
-    },
-    "jsonTranslate": {
-      "title": "i18n JSON翻訳",
-      "description": "効率的な多言語JSON翻訳ツール"
-    },
-    "mdTranslator": {
-      "title": "Markdown翻訳",
-      "description": "Markdownドキュメントを一括翻訳、書式とコードを保持"
-    },
     "textSplitter": {
       "title": "テキスト分割",
-      "description": "長文をスマートに分割、AI入力とSNSに最適"
-    },
-    "jsonValueExtractor": {
-      "title": "JSON値抽出",
-      "description": "JSONフィールド値を一括抽出、フォーマット出力対応"
-    },
-    "jsonNodeEdit": {
-      "title": "JSON一括編集",
-      "description": "JSONノード値を一括編集、接頭辞/接尾辞と置換に対応"
-    },
-    "jsonValueTransformer": {
-      "title": "JSONキー値マッピング",
-      "description": "フィールド値のマッピングと移行、JSONPath位置特定に対応"
-    },
-    "jsonValueSwapper": {
-      "title": "JSONキー値交換",
-      "description": "2つのフィールドの値をワンクリックで交換"
-    },
-    "jsonNodeInserter": {
-      "title": "JSONノード挿入",
-      "description": "指定位置に新規ノードを一括挿入"
-    },
-    "jsonSortClassify": {
-      "title": "JSONソート分類",
-      "description": "配列のソートとグループ化、カスタムルールに対応"
-    },
-    "jsonMatchUpdate": {
-      "title": "JSONマッチング更新",
-      "description": "フィールドマッチングに基づいてデータを一括更新"
-    },
-    "dataParserFlare": {
-      "title": "Flareブックマーク変換",
-      "description": "ブラウザブックマークとFlare形式の相互変換"
-    },
-    "dataParserImgPrompt": {
-      "title": "IMGPromptデータ生成",
-      "description": "IMGPrompt JSONデータを一括生成"
+      "description": "長文をスマートに分割、AI入力とSNSに最適",
+      "metaTitle": "テキスト分割 | ChatGPT・Claude・Twitter 用の長文分割",
+      "metaDescription": "AIの入力制限でお困りですか？文字数や段落で長文をスマートに分割。ChatGPTやSNSの制限に対応し、テキスト結合や一括エクスポートも可能。今すぐ解決！",
+      "faq": [
+        {
+          "q": "ChatGPT、Claude、Gemini などの AI モデルと翻訳ツールの文字制限は？",
+          "a": "AI モデルコンテキスト制限（token 単位）：ChatGPT GPT-4o 約 128K、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K。日本語は約 1-2 字/token、英語は約 4 文字/token。翻訳ツール制限：Google Translate と DeepL 無料版は 5000 文字/回。「分割文字数」を目標 AI の容量制限より余裕を持って設定してください。"
+        },
+        {
+          "q": "X（Twitter）、Threads、Bluesky、note などの長文投稿はどう分割する？",
+          "a": "プラットフォーム制限：X 280 字、Threads 500 字、Bluesky 300 字、LinkedIn 3000 字、note（記事）5000 字、LINE オープンチャット 1000 字。日本語混じり文は「中国語段落」モード（日中共通の句読点認識）、英文は「英文段落」モードを使用し、句読点で切れずに分割。個別ファイルとしてバッチ出力すれば 1/N、2/N の連続投稿に便利です。"
+        },
+        {
+          "q": "中英混在や、フランス語・日本語の非 UTF-8 ファイルはどう処理する？",
+          "a": "中英混在は「中国語段落」モードで中国語（。！？）と英語（. ! ?）の両方の文末記号を認識、単語途中で切れません。カスタム区切り文字は \\\\n\\\\n（改行2つ）や \\\\t（タブ）などのエスケープに対応。フランス語（GBK）、日本語（Shift-JIS）、韓国語（EUC-KR）の非 UTF-8 ファイルは**直接アップロード**（貼り付けでなく）すれば、エンコーディング自動検出で文字化けを防げます。"
+        }
+      ],
+      "howto": [
+        {
+          "name": "長いテキストをツールに入力",
+          "text": "長大なテキスト（小説章、演説原稿、論文）を貼り付けまたは TXT ファイルをアップロード。フランス語 GBK、日本語 Shift-JIS などの非 UTF-8 ファイルは直接アップロードでエンコーディング自動検出。"
+        },
+        {
+          "name": "AI モデルやプラットフォームに応じた文字数を設定",
+          "text": "ChatGPT 無料版 4000、Plus 32K、Claude 20 万、Gemini 100 万；X 280、Threads 500、Bluesky 300、note 5000；翻訳ツールの上限を踏まえて分割文字数を設定。"
+        },
+        {
+          "name": "AI 入力や SNS 投稿用にエクスポート",
+          "text": "個別セグメントをコピーして ChatGPT/Claude/Gemini に直接貼り付け。1/N、2/N の番号付き個別ファイルとしてバッチ出力し、X/Threads/Bluesky/note で順次投稿に便利。マージ出力は整理済み長文の保存用。"
+        }
+      ],
+      "features": [
+        "AI モデルコンテキスト制限：ChatGPT GPT-4o 128K tokens、Claude 3.5/3.7 Sonnet 20 万、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K",
+        "SNS プラットフォーム文字数テンプレート：X 280、Threads 500、Bluesky 300、note 5000、LINE オープンチャット 1000",
+        "中英混在文の中国語（。！？）と英語（. ! ?）句読点自動認識",
+        "非 UTF-8 ファイル自動検出（GBK、Shift-JIS、EUC-KR）で文字化け防止",
+        "カスタム区切り文字：\\\\n\\\\n、\\\\t などエスケープ対応",
+        "1/N、2/N 番号付きバッチ出力で順次投稿に便利"
+      ]
     }
   },
   "navigation": {
@@ -220,6 +216,87 @@
     "homeDescription": "20+ ツール。多言語翻訳、テキスト処理、JSONデータ変換など、開発者とクリエイターの効率向上を支援。",
     "ogTitle": "ToolsByAI | 無料で使えるAI翻訳＆データ処理ツール集",
     "ogDescription": "効率的な開発ツールをお探しですか？ToolsByAIは字幕翻訳やJSON編集など20+の無料アプリを提供。DeepSeekなどのAI搭載、安全なローカル処理。今すぐ体験！"
+  },
+  "languages": {
+    "auto": "自動検出",
+    "en": "英語",
+    "zh": "中国語",
+    "zh-hant": "繁体字中国語",
+    "pt-br": "ポルトガル語（ブラジル）",
+    "pt-pt": "ポルトガル語（ポルトガル）",
+    "it": "イタリア語",
+    "de": "ドイツ語",
+    "ru": "ロシア語",
+    "es": "スペイン語",
+    "fr": "フランス語",
+    "ja": "日本語",
+    "ko": "韓国語",
+    "ar": "アラビア語",
+    "tr": "トルコ語",
+    "pl": "ポーランド語",
+    "uk": "ウクライナ語",
+    "nl": "オランダ語",
+    "el": "ギリシャ語",
+    "hu": "ハンガリー語",
+    "sv": "スウェーデン語",
+    "da": "デンマーク語",
+    "fi": "フィンランド語",
+    "cs": "チェコ語",
+    "sk": "スロバキア語",
+    "bg": "ブルガリア語",
+    "sl": "スロベニア語",
+    "lt": "リトアニア語",
+    "lv": "ラトビア語",
+    "ro": "ルーマニア語",
+    "et": "エストニア語",
+    "id": "インドネシア語",
+    "ms": "マレー語",
+    "hi": "ヒンディー語",
+    "bn": "ベンガル語",
+    "vi": "ベトナム語",
+    "nb": "ノルウェー語",
+    "he": "ヘブライ語",
+    "th": "タイ語",
+    "fil": "フィリピン語（タガログ語）",
+    "uz": "ウズベク語",
+    "ky": "キルギス語",
+    "tk": "トルクメン語",
+    "kk": "カザフ語",
+    "bho": "ボージュプリー語",
+    "kn": "カンナダ語",
+    "am": "アムハラ語",
+    "gu": "グジャラート語",
+    "jv": "ジャワ語",
+    "fa": "ペルシャ語",
+    "ta": "タミル語",
+    "sw": "スワヒリ語",
+    "ha": "ハウサ語",
+    "te": "テルグ語",
+    "mr": "マラーティー語",
+    "ur": "ウルドゥー語",
+    "hr": "クロアチア語",
+    "ug": "ウイグル語",
+    "lo": "ラオ語",
+    "sr": "セルビア語",
+    "bs": "ボスニア語",
+    "sq": "アルバニア語",
+    "mk": "マケドニア語",
+    "af": "アフリカーンス語",
+    "az": "アゼルバイジャン語",
+    "be": "ベラルーシ語",
+    "hy": "アルメニア語",
+    "ka": "グルジア語",
+    "is": "アイスランド語",
+    "mt": "マルタ語",
+    "ca": "カタルーニャ語",
+    "ml": "マラヤーラム語",
+    "si": "シンハラ語",
+    "pa": "パンジャブ語",
+    "ne": "ネパール語",
+    "my": "ビルマ語",
+    "mn": "モンゴル語",
+    "tg": "タジク語",
+    "yue": "広東語"
   },
   "CopyToClipboard": {
     "empty": "内容が空です。コピーする必要はありません",

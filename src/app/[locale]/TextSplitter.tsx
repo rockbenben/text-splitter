@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import PageCard from "@/app/components/styled/PageCard";
+import SourceArea from "@/app/components/SourceArea";
 import { Typography, Upload, Button, Input, InputNumber, App, Form, Tooltip, Space, theme, Flex, Spin, Row, Col, Segmented, Alert, Switch, Divider } from "antd";
 import { FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, SettingOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
 import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage, escapeRegExp, getFileTypePresetConfig } from "@/app/utils";
@@ -11,14 +12,13 @@ import { useTextStats } from "@/app/hooks/useTextStats";
 import { useTranslations } from "next-intl";
 import { saveAs } from "file-saver";
 
-const { TextArea } = Input;
 const { Dragger } = Upload;
-const { Title, Paragraph, Text } = Typography;
+const { Title, Paragraph } = Typography;
 
 const uploadFileTypes = getFileTypePresetConfig("richText");
 
 const TextSplitter = () => {
-  const tSplitter = useTranslations("text-splitter");
+  const tSplitter = useTranslations("TextSplitter");
   const t = useTranslations("common");
   const { copyToClipboard } = useCopyToClipboard();
   const { token } = theme.useToken();
@@ -284,8 +284,8 @@ const TextSplitter = () => {
                     message.success(t("resetUploadSuccess"));
                   }}
                   icon={<ClearOutlined />}
-                  aria-label={t("resetUpload")}>
-                  {t("resetUpload")}
+                  aria-label={t("clearAll")}>
+                  {t("clearAll")}
                 </Button>
               </Tooltip>
             }>
@@ -305,23 +305,14 @@ const TextSplitter = () => {
                 {t("supportedFormats")} {uploadFileTypes.formatLabel({ maxVisible: 5 })}
               </p>
             </Dragger>
-            <TextArea
+            <SourceArea
+              sourceText={sourceText}
+              setSourceText={setSourceText}
+              stats={sourceStats}
               placeholder={t("pasteUploadContent")}
-              value={sourceStats.isEditable ? sourceText : sourceStats.displayText}
-              onChange={sourceStats.isEditable ? (e) => setSourceText(e.target.value) : undefined}
-              rows={8}
+              ariaLabel={t("sourceArea")}
               className="mt-1"
-              allowClear
-              readOnly={!sourceStats.isEditable}
-              aria-label={t("sourceArea")}
             />
-            {sourceText && (
-              <Flex justify="end" className="mt-2">
-                <Typography.Text type="secondary" className="!text-xs">
-                  {sourceStats.charCount} {t("charLabel")} / {sourceStats.lineCount} {t("lineLabel")}
-                </Typography.Text>
-              </Flex>
-            )}
           </PageCard>
         </Col>
 
@@ -365,7 +356,7 @@ const TextSplitter = () => {
                       value={limit ?? null}
                       onChange={(value) => setLimit(value ?? 0)}
                       placeholder="2000"
-                      addonAfter={t("charLabel")}
+                      suffix={t("charLabel")}
                       className="!w-full"
                       aria-label={tSplitter("splitCharacterCount")}
                     />
@@ -430,10 +421,10 @@ const TextSplitter = () => {
         {mode === "count" && (!limit || limit === 0)
           ? tSplitter("splitBySymbol")
           : mode === "cn-paragraph"
-          ? tSplitter("splitByChineseParagraph")
-          : mode === "en-paragraph"
-          ? tSplitter("splitByEnglishParagraph")
-          : tSplitter("splitText")}
+            ? tSplitter("splitByChineseParagraph")
+            : mode === "en-paragraph"
+              ? tSplitter("splitByEnglishParagraph")
+              : tSplitter("splitText")}
       </Button>
 
       {splittedTexts.length > 0 && (
