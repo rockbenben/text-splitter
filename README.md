@@ -13,105 +13,99 @@
   <a href="https://tools.newzone.top/en/text-splitter"><img src="https://img.shields.io/badge/Live%20Demo-text--splitter-blue" alt="Live Demo"></a>
 </p>
 
-**Text Splitter** is a powerful long text processing tool designed for scenarios like ChatGPT, DeepSeek and other AI model optimization, document editing, and social media content management. It supports **three splitting modes**: character count split, custom delimiter split, and Chinese paragraph split, along with advanced features such as escape character support, batch export, and ZIP packaging for efficient and convenient text processing.
+**Text Splitter** is a powerful long text processing tool designed for scenarios like ChatGPT, DeepSeek, Claude and other AI model optimization, document editing, and social media content management. It offers **three splitting modes** — By Length, Chinese Paragraph, and English Paragraph — selected via a Segmented control, along with delimiter-aware boundaries, escape character support, batch export, and ZIP packaging for efficient text processing. Everything runs entirely in your browser — no servers, no uploads.
 
 👉 **Try it online**: <https://tools.newzone.top/en/text-splitter>
 
+![Text Splitter interface](./public/img/text-splitter-en.webp "Text Splitter interface")
+
 ## Key Features
 
-- **Three Splitting Modes**: Character count, custom delimiter, and intelligent Chinese paragraph splitting
-- **Smart Recognition**: Supports single-character and multi-character delimiters with automatic semantic preservation
+- **Three Splitting Modes**: By Length, Chinese Paragraph, and English Paragraph, switched with a Segmented control that only shows the active mode's settings
+- **Delimiter-Aware Boundaries**: An always-visible delimiter field (no toggle) snaps length-based cuts to sentence boundaries so text isn't cut mid-sentence
+- **Quick Delimiter Presets**: One-click "CJK" (`。 ？ ！`) and "Latin" (`. ? !`) buttons
 - **Escape Character Support**: `\n` (newline), `\r` (carriage return), `\t` (tab), `\s` (space), `\\` (backslash)
-- **Batch Export**: Export all segments at once, automatically packaged as ZIP
-- **Quick Copy**: One-click copy of any segment for immediate use
-- **Performance Optimization**: Virtualized rendering for smooth handling of large texts
+- **Batch Export**: ≤ 3 segments download individually; > 3 are automatically packaged as a ZIP
+- **Merged Export**: Combine all segments into one file separated by double newlines
+- **Quick Copy**: One-click copy of any segment, with a checkmark confirmation
+- **Performance Friendly**: Preview auto-hides above 500 segments to keep the page responsive (export still works)
+- **Fully Local**: Runs entirely in your browser, so even million-character files stay private
+
+## How to Use
+
+1. Paste or upload your long text (drag in a text file).
+2. Pick a **mode**:
+   - Fixed-size chunks (for AI input) → **By Length**
+   - Long Chinese text by paragraph → **Chinese Paragraph**
+   - English text by sentence → **English Paragraph**
+3. To align cuts to delimiters (`. ? !` etc.), fill in the delimiter field.
+4. Click **Process** — segments download as individual files (≤ 3) or a ZIP bundle (> 3).
 
 ## Three Splitting Modes
 
-### 1. Character Count Split Mode
+Modes are picked via the Segmented control at the top of the Configuration card. Each mode shows only its own settings, so the panel stays focused.
 
-Set the maximum number of characters per text segment in the "Split Character Count" input box (default: 2000 characters). The system will split the text based on the specified length, suitable for scenarios that require control over text size.
+### 1. By Length
 
-**Special Feature**: If the input is left empty or set to 0, and custom delimiter splitting is enabled, the system will only split by delimiter with no character limit.
+Chunks text into blocks of a given character count (default: 2000 — a reasonable size for LLM context windows). The **delimiter** input is **always visible**, and whether it activates is purely determined by whether the field has a value — no extra toggle needed:
 
-### 2. Custom Delimiter Split Mode
+- **Length > 0 + delimiter filled**: chunk by length, snapping boundaries to the nearest delimiter so sentences aren't cut mid-way
+- **Length > 0 + delimiter empty**: hard chunk by length, ignoring sentence boundaries
+- **Length = 0 (or empty) + delimiter filled**: ignore length entirely — split at every delimiter occurrence (delimiter is required)
+- **Length = 0 + delimiter empty**: invalid — at least one must be set
 
-- **Mixed Splitting**: Combines character count limits with delimiter-based splitting, searching for appropriate delimiters near the split point to preserve semantic integrity
-- **Pure Delimiter Splitting**: If character count is left empty, the system will split only by delimiter with no character limit
-- **Smart Recognition**: Supports single-character delimiters (e.g., `。`) and multi-character delimiters (e.g., `\n\n`)
-- **Delimiter Retention**: Each split segment retains the delimiter at the end of the paragraph
+The delimiter input accepts:
 
-**Quick Settings**:
+- Manual entry, e.g. `。 ？ ！` (separate multiple delimiters with a space)
+- Click **CJK** to fill `。 ？ ！`
+- Click **Latin** to fill `. ? !`
+- Escape sequences: `\n`, `\r`, `\t`, `\s`, `\\`
 
-- Chinese Sentence Endings: `。 ？ ！`
-- English Sentence Endings: `. ? !`
+Delimiter splits keep the delimiter at the end of each segment.
 
-**Escape Character Support**: `\n` (newline), `\r` (carriage return), `\t` (tab), `\s` (space), `\\` (backslash)
+### 2. Chinese Paragraph
 
-### 3. Chinese Paragraph Split Mode
+Detects Chinese paragraph boundaries using punctuation and line-break rules; paragraph interiors are preserved. Designed for Chinese articles, blog posts, and other content where paragraph integrity matters.
 
-Click the "Split by Chinese Paragraph" button to use an intelligent paragraph recognition algorithm to split Chinese text naturally by line breaks. Designed for Chinese articles, blog content, and other texts where paragraph integrity is important.
+### 3. English Paragraph
 
-## Advanced Feature Settings
+Uses an English sentence algorithm (compromise NLP library) to detect paragraph boundaries. Good for documents, emails, and papers.
 
-### Performance Optimization Options
+## Shared Settings
 
-- **Virtualized Rendering**: Enabled by default; recommended to keep on for smooth scrolling with large texts
-- **Disable** if needed (not recommended for large texts)
+All modes share these:
 
-### Export File Name
-
-Customize the base name for exported files (default: `text_chunk_`). Exported files will be automatically numbered, e.g., `text_chunk_1.txt`, `text_chunk_2.txt`, etc.
+- **Hide Results**: when there are many segments (auto-triggers above 500), enable this to hide the preview and keep the page responsive. Export still works regardless of visibility.
+- **Export Filename**: base name for exported files. Defaults to the uploaded file's name, or `split_text` if nothing was uploaded. A `.txt` suffix is added unless you type another.
 
 ## Export and Copy Functions
 
-### Smart Batch Export
+- **Export Merged Text**: combine all segments into a single file, separated by double newlines.
+- **Batch Export**: ≤ 3 segments download individually; > 3 are bundled into a single `<filename>_split_files.zip` automatically.
+- **Per-Segment Copy**: each segment card has a copy button; the icon flips to a checkmark on success.
 
-Click the **"Export All"** button to:
+## Common Patterns
 
-- Export all text segments at once
-- Automatically package as ZIP file
-- Preserve original file encoding
+- **LLM Context Prep**: length 2000–4000 with delimiters `。 ？ ！` or `. ? !` — boundaries auto-snap to sentence ends
+- **Sentence-Level Split**: length 0 + delimiters `。 ？ ！` (or `. ? !`) — one split at each delimiter
+- **Paragraph-Level Split**: use Chinese Paragraph or English Paragraph mode
+- **Code / Markdown Split**: By Length mode with delimiter `\n\n` (literal `\n` supported)
 
-### Quick Copy Function
+## FAQ
 
-Each text segment has a **"Copy"** button for instant clipboard access.
+**What's the difference between the three splitting modes?** "By Length" chunks text into blocks of a fixed character count (default 2000) and snaps boundaries to a delimiter if one is provided. "Chinese Paragraph" / "English Paragraph" run language-aware sentence detection — Chinese uses punctuation rules, English uses the compromise NLP library. Pick whichever matches your input language.
 
-## Use Cases & Recommendations
+**Why is there no length toggle for delimiter-only splitting?** Delimiter activation is implicit — purely controlled by whether the delimiter field has a value. Length > 0 + delimiter filled = chunk + snap. Length > 0 + delimiter empty = hard chunk. Length = 0 + delimiter filled = split at every delimiter (length ignored). Length = 0 + delimiter empty = error.
 
-### AI Model Input Optimization
+**When does batch export package as ZIP?** Above 3 segments. ≤ 3 segments download as individual files; > 3 are bundled into a single `<filename>_split_files.zip` to avoid spamming your downloads folder.
 
-**Scenario**: Large documents need to be split to fit AI model input limits (e.g., ChatGPT, DeepSeek)
+**Why does the preview hide automatically sometimes?** When the result exceeds 500 segments, the preview is auto-hidden to keep the page responsive. Click "Show Anyway" to render it, or just use the export buttons (which work regardless of visibility). You can also force-hide via the "Hide results" toggle in the config.
 
-**Recommended Settings**:
-
-- **Character Count**: Set based on model limits (e.g., 2000 characters)
-- **Delimiter**: Use sentence endings (`。` for Chinese, `.` for English) to preserve semantic completeness
-- **Mode**: Mixed splitting for optimal semantic integrity
-
-### Social Media Content
-
-**Scenario**: Long articles split for multi-post sharing (e.g., Twitter threads, WeChat moments)
-
-**Recommended Settings**:
-
-- **Character Count**: Set to platform limits (e.g., 280 for Twitter, 2000 for WeChat)
-- **Delimiter**: Use paragraph breaks (`\n\n` or `。`) for natural flow
-- **Export**: Use batch export for all segments
-
-### Document Editing
-
-**Scenario**: Chapters, sections, or paragraph reorganization
-
-**Recommended Settings**:
-
-- **Chinese Text**: Use "Chinese Paragraph Split" mode for natural paragraph boundaries
-- **Other Text**: Use custom delimiter split with `\n\n` for paragraph breaks
-- **Export**: Batch export to ZIP for organized file management
+**Is anything uploaded?** No. The tool runs entirely in your browser — no servers, no uploads. Process even million-character files without bandwidth concerns.
 
 ## Documentation & Deployment
 
-For detailed usage instructions and deployment guides, see the **[Official Documentation](https://docs.newzone.top/en/guide/tools/text-splitter.html)**.
+For detailed usage instructions and deployment guides, see the **[Official Documentation](https://docs.newzone.top/en/guide/text/text-splitter.html)**.
 
 ## Contributing
 
