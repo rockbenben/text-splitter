@@ -10,7 +10,7 @@ import ToolPage from "@/app/components/styled/ToolPage";
 const ClientPage = () => {
   const tSplitter = useTranslations("TextSplitter");
   const locale = useLocale();
-  const userGuideUrl = getDocUrl("guide/tools/text-splitter.html", locale);
+  const userGuideUrl = getDocUrl("guide/text/text-splitter.html", locale);
 
   return (
     <ToolPage icon={<ScissorOutlined />} toolKey="textSplitter" description={tSplitter("clientDescription")} guideUrl={userGuideUrl}>
