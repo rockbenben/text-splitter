@@ -117,7 +117,7 @@
     "resultToSource": "Hasil ➔ Sumber",
     "resultToSourceTooltip": "Timpa kotak input dengan teks hasil",
     "readOnlyMode": "Mode Hanya-Baca",
-    "readOnlyModeTooltip": "Teks terlalu panjang, otomatis beralih ke mode hanya-baca untuk menjaga performa halaman",
+    "readOnlyModeTooltip": "Teks terlalu panjang: editor sementara hanya-baca dan hanya menampilkan pratinjau sebagian. Konten lengkap Anda tidak terpengaruh — pemrosesan dan ekspor tetap menggunakan seluruh teks.",
     "clearInputTooltip": "Bersihkan konten input dan file yang diunggah",
     "fileExported": "File diekspor: {fileName}",
     "exportSuccess": "Ekspor berhasil: {fileName}",
@@ -143,7 +143,8 @@
     "langPresetIndian": "Anak Benua India",
     "selectedCount": "{count} dipilih",
     "recentLanguages": "Terbaru",
-    "langGroupAmericasOceania": "Amerika & Oseania"
+    "langGroupAmericasOceania": "Amerika & Oseania",
+    "relatedTools": "Alat Terkait"
   },
   "TextSplitter": {
     "clientDescription": "Membagi teks panjang dengan cerdas. Berdasarkan karakter atau kalimat. Ideal untuk AI, media sosial, pengeditan. Untuk teks non-UTF-8 (mis: beberapa file Prancis), unggah file secara langsung untuk deteksi pengkodean otomatis.",
@@ -176,20 +177,28 @@
     "textSplitter": {
       "title": "Pemisah Teks",
       "description": "Pemisahan teks panjang cerdas untuk AI dan media sosial",
-      "metaTitle": "Pemisah Teks | Chunker Cerdas untuk ChatGPT, Claude & Twitter",
-      "metaDescription": "Teks terlalu panjang untuk AI? Bagi teks panjang agar sesuai batas ChatGPT atau Twitter. Pemisahan cerdas per kalimat atau bab. Cepat dan gratis!",
+      "metaTitle": "Pemotong Teks / File TXT - ChatGPT, Claude, Gemini, Twitter",
+      "metaDescription": "Potong teks panjang atau file TXT untuk ChatGPT, Claude, Gemini, Twitter berdasarkan karakter, paragraf, atau pemisah. GBK/Shift-JIS otomatis.",
       "faq": [
         {
           "q": "Berapa batas karakter untuk ChatGPT, Claude, Gemini, dan alat terjemahan?",
-          "a": "Batas konteks model AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target."
+          "a": "Batas konteks model AI (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target."
         },
         {
           "q": "Bagaimana membagi post panjang untuk Twitter, Threads, LinkedIn?",
           "a": "Batas: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000, Mastodon 500, WhatsApp Status 700. Gunakan mode 'Paragraf Inggris' untuk Indonesia dan Latin — menjaga integritas kalimat. Ekspor batch sebagai file terpisah untuk posting berurutan (1/N, 2/N)."
         },
         {
+          "q": "Ingin langsung menerjemahkan blok teks yang dipotong, ada alat pendamping yang direkomendasikan?",
+          "a": "Jika blok teks dalam format JSON i18n (potongan paket bahasa per key), gunakan [Terjemahan JSON](../json-translate) untuk terjemah batch sambil mempertahankan struktur key; untuk dokumen Markdown (blog panjang per bab), [Terjemahan Markdown](../md-translator) mempertahankan blok kode dan Front Matter. Butuh pembersihan lebih (dedup, ekstraksi regex, ekstraksi URL) sebelum diberikan ke AI, gunakan [Pemroses Teks](../text-toolbox) untuk pra-pemrosesan."
+        },
+        {
           "q": "Bagaimana menangani teks campuran atau file non-UTF-8 (Prancis GBK, Jepang Shift-JIS)?",
           "a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Pemisah khusus mendukung \\\\n\\\\n dan \\\\t. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
+        },
+        {
+          "q": "Apakah teks yang diunggah disimpan di server? Apakah alat ini open source?",
+          "a": "Pemrosesan frontend 100%: pembacaan teks, pemisahan, ekspor semua di browser, teks asli tidak diunggah ke server mana pun, konten sensitif aman. Kode sumber open source di GitHub (rockbenben/text-splitter), bisa self-deploy atau audit."
         }
       ],
       "howto": [
@@ -199,7 +208,7 @@
         },
         {
           "name": "Atur jumlah karakter sesuai model AI atau platform",
-          "text": "ChatGPT gratis 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; alat terjemahan 5000. Alat membagi pada batas paragraf tanpa memotong kalimat."
+          "text": "ChatGPT gratis 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; alat terjemahan 5000. Alat membagi pada batas paragraf tanpa memotong kalimat."
         },
         {
           "name": "Ekspor untuk input AI atau posting media sosial",
@@ -207,7 +216,7 @@
         }
       ],
       "features": [
-        "Batas konteks model AI: ChatGPT GPT-4o 128K token, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "Konteks AI: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Template platform sosial: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000",
         "Deteksi tanda baca cerdas untuk teks CJK campuran (。！？) dan Latin (. ! ?)",
         "Deteksi otomatis non-UTF-8 (GBK, Shift-JIS, EUC-KR) mencegah karakter rusak",
@@ -227,11 +236,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI - Peralatan Data & Terjemahan AI untuk Developer",
-    "description": "Kumpulan alat AI gratis untuk developer: terjemahan subtitle, i18n, Markdown, dan edit JSON. Proses batch cepat, aman secara lokal, dan open source.",
+    "description": "ToolsByAI: 17 alat open source gratis untuk penerjemahan subtitle, Markdown, JSON i18n, dan pemrosesan teks/JSON batch. 25+ AI engine.",
     "homeTitle": "Suite ToolsByAI",
     "homeDescription": "20+ alat untuk terjemahan, teks, JSON, dan konversi data. Tingkatkan efisiensi pengembang dan kreator.",
     "ogTitle": "ToolsByAI - Alat Dev AI Gratis dan Open Source",
-    "ogDescription": "20+ utilitas untuk pengembang: terjemahan, pemrosesan data, dan JSON. Hormati privasi Anda dengan pemrosesan lokal di browser."
+    "ogDescription": "ToolsByAI: 17 alat open source gratis untuk penerjemahan subtitle, Markdown, JSON i18n, dan pemrosesan teks/JSON batch. 25+ AI engine."
   },
   "languages": {
     "auto": "Deteksi Otomatis",
@@ -365,13 +374,19 @@
   },
   "feedback": {
     "feedback1": "Umpan Balik & Saran",
-    "feedback2": "Jika Anda menemukan masalah atau memiliki saran, beri tahu saya! Umpan balik Anda memengaruhi pengembangan masa depan dan membantu kami membuat alat yang lebih baik.",
+    "feedback2": "Jika Anda menemukan masalah atau memiliki saran, beri tahu saya!Umpan balik Anda memengaruhi pengembangan masa depan dan membantu kami membuat alat yang l…",
     "feedback3": "Jelaskan kasus penggunaan, masalah, atau ide Anda. Saya membaca setiap pesan dan akan merespons/mengoptimalkan sesegera mungkin.",
     "reaction0": "Suka",
     "reaction1": "Dukung",
     "reaction2": "Keren",
     "reaction3": "Apa?",
     "reaction4": "Bingung",
-    "placeholder": "Tinggalkan pesan (tidak perlu login, email opsional untuk balasan)"
+    "placeholder": "Tinggalkan pesan (tidak perlu login, email opsional untuk balasan)",
+    "metaDescription": "Halaman feedback Tools By AI: laporkan bug, sarankan fitur, atau bagikan ide penggunaan. Berbasis Waline, posting anonim diizinkan, gratis."
+  },
+  "NotFound": {
+    "title": "Halaman Tidak Ditemukan",
+    "description": "Halaman yang Anda kunjungi tidak ada atau telah dipindahkan.",
+    "goHome": "Kembali ke Beranda"
   }
 }

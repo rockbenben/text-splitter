@@ -117,7 +117,7 @@
     "resultToSource": "결과 ➔ 원문",
     "resultToSourceTooltip": "결과 텍스트를 입력란에 덮어씁니다",
     "readOnlyMode": "읽기 전용 모드",
-    "readOnlyModeTooltip": "텍스트가 너무 길어 페이지 성능을 위해 자동으로 읽기 전용 모드로 전환되었습니다",
+    "readOnlyModeTooltip": "텍스트가 너무 길어 편집기가 일시적으로 읽기 전용이 되며 일부만 미리 보기로 표시됩니다. 전체 내용은 영향받지 않으며 처리와 내보내기는 전체 텍스트로 수행됩니다.",
     "clearInputTooltip": "입력 내용 및 업로드된 파일 지우기",
     "fileExported": "파일이 내보내졌습니다: {fileName}",
     "exportSuccess": "내보내기 성공: {fileName}",
@@ -143,7 +143,8 @@
     "langPresetIndian": "인도 아대륙",
     "selectedCount": "{count}개 선택됨",
     "recentLanguages": "최근 사용",
-    "langGroupAmericasOceania": "아메리카·오세아니아"
+    "langGroupAmericasOceania": "아메리카·오세아니아",
+    "relatedTools": "관련 도구"
   },
   "TextSplitter": {
     "clientDescription": "장문을 스마트하게 분할. 글자 수 또는 완전한 문장 단위 분할을 지원하며, AI 입력, SNS 게시, 문서 편집에 적합합니다. 비 UTF-8 인코딩 텍스트(일부 프랑스어 파일 등)의 경우 파일을 직접 업로드하면 시스템이 자동으로 인코딩을 인식하여 깨짐을 방지합니다.",
@@ -176,20 +177,28 @@
     "textSplitter": {
       "title": "텍스트 분할",
       "description": "장문 스마트 분할, AI 입력 및 SNS에 최적",
-      "metaTitle": "텍스트 분할 | ChatGPT·Claude·Twitter 장문 분할",
-      "metaDescription": "AI 입력 제한 초과? 글자 수·단락별로 장문을 스마트하게 분할. ChatGPT·SNS 제한 최적화, 텍스트 병합·일괄 내보내기 지원!",
+      "metaTitle": "텍스트 / TXT 파일 분할 - ChatGPT/Claude/Gemini/Twitter",
+      "metaDescription": "긴 텍스트나 TXT 파일을 ChatGPT/Claude/Gemini/Twitter용 글자 수·단락·구분자로 분할, 인코딩 자동 인식.",
       "faq": [
         {
           "q": "ChatGPT, Claude, Gemini 등 AI 모델과 번역 도구의 글자 제한은 얼마나 되나요?",
-          "a": "AI 모델 컨텍스트 제한(토큰): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 100만, DeepSeek V3 128K. 한국어/중국어 ~1-2자/토큰, 영어 ~4자/토큰. 번역 도구: Google Translate와 DeepL 무료 둘 다 5000자/요청. '분할 글자 수'를 목표 AI의 토큰 용량보다 여유 있게 설정하세요."
+          "a": "AI 모델 컨텍스트 제한(토큰): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. 한국어/중국어 ~1-2자/토큰, 영어 ~4자/토큰. 번역 도구: Google Translate와 DeepL 무료 둘 다 5000자/요청. '분할 글자 수'를 목표 AI의 토큰 용량보다 여유 있게 설정하세요."
         },
         {
           "q": "X(Twitter), Threads, 네이버 블로그 등 긴 글은 어떻게 분할 게시하나요?",
           "a": "플랫폼 제한: X 280자, Threads 500자, 네이버 블로그 100만자, 카카오스토리 3000자, LinkedIn 3000자. 한국어는 '중국어 단락' 모드(CJK 문장부호 공통 인식) 또는 '영어 단락' 모드를 사용하여 문장 무결성을 유지. 개별 파일로 일괄 내보내기로 1/N, 2/N 순차 게시 가능."
         },
         {
+          "q": "분할한 텍스트 블록을 바로 번역하고 싶을 때 함께 쓸 만한 도구는?",
+          "a": "분할한 텍스트가 i18n JSON 형식(key 단위로 분리된 언어팩 조각)이라면 [JSON 번역](../json-translate)으로 키 구조를 유지한 채 일괄 번역할 수 있습니다. Markdown 문서(챕터별로 분할한 블로그 장문)라면 [Markdown 번역](../md-translator)이 코드 블록과 Front Matter를 보존합니다. AI에 투입하기 전 중복 제거, 정규식 추출, URL 추출 등 더 복잡한 정제가 필요하다면 먼저 [텍스트 처리 도구](../text-toolbox)로 전처리하세요."
+        },
+        {
           "q": "한영 혼합이나 프랑스어·일본어 등 비 UTF-8 파일은 어떻게 처리하나요?",
           "a": "한영 혼합은 '중국어 단락' 모드로 한국어/중국어(。！？)와 영어(. ! ?) 문장 부호를 모두 인식, 단어 중간에 잘리지 않습니다. 사용자 정의 구분자는 \\\\n\\\\n, \\\\t 등 이스케이프 문자 지원. 프랑스어(GBK), 일본어(Shift-JIS), 한국어(EUC-KR) 등 비 UTF-8 파일은 **파일로 직접 업로드**(붙여넣기 X)하면 인코딩 자동 감지로 깨짐 방지."
+        },
+        {
+          "q": "업로드한 텍스트가 서버에 저장되나요? 도구는 오픈소스인가요?",
+          "a": "완전 프런트엔드 처리: 텍스트 읽기, 분할, 내보내기 모두 브라우저 내에서 완료되며 원문은 어떤 서버에도 업로드되지 않아 민감한 내용도 안심하고 사용 가능합니다. 소스 코드는 GitHub(rockbenben/text-splitter)에 공개되어 셀프 호스팅이나 구현 검토가 가능합니다."
         }
       ],
       "howto": [
@@ -199,7 +208,7 @@
         },
         {
           "name": "AI 모델 또는 플랫폼에 따라 글자 수 설정",
-          "text": "ChatGPT 무료 4000, Plus 32K, Claude 20만, Gemini 100만; X 280, Threads 500, 네이버 블로그 100만; 번역 도구 5000. 도구는 문장 중간이 아닌 단락 경계에서 분할."
+          "text": "ChatGPT 무료 16K, Plus 32K, Pro 128K, Claude 20만, Gemini 100만; X 280, Threads 500, 네이버 블로그 100만; 번역 도구 5000. 도구는 문장 중간이 아닌 단락 경계에서 분할."
         },
         {
           "name": "AI 입력 또는 소셜 게시용으로 내보내기",
@@ -207,7 +216,7 @@
         }
       ],
       "features": [
-        "AI 모델 컨텍스트 제한: ChatGPT GPT-4o 128K 토큰, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 100만, DeepSeek V3 128K",
+        "AI 모델 컨텍스트: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "소셜 플랫폼 글자 템플릿: X 280, Threads 500, 네이버 블로그 100만, 카카오스토리 3000",
         "한중영 혼합 문장 부호 자동 인식 (。！？ 및 . ! ?)",
         "비 UTF-8 파일 자동 감지 (GBK, Shift-JIS, EUC-KR)로 깨짐 방지",
@@ -227,11 +236,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI | 무료 오픈소스 AI 번역 및 데이터 처리 도구",
-    "description": "효율적인 개발 도구를 원하시나요? 자막 번역, JSON 편집 등 20+ 무료 앱이 있습니다. DeepSeek AI 탑재, 안전한 로컬 데이터 처리. 지금 체험해보세요!",
+    "description": "ToolsByAI: 자막·Markdown·JSON i18n 번역 및 텍스트/JSON 일괄 처리 17개 무료 도구, 25+ AI 엔진.",
     "homeTitle": "ToolsByAI 도구 모음",
     "homeDescription": "20+ 무료 도구. 다국어 번역, 텍스트 처리, JSON 변환 등 개발자와 크리에이터의 업무 효율 향상.",
     "ogTitle": "ToolsByAI | 무료 오픈소스 AI 번역 및 데이터 처리 도구",
-    "ogDescription": "효율적인 개발 도구를 원하시나요? 자막 번역, JSON 편집 등 20+ 무료 앱이 있습니다. DeepSeek AI 탑재, 안전한 로컬 데이터 처리. 지금 체험해보세요!"
+    "ogDescription": "ToolsByAI: 자막·Markdown·JSON i18n 번역 및 텍스트/JSON 일괄 처리 17개 무료 도구, 25+ AI 엔진."
   },
   "languages": {
     "auto": "자동 감지",
@@ -365,13 +374,19 @@
   },
   "feedback": {
     "feedback1": "피드백 및 제안",
-    "feedback2": "사용 중 문제가 발생하거나 제안 및 아이디어가 있으면 언제든지 알려주세요! 귀하의 피드백은 향후 기능 개발 및 개선에 직접적인 영향을 미치며, 모두의 요구에 더 잘 맞는 도구를 만드는 데 도움이 됩니다.",
+    "feedback2": "사용 중 문제가 발생하거나 제안 및 아이디어가 있으면 언제든지 알려주세요!",
     "feedback3": "사용 시나리오나 발생한 문제, 또는 창의적인 아이디어를 자세히 설명해 주세요. 모든 피드백을 진지하게 읽고 가능한 한 빨리 조정 및 최적화하겠습니다.",
     "reaction0": "좋아요",
     "reaction1": "응원해요",
     "reaction2": "멋져요",
     "reaction3": "뭐죠?",
     "reaction4": "이해 안 됨",
-    "placeholder": "메시지를 남겨주세요. 로그인 불필요 (이메일 입력 시 답변 알림 수신 가능)"
+    "placeholder": "메시지를 남겨주세요. 로그인 불필요 (이메일 입력 시 답변 알림 수신 가능)",
+    "metaDescription": "Tools By AI 피드백 페이지: 버그 신고, 기능 요청, 사용 사례 공유. Waline 댓글 기반, 익명 작성 가능, 무료."
+  },
+  "NotFound": {
+    "title": "페이지를 찾을 수 없음",
+    "description": "방문한 페이지가 존재하지 않거나 이동되었습니다。",
+    "goHome": "홈으로"
   }
 }

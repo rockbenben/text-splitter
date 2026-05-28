@@ -117,7 +117,7 @@
     "resultToSource": "Kết quả ➔ Nguồn",
     "resultToSourceTooltip": "Ghi đè văn bản kết quả vào ô nhập liệu",
     "readOnlyMode": "Chế độ chỉ đọc",
-    "readOnlyModeTooltip": "Văn bản quá dài, đã tự động chuyển sang chế độ chỉ đọc để đảm bảo hiệu suất trang",
+    "readOnlyModeTooltip": "Văn bản quá dài: trình soạn thảo tạm thời ở chế độ chỉ đọc và chỉ hiển thị bản xem trước một phần. Toàn bộ nội dung của bạn không bị ảnh hưởng — xử lý và xuất vẫn dùng toàn bộ văn bản.",
     "clearInputTooltip": "Xóa nội dung đã nhập và tệp đã tải lên",
     "fileExported": "Đã xuất tệp: {fileName}",
     "exportSuccess": "Xuất thành công: {fileName}",
@@ -143,7 +143,8 @@
     "langPresetIndian": "Tiểu lục địa Ấn Độ",
     "selectedCount": "Đã chọn {count}",
     "recentLanguages": "Gần đây",
-    "langGroupAmericasOceania": "Châu Mỹ và Châu Đại Dương"
+    "langGroupAmericasOceania": "Châu Mỹ và Châu Đại Dương",
+    "relatedTools": "Công cụ liên quan"
   },
   "TextSplitter": {
     "clientDescription": "Chia văn bản dài một cách thông minh. Theo ký tự hoặc câu. Lý tưởng cho AI, mạng xã hội, chỉnh sửa. Đối với văn bản không phải UTF-8 (ví dụ: một số tệp tiếng Pháp), hãy tải tệp lên trực tiếp để tự động phát hiện mã hóa.",
@@ -176,20 +177,28 @@
     "textSplitter": {
       "title": "Bộ chia văn bản",
       "description": "Chia văn bản dài thông minh cho AI và mạng xã hội",
-      "metaTitle": "Chia Văn Bản | Cắt Thông Minh Cho ChatGPT, Claude, Twitter",
-      "metaDescription": "Văn bản quá dài cho AI? Chia văn bản dài để vừa giới hạn ChatGPT hoặc Twitter. Tách theo câu hoặc chương thông minh. Hỗ trợ tệp lớn và quy tắc tùy chỉnh.",
+      "metaTitle": "Bộ chia Văn bản / Tệp TXT - ChatGPT, Claude, Gemini, Twitter",
+      "metaDescription": "Chia văn bản dài hoặc tệp TXT cho ChatGPT, Claude, Gemini, Twitter theo số ký tự, đoạn, hoặc dấu phân cách. Tự nhận GBK/Shift-JIS.",
       "faq": [
         {
           "q": "Giới hạn ký tự của ChatGPT, Claude, Gemini và công cụ dịch là bao nhiêu?",
-          "a": "Giới hạn ngữ cảnh mô hình AI (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Số ký tự chia' với đệm dưới dung lượng AI mục tiêu."
+          "a": "Giới hạn ngữ cảnh mô hình AI (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Số ký tự chia' với đệm dưới dung lượng AI mục tiêu."
         },
         {
           "q": "Làm sao chia bài đăng dài cho Twitter, Threads, Facebook và LinkedIn?",
           "a": "Giới hạn: Twitter 280, Threads 500, Zalo 1000, Facebook 63206, LinkedIn 3000, Mastodon 500. Dùng chế độ 'Đoạn tiếng Anh' cho tiếng Việt và Latin — giữ tính toàn vẹn câu. Xuất hàng loạt dưới dạng tệp riêng cho đăng tuần tự (1/N, 2/N)."
         },
         {
+          "q": "Sau khi chia, công cụ nào kết hợp tốt để dịch hoặc làm sạch thêm các đoạn?",
+          "a": "Nếu các đoạn là mảnh JSON i18n (tệp ngôn ngữ chia theo khóa), dùng [Dịch JSON](../json-translate) để dịch hàng loạt và giữ nguyên khóa. Với văn bản Markdown dài (bài blog chia theo chương), dùng [Dịch Markdown](../md-translator) — giữ nguyên khối code và Front Matter. Để làm sạch nặng hơn (loại trùng, trích xuất regex, kéo URL) trước khi đưa vào AI, chạy các đoạn qua [Hộp Công Cụ Văn Bản](../text-toolbox) trước."
+        },
+        {
           "q": "Xử lý văn bản hỗn hợp hoặc tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS) thế nào?",
           "a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Dấu phân cách tùy chỉnh hỗ trợ \\\\n\\\\n và \\\\t. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
+        },
+        {
+          "q": "Văn bản của tôi có được tải lên máy chủ không? Công cụ có mã nguồn mở không?",
+          "a": "100% phía client: đọc, chia và xuất văn bản đều diễn ra trong trình duyệt — không có gì được tải lên máy chủ, nội dung nhạy cảm vẫn an toàn. Mã nguồn mở trên GitHub (rockbenben/text-splitter) để tự host hoặc kiểm tra."
         }
       ],
       "howto": [
@@ -199,7 +208,7 @@
         },
         {
           "name": "Đặt số ký tự theo mô hình AI hoặc nền tảng",
-          "text": "ChatGPT miễn phí 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; công cụ dịch 5000. Công cụ chia tại biên đoạn văn không cắt câu."
+          "text": "ChatGPT miễn phí 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; công cụ dịch 5000. Công cụ chia tại biên đoạn văn không cắt câu."
         },
         {
           "name": "Xuất cho nhập AI hoặc đăng mạng xã hội",
@@ -207,7 +216,7 @@
         }
       ],
       "features": [
-        "Giới hạn ngữ cảnh mô hình AI: ChatGPT GPT-4o 128K token, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "Ngữ cảnh AI: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Mẫu nền tảng xã hội: Twitter 280, Threads 500, Zalo 1000, LinkedIn 3000",
         "Phát hiện dấu câu thông minh cho văn bản CJK hỗn hợp (。！？) và Latin (. ! ?)",
         "Tự phát hiện không phải UTF-8 (GBK, Shift-JIS, EUC-KR) ngăn ký tự lỗi",
@@ -227,11 +236,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI - Bộ Công Cụ Dịch Thuật & Dữ Liệu AI Online",
-    "description": "Bộ công cụ AI miễn phí cho nhà phát triển: dịch phụ đề, i18n, Markdown và chỉnh sửa JSON. Xử lý cục bộ an toàn, mã nguồn mở và hỗ trợ xử lý hàng loạt.",
+    "description": "ToolsByAI: 17 công cụ mã nguồn mở miễn phí cho dịch phụ đề, Markdown, JSON i18n và xử lý văn bản/JSON. 25+ engine AI.",
     "homeTitle": "Bộ ToolsByAI",
     "homeDescription": "20+ công cụ cho dịch, văn bản, JSON và chuyển đổi dữ liệu. Tăng cường hiệu quả cho nhà phát triển và người sáng tạo.",
     "ogTitle": "ToolsByAI - Công Cụ Dev AI Miễn Phí & Mã Nguồn Mở",
-    "ogDescription": "20+ tiện ích cho nhà phát triển: dịch thuật, xử lý dữ liệu và JSON. Bảo vệ quyền riêng tư với xử lý cục bộ ngay trên trình duyệt."
+    "ogDescription": "ToolsByAI: 17 công cụ mã nguồn mở miễn phí cho dịch phụ đề, Markdown, JSON i18n và xử lý văn bản/JSON. 25+ engine AI."
   },
   "languages": {
     "auto": "Tự động phát hiện",
@@ -365,13 +374,19 @@
   },
   "feedback": {
     "feedback1": "Phản hồi & Gợi ý",
-    "feedback2": "Nếu bạn gặp vấn đề hoặc có gợi ý, hãy cho tôi biết! Phản hồi của bạn ảnh hưởng đến sự phát triển trong tương lai và giúp chúng tôi tạo ra các công cụ tốt hơn.",
+    "feedback2": "Nếu bạn gặp vấn đề hoặc có gợi ý, hãy cho tôi biết!Phản hồi của bạn ảnh hưởng đến sự phát triển trong tương lai và giúp chúng tôi tạo ra các công cụ tốt h…",
     "feedback3": "Mô tả trường hợp sử dụng, vấn đề hoặc ý tưởng của bạn. Tôi đọc từng tin nhắn và sẽ phản hồi/tối ưu hóa sớm nhất có thể.",
     "reaction0": "Thích",
     "reaction1": "Ủng hộ",
     "reaction2": "Tuyệt",
     "reaction3": "Cái gì?",
     "reaction4": "Bối rối",
-    "placeholder": "Để lại tin nhắn (không cần đăng nhập, email tùy chọn để trả lời)"
+    "placeholder": "Để lại tin nhắn (không cần đăng nhập, email tùy chọn để trả lời)",
+    "metaDescription": "Trang phản hồi Tools By AI: báo lỗi, đề xuất tính năng, chia sẻ tình huống sử dụng. Dựa trên Waline, đăng ẩn danh được phép, miễn phí."
+  },
+  "NotFound": {
+    "title": "Không tìm thấy trang",
+    "description": "Trang bạn truy cập không tồn tại hoặc đã được di chuyển.",
+    "goHome": "Về trang chủ"
   }
 }

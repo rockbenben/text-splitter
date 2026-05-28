@@ -48,7 +48,7 @@
     "resultToSource": "结果 ➔ 原文",
     "resultToSourceTooltip": "将结果文本覆盖到输入框",
     "readOnlyMode": "只读模式",
-    "readOnlyModeTooltip": "文本过长，为保证页面性能已自动切换为只读模式",
+    "readOnlyModeTooltip": "文本过长，编辑框暂为只读、仅显示部分预览；完整内容不受影响，处理与导出仍按全文进行",
     "exportFile": "导出",
     "exportAllFile": "导出所有文件",
     "exportedFile": "已导出",
@@ -143,7 +143,8 @@
     "langPresetIndian": "印度系",
     "selectedCount": "已选 {count} 种",
     "recentLanguages": "最近使用",
-    "langGroupAmericasOceania": "美洲及大洋洲"
+    "langGroupAmericasOceania": "美洲及大洋洲",
+    "relatedTools": "相关工具"
   },
   "TextSplitter": {
     "clientDescription": "智能拆分长文本，支持按字符数或整句分段，适用于 AI 输入、社交媒体发布和文档编辑。对于非 UTF-8 编码文本（如部分法语文件），请直接上传文件，系统将自动识别编码以避免乱码。",
@@ -176,20 +177,28 @@
     "textSplitter": {
       "title": "文本分割",
       "description": "智能分割长文本，适用于 AI 输入和社交媒体",
-      "metaTitle": "文本分割工具 | 长文本智能拆分适配 ChatGPT、Twitter",
-      "metaDescription": "长文本超出 AI 输入限制？不仅支持按字符分割，还能智能识别中英文段落。适配 ChatGPT、微博等字数限制，支持自定义分隔符与批量导出，快速解决文本分段难题！",
+      "metaTitle": "文本 / TXT 文件分割工具 - ChatGPT、Claude、Gemini、Twitter 智能拆分",
+      "metaDescription": "长文本 / TXT 文件智能分割，按字符数、段落、自定义分隔符拆分，适配 ChatGPT、Claude、Gemini、Twitter、微博。",
       "faq": [
         {
           "q": "ChatGPT、Claude、Gemini 等 AI 模型和翻译工具的字符限制是多少？",
-          "a": "AI 模型上下文限制（以 token 为单位）：ChatGPT GPT-4o 约 128K、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K。中文约 1-2 字/token（Claude 更宽松），英文约 4 字符/token。翻译工具限制：Google Translate 和 DeepL 免费版均为 5000 字符/次。设置「分割字符数」按目标 AI 或 API 的容量上限留出缓冲。"
+          "a": "AI 模型上下文限制（以 token 为单位）：ChatGPT GPT-5 约 400K、Claude Sonnet 4.6 / Opus 4.7 1M、Gemini 3 Pro 1M、DeepSeek V4 1M。中文约 1-2 字/token（Claude 更宽松），英文约 4 字符/token。翻译工具限制：Google Translate 和 DeepL 免费版均为 5000 字符/次。设置「分割字符数」按目标 AI 或 API 的容量上限留出缓冲。"
         },
         {
           "q": "Twitter、微博、小红书等社交平台的长文怎么一键分段发布？",
           "a": "各平台限制：Twitter 280 字、Threads 500 字、微博 140 字（中文 1 字算 1 字）、小红书正文 1000 字、豆瓣广播 140 字、LinkedIn 3000 字。中文用「中文分段」模式、英文用「英文分段」模式，保留句子完整。批量导出为独立文件可按序号 1/N、2/N 依次发布。"
         },
         {
+          "q": "分割后想直接翻译这些文本块，有什么搭配工具推荐？",
+          "a": "分割后的文本块若是 i18n JSON 格式（如按 key 切分的语言包片段），用 [JSON 翻译](../json-translate) 可批量翻译并保留键名结构；若是 Markdown 文档（如博客长文按章节拆分），用 [Markdown 翻译](../md-translator) 能保留代码块和 Front Matter。需要更复杂的清洗（去重、正则提取、URL 抽取）再投喂给 AI，可先用 [文本处理神器](../text-toolbox) 预处理。"
+        },
+        {
           "q": "中英混排、法语/日语等非 UTF-8 编码的长文本怎么处理？",
           "a": "中英混排用「中文分段」模式可同时识别中文（。！？）和英文（. ! ?）句末标点，不会在单词中间切断。自定义分隔符支持 \\\\n\\\\n（双换行）、\\\\t（制表符）等转义。法语（GBK）、日语（Shift-JIS）、韩语（EUC-KR）等非 UTF-8 文件请直接上传（而非粘贴），工具会自动检测编码避免乱码。"
+        },
+        {
+          "q": "上传文本会保存到服务器吗？工具是否开源？",
+          "a": "完全前端处理：文本读取、分割、导出都在浏览器内完成，原文不上传任何服务器，敏感内容也可放心使用。源代码开源在 GitHub（rockbenben/text-splitter），可自部署或审查实现细节。"
         }
       ],
       "howto": [
@@ -199,7 +208,7 @@
         },
         {
           "name": "根据 AI 模型或平台设置字符数",
-          "text": "ChatGPT 免费版 4000、Plus 32000、Claude 200K、Gemini 1M；微博 140、Twitter 280、小红书 1000；翻译工具 5000。工具在段落边界分割不切断句子。"
+          "text": "ChatGPT 免费版 16K、Plus 32K、Pro 128K、Claude 200K、Gemini 1M；微博 140、Twitter 280、小红书 1000；翻译工具 5000。工具在段落边界分割不切断句子。"
         },
         {
           "name": "导出为 AI 输入或社交发布",
@@ -207,7 +216,7 @@
         }
       ],
       "features": [
-        "AI 模型上下文限制：ChatGPT GPT-4o 128K tokens、Claude 3.5/3.7 Sonnet 200K、Gemini 1.5/2.0 Pro 100 万、DeepSeek V3 128K",
+        "AI 模型上下文：GPT-5 400K、Claude 4.6/4.7 1M、Gemini 3 Pro 1M、DeepSeek V4 1M",
         "社交平台字数模板：Twitter 280、微博 140、小红书 1000、Threads 500",
         "中英混排智能识别中文（。！？）和英文（. ! ?）句末标点",
         "非 UTF-8 文件自动识别（GBK、Shift-JIS、EUC-KR）避免乱码",
@@ -227,11 +236,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI | 免费开源的 AI 翻译与数据处理工具集",
-    "description": "寻找高效开发工具？ToolsByAI 汇集字幕翻译、i18n 处理等 20+ 款免费开源应用。接入 DeepSeek 等主流模型，支持批量处理且数据隐私安全，立即开启 AI 提效之旅！",
+    "description": "ToolsByAI 集合 17 款免费工具：字幕、Markdown、JSON i18n 翻译，文本/JSON 批处理。25+ AI 引擎，全前端处理。",
     "homeTitle": "ToolsByAI 工具集",
     "homeDescription": "20+ 实用工具，涵盖多语言翻译、文本处理、JSON 编辑和数据转换，助力开发者和创作者提升效率。",
     "ogTitle": "ToolsByAI | 免费开源的 AI 翻译与数据处理工具集",
-    "ogDescription": "寻找高效开发工具？ToolsByAI 汇集字幕翻译、i18n 处理等 20+ 款免费开源应用。接入 DeepSeek 等主流模型，支持批量处理且数据隐私安全，立即开启 AI 提效之旅！"
+    "ogDescription": "ToolsByAI 集合 17 款免费工具：字幕、Markdown、JSON i18n 翻译，文本/JSON 批处理。25+ AI 引擎，全前端处理。"
   },
   "languages": {
     "auto": "自动检测",
@@ -372,6 +381,12 @@
     "reaction2": "有点酷",
     "reaction3": "啥玩意",
     "reaction4": "看不懂",
-    "placeholder": "请留言，无需登录（填写邮箱可获回复提醒）"
+    "placeholder": "请留言，无需登录（填写邮箱可获回复提醒）",
+    "metaDescription": "意见反馈页：报告使用问题、提交功能建议、参与工具改进。基于 Waline 评论系统，匿名也可发言。"
+  },
+  "NotFound": {
+    "title": "页面未找到",
+    "description": "你访问的页面不存在或已移动。",
+    "goHome": "返回首页"
   }
 }

@@ -117,7 +117,7 @@
     "resultToSource": "Sonuç ➔ Kaynak",
     "resultToSourceTooltip": "Giriş kutusunun içeriğini sonuç metniyle değiştir",
     "readOnlyMode": "Salt Okunur Mod",
-    "readOnlyModeTooltip": "Metin çok uzun; sayfa performansını korumak için salt okunur mod otomatik olarak etkinleştirildi",
+    "readOnlyModeTooltip": "Metin çok uzun: düzenleyici geçici olarak salt okunur ve yalnızca kısmi bir önizleme gösteriyor. Tüm içeriğiniz etkilenmez; işleme ve dışa aktarma hâlâ metnin tamamını kullanır.",
     "clearInputTooltip": "Giriş içeriğini ve yüklenen dosyaları temizle",
     "fileExported": "Dışa aktarılan dosya: {fileName}",
     "exportSuccess": "Dışa aktarma başarılı: {fileName}",
@@ -143,7 +143,8 @@
     "langPresetIndian": "Hint alt kıtası",
     "selectedCount": "{count} seçildi",
     "recentLanguages": "Son kullanılanlar",
-    "langGroupAmericasOceania": "Amerika & Okyanusya"
+    "langGroupAmericasOceania": "Amerika & Okyanusya",
+    "relatedTools": "İlgili Araçlar"
   },
   "TextSplitter": {
     "clientDescription": "Uzun metinleri akıllıca böler. Karakter veya cümlelere göre. AI, sosyal medya, düzenleme için ideal. UTF-8 olmayan metinler için (örn: bazı Fransızca dosyalar), otomatik kodlama algılama için dosyayı doğrudan yükleyin.",
@@ -176,20 +177,28 @@
     "textSplitter": {
       "title": "Metin Bölücü",
       "description": "AI ve sosyal medya için akıllı uzun metin bölme",
-      "metaTitle": "Metin Bölücü | ChatGPT, Claude ve Twitter için Akıllı Ayrıştırma",
-      "metaDescription": "AI için metin çok uzun mu? Uzun metinleri ChatGPT veya Twitter limitlerine uygun parçalara bölün. Cümle veya bölüm bazlı akıllı ayrıştırma.",
+      "metaTitle": "Metin / TXT Dosya Bölücü - ChatGPT, Claude, Gemini, Twitter",
+      "metaDescription": "Uzun metin veya TXT dosyalarını ChatGPT, Claude, Gemini, Twitter için karakter, paragraf veya ayraçla böl. GBK/Shift-JIS otomatik.",
       "faq": [
         {
           "q": "ChatGPT, Claude, Gemini ve çeviri araçlarının karakter limitleri nelerdir?",
-          "a": "AI modeli bağlam limitleri (token): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Çince ~1-2 karakter/token, İngilizce ~4 karakter/token. Çeviri: Google Translate ve DeepL ücretsiz her ikisi de 5000 karakter/istek. 'Bölme Karakter Sayısı'nı hedef AI'nin token kapasitesinin altında tamponla ayarlayın."
+          "a": "AI modeli bağlam limitleri (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Çince ~1-2 karakter/token, İngilizce ~4 karakter/token. Çeviri: Google Translate ve DeepL ücretsiz her ikisi de 5000 karakter/istek. 'Bölme Karakter Sayısı'nı hedef AI'nin token kapasitesinin altında tamponla ayarlayın."
         },
         {
           "q": "Twitter, Threads, LinkedIn için uzun gönderileri nasıl bölerim?",
           "a": "Limitler: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Türkçe ve Latin için 'İngilizce Paragraf' modunu kullanın — cümle bütünlüğünü korur. Sıralı yayın için ayrı dosyalar olarak toplu dışa aktarın (1/N, 2/N)."
         },
         {
+          "q": "Bölmeden sonra parçaları çevirmek veya temizlemek için hangi araçlar iyi eşleşir?",
+          "a": "Parçalar i18n JSON parçacıklarıysa (anahtar bazında bölünmüş bir dil dosyası), [JSON Çevirmen](../json-translate) ile anahtarları koruyarak toplu çevirin. Markdown uzun yazılar (bölüme göre bölünmüş blog yazıları) için [Markdown Çevirmen](../md-translator) — kod bloklarını ve Front Matter'ı korur. Parçaları AI'a beslemeden önce daha ağır temizlik (dedup, regex ayıklama, URL çekme) gerekiyorsa önce [Metin Araç Kutusu](../text-toolbox) ile geçirin."
+        },
+        {
           "q": "Karışık metin veya UTF-8 olmayan dosyalar (Fransızca GBK, Japonca Shift-JIS) nasıl işlenir?",
           "a": "Karışık metin için Çince Paragraf modunu kullanın — hem Çince (。！？) hem İngilizce (. ! ?) noktalama işaretlerini tanır, kelimeyi ortadan bölmez. Özel ayırıcılar \\\\n\\\\n ve \\\\t kaçış karakterlerini destekler. UTF-8 olmayan dosyalar için yapıştırmak yerine **dosyayı doğrudan yükleyin** — kodlama otomatik algılanır."
+        },
+        {
+          "q": "Metnim bir sunucuya yükleniyor mu? Araç açık kaynak mı?",
+          "a": "%100 istemci tarafında: metin okuma, bölme ve dışa aktarım hepsi tarayıcınızda olur — hiçbir şey sunucuya yüklenmez, hassas içerik güvende. Kaynak kod GitHub'da (rockbenben/text-splitter) açık, kendi sunucunuza kurabilir veya inceleyebilirsiniz."
         }
       ],
       "howto": [
@@ -198,8 +207,8 @@
           "text": "Çok uzun metni (roman bölümleri, konuşmalar, araştırma makaleleri) yapıştırın veya TXT dosyası yükleyin. UTF-8 olmayan dosyalar için (Fransızca GBK, Japonca Shift-JIS) dosyayı doğrudan yükleyin."
         },
         {
-          "name": "AI modeli veya platforma göre karakter sayısı ayarlayın",
-          "text": "ChatGPT ücretsiz 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; çeviri araçları 5000. Araç cümleleri kesmeden paragraf sınırlarında böler."
+          "name": "AI modeli veya platforma göre karakter sayısı",
+          "text": "ChatGPT ücretsiz 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; çeviri araçları 5000. Araç cümleleri kesmeden paragraf sınırlarında böler."
         },
         {
           "name": "AI girişi veya sosyal paylaşım için dışa aktarın",
@@ -207,7 +216,7 @@
         }
       ],
       "features": [
-        "AI model bağlam limitleri: ChatGPT GPT-4o 128K token, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "AI bağlam: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Sosyal platform şablonları: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
         "Karışık CJK (。！？) ve Latin (. ! ?) metinler için akıllı noktalama algılama",
         "UTF-8 olmayan otomatik algılama (GBK, Shift-JIS, EUC-KR) bozuk karakterleri önler",
@@ -227,11 +236,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI - Geliştiriciler İçin Yapay Zeka ve Veri Araçları",
-    "description": "Geliştiriciler için ücretsiz AI araç seti: Altyazı çevirisi, i18n, Markdown ve JSON düzenleme. Güvenli, yerel işlem ve açık kaynaklı çözüm.",
+    "description": "ToolsByAI: altyazı, Markdown, JSON i18n çevirisi ve metin/JSON toplu işleme için 17 ücretsiz açık kaynak araç. 25+ AI motoru.",
     "homeTitle": "ToolsByAI Paketi",
     "homeDescription": "Çeviri, metin, JSON ve veri dönüşümü için 20+ araç. Geliştirici ve yaratıcı verimliliğini artırın.",
     "ogTitle": "ToolsByAI - Ücretsiz ve Açık Kaynak Geliştirici Araçları",
-    "ogDescription": "Çeviri, veri işleme ve JSON düzenleme için 20+ araç. Yerel işlem gücüyle gizliliğinizi koruyan açık kaynaklı platform."
+    "ogDescription": "ToolsByAI: altyazı, Markdown, JSON i18n çevirisi ve metin/JSON toplu işleme için 17 ücretsiz açık kaynak araç. 25+ AI motoru."
   },
   "languages": {
     "auto": "Otomatik Algılama",
@@ -365,13 +374,19 @@
   },
   "feedback": {
     "feedback1": "Geri Bildirim & Öneriler",
-    "feedback2": "Sorun yaşarsanız veya önerileriniz varsa, bana bildirin! Geri bildiriminiz gelecekteki geliştirmeleri etkiler ve daha iyi araçlar oluşturmamıza yardımcı olur.",
+    "feedback2": "Sorun yaşarsanız veya önerileriniz varsa, bana bildirin!Geri bildiriminiz gelecekteki geliştirmeleri etkiler ve daha iyi araçlar oluşturmamıza yardımcı ol…",
     "feedback3": "Kullanım durumunuzu, sorunu veya fikri açıklayın. Her mesajı okuyorum ve en kısa sürede yanıtlayacağım/optimize edeceğim.",
     "reaction0": "Beğen",
     "reaction1": "Destek",
     "reaction2": "Harika",
     "reaction3": "Ne?",
     "reaction4": "Kafam Karıştı",
-    "placeholder": "Mesaj bırakın (giriş gerekmez, yanıt için e-posta isteğe bağlı)"
+    "placeholder": "Mesaj bırakın (giriş gerekmez, yanıt için e-posta isteğe bağlı)",
+    "metaDescription": "Tools By AI geri bildirim sayfası: hata bildir, özellik öner veya kullanım örneklerini paylaş. Waline tabanlı, anonim gönderim mümkün, ücretsiz."
+  },
+  "NotFound": {
+    "title": "Sayfa Bulunamadı",
+    "description": "Ziyaret ettiğiniz sayfa mevcut değil veya taşınmış.",
+    "goHome": "Ana Sayfaya Dön"
   }
 }

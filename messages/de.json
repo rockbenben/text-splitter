@@ -77,7 +77,7 @@
     "resultToSource": "Ergebnis ➔ Quelle",
     "resultToSourceTooltip": "Eingabefeld mit dem Ergebnistext überschreiben",
     "readOnlyMode": "Nur-Lese-Modus",
-    "readOnlyModeTooltip": "Text zu lang; automatisch in den Nur-Lese-Modus gewechselt, um die Seitenleistung zu erhalten",
+    "readOnlyModeTooltip": "Text zu lang: Der Editor ist vorübergehend schreibgeschützt und zeigt nur eine Teilvorschau. Ihr vollständiger Inhalt bleibt unverändert – Verarbeitung und Export verwenden weiterhin den gesamten Text.",
     "clearInputTooltip": "Eingabe und hochgeladene Dateien löschen",
     "smartLineBreak": "Intelligenter Zeilenumbruch",
     "replaceText": "Text ersetzen",
@@ -143,7 +143,8 @@
     "langPresetIndian": "Indischer Subkontinent",
     "selectedCount": "{count} ausgewählt",
     "recentLanguages": "Zuletzt verwendet",
-    "langGroupAmericasOceania": "Amerika & Ozeanien"
+    "langGroupAmericasOceania": "Amerika & Ozeanien",
+    "relatedTools": "Ähnliche Tools"
   },
   "TextSplitter": {
     "clientDescription": "Langtext smart teilen. Nach Zeichenanzahl oder Sätzen. Ideal für KI, Social Media, Bearbeitung. Für Nicht-UTF-8-Text (z.B. manche französische Dateien) Datei direkt hochladen für automatische Kodierungserkennung.",
@@ -176,20 +177,28 @@
     "textSplitter": {
       "title": "Text-Splitter",
       "description": "Smarte Langtext-Teilung für KI und Social Media",
-      "metaTitle": "Textaufteilung | Smart Chunker für ChatGPT, Claude & Twitter",
-      "metaDescription": "Text zu lang für ChatGPT? Teile Content smart nach Sätzen oder Zeichen. Perfekt für Social Media & LLM-Prompts. Einfach & effizient.",
+      "metaTitle": "Text / TXT-Datei Splitter - ChatGPT, Claude, Gemini, Twitter",
+      "metaDescription": "Langtext oder TXT-Dateien für ChatGPT, Claude, Gemini, Twitter, Weibo aufteilen: nach Zeichen, Absatz, Trennzeichen. GBK/Shift-JIS automatisch.",
       "faq": [
         {
           "q": "Welche Zeichenlimits gelten für ChatGPT, Claude, Gemini und Übersetzungstools?",
-          "a": "KI-Modell-Kontextlimits (Tokens): ChatGPT GPT-4o ~128K, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K. Chinesisch ~1-2 Zeichen/Token, Englisch ~4 Zeichen/Token. Übersetzungslimits: Google Translate und DeepL kostenlos beide 5000 Zeichen/Anfrage. Stellen Sie 'Split-Zeichenanzahl' mit Puffer unter dem Token-Limit des Ziel-KI ein."
+          "a": "KI-Modell-Kontextlimits (Tokens): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Chinesisch ~1-2 Zeichen/Token, Englisch ~4 Zeichen/Token. Übersetzungslimits: Google Translate und DeepL kostenlos beide 5000 Zeichen/Anfrage. Stellen Sie 'Split-Zeichenanzahl' mit Puffer unter dem Token-Limit des Ziel-KI ein."
         },
         {
           "q": "Wie teile ich lange Posts für Twitter, Threads, Mastodon und LinkedIn?",
           "a": "Plattform-Limits: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Xing 2000. Nutzen Sie 'Englische Absätze'-Modus für Deutsch und lateinische Sprachen — bewahrt Satzintegrität. Batch-Export als separate Dateien für sequenzielle Veröffentlichung (1/N, 2/N)."
         },
         {
+          "q": "Welche Tools eignen sich gut zum Übersetzen oder weiteren Bereinigen der geteilten Abschnitte?",
+          "a": "Wenn die Abschnitte i18n-JSON-Fragmente sind (eine Sprachdatei nach Schlüssel geteilt), nutzen Sie [JSON-Übersetzer](../json-translate) für Stapelübersetzung unter Erhalt der Schlüssel. Für Markdown-Langform (nach Kapiteln geteilte Blogposts) verwenden Sie [Markdown-Übersetzer](../md-translator) — er bewahrt Codeblöcke und Front Matter. Für stärkere Bereinigung (Dedup, Regex-Extraktion, URL-Extraktion) vor KI-Eingabe nutzen Sie zuerst die [Text-Toolbox](../text-toolbox)."
+        },
+        {
           "q": "Wie behandle ich gemischten Text oder Nicht-UTF-8-Dateien (Französisch GBK, Japanisch Shift-JIS)?",
           "a": "Für gemischten CJK/Latin-Text nutzen Sie Chinesische-Absätze-Modus — erkennt sowohl chinesische (。！？) als auch lateinische (. ! ?) Satzzeichen ohne Wortmitte-Split. Benutzerdefinierte Trenner unterstützen \\\\n\\\\n und \\\\t. Für Nicht-UTF-8-Dateien **Datei direkt hochladen** (nicht einfügen) — Encoding wird automatisch erkannt."
+        },
+        {
+          "q": "Wird mein Text auf einen Server hochgeladen? Ist das Tool Open Source?",
+          "a": "100% clientseitig: Textlesen, Teilen und Export laufen vollständig in Ihrem Browser — nichts wird hochgeladen, sodass sensible Inhalte sicher sind. Quellcode auf GitHub (rockbenben/text-splitter) für Self-Hosting oder Audits."
         }
       ],
       "howto": [
@@ -198,8 +207,8 @@
           "text": "Sehr langen Text (Romankapitel, Reden, Forschungsarbeiten) einfügen oder TXT-Datei hochladen. Für Nicht-UTF-8-Dateien (Französisch GBK, Japanisch Shift-JIS) Datei direkt hochladen für Auto-Encoding-Erkennung."
         },
         {
-          "name": "Zeichenanzahl nach KI-Modell oder Plattform einstellen",
-          "text": "ChatGPT kostenlos 4000, Plus 32K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; Übersetzungstools 5000. Tool teilt an Absatzgrenzen ohne Satzunterbrechung."
+          "name": "Zeichenanzahl nach KI-Modell oder Plattform",
+          "text": "ChatGPT kostenlos 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; Übersetzungstools 5000. Tool teilt an Absatzgrenzen ohne Satzunterbrechung."
         },
         {
           "name": "Für KI-Eingabe oder Social Posting exportieren",
@@ -207,7 +216,7 @@
         }
       ],
       "features": [
-        "KI-Modell-Kontextlimits: ChatGPT GPT-4o 128K Tokens, Claude 3.5/3.7 Sonnet 200K, Gemini 1.5/2.0 Pro 1M, DeepSeek V3 128K",
+        "KI-Kontextlimits: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Social-Media-Vorlagen: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
         "Intelligente Satzzeichenerkennung für gemischten CJK- (。！？) und Latin-Text (. ! ?)",
         "Nicht-UTF-8-Auto-Erkennung (GBK, Shift-JIS, EUC-KR) verhindert Zeichensalat",
@@ -227,11 +236,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI | Kostenlose KI-Dev- & Übersetzungstools",
-    "description": "20+ Open-Source-Tools: Untertitel-Übersetzung, i18n, JSON & Markdown. Mit DeepSeek & ChatGPT. Lokal, sicher & effizient für Entwickler.",
+    "description": "ToolsByAI: 17 Open-Source-Tools für Untertitel-, Markdown- und JSON-i18n-Übersetzung sowie Text- und JSON-Batch-Verarbeitung. 25+ KI-Engines.",
     "homeTitle": "ToolsByAI Werkzeugkasten",
     "homeDescription": "20+ Tools für Übersetzung, Text, JSON und Datenkonvertierung. Effizienzsteigerung für Entwickler und Creator.",
     "ogTitle": "ToolsByAI | Kostenlose KI-Dev- & Übersetzungstools",
-    "ogDescription": "20+ Open-Source-Tools: Untertitel-Übersetzung, i18n, JSON & Markdown. Mit DeepSeek & ChatGPT. Lokal, sicher & effizient für Entwickler."
+    "ogDescription": "ToolsByAI: 17 Open-Source-Tools für Untertitel-, Markdown- und JSON-i18n-Übersetzung sowie Text- und JSON-Batch-Verarbeitung. 25+ KI-Engines."
   },
   "languages": {
     "auto": "Automatisch",
@@ -365,13 +374,19 @@
   },
   "feedback": {
     "feedback1": "Feedback & Vorschläge",
-    "feedback2": "Wenn Sie Probleme haben oder Vorschläge, lassen Sie es mich wissen! Ihr Feedback beeinflusst die zukünftige Entwicklung und hilft uns, bessere Tools zu bauen.",
+    "feedback2": "Wenn Sie Probleme haben oder Vorschläge, lassen Sie es mich wissen!Ihr Feedback beeinflusst die zukünftige Entwicklung und hilft uns, bessere Tools zu bau…",
     "feedback3": "Bitte beschreiben Sie Ihren Anwendungsfall, das Problem oder Ihre Idee. Ich lese jede Nachricht und werde so schnell wie möglich antworten/optimieren.",
     "reaction0": "Gefällt mir",
     "reaction1": "Unterstützung",
     "reaction2": "Cool",
     "reaction3": "Was?",
     "reaction4": "Verwirrt",
-    "placeholder": "Nachricht hinterlassen (kein Login nötig, E-Mail optional für Antwort)"
+    "placeholder": "Nachricht hinterlassen (kein Login nötig, E-Mail optional für Antwort)",
+    "metaDescription": "Feedback-Seite für Tools By AI: Fehler melden, Funktionen vorschlagen, Anwendungsfälle teilen. Basiert auf Waline, anonym möglich."
+  },
+  "NotFound": {
+    "title": "Seite nicht gefunden",
+    "description": "Die aufgerufene Seite existiert nicht oder wurde verschoben.",
+    "goHome": "Zur Startseite"
   }
 }
