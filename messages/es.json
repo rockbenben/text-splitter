@@ -1,5 +1,10 @@
 {
   "common": {
+    "fileProcessFailed": "No se pudo procesar el archivo: comprueba su codificación o prueba con otro",
+    "fileReadFailed": "No se pudo leer el archivo",
+    "unrecognizedLangCodes": "Códigos de idioma no reconocidos: {codes}",
+    "ignoredLangCodes": "Se ignoraron códigos de idioma no reconocidos: {codes}",
+    "partialExportFailed": "No se pudieron exportar algunos idiomas: {items}",
     "userGuide": "Guía de Usuario",
     "privacyNotice": "Tu clave API y datos se almacenan localmente en tu navegador para garantizar la privacidad. Si tienes preguntas o sugerencias, contáctanos a través de la comunidad o la página de comentarios.",
     "dragAndDropText": "Haz clic o arrastra un archivo aquí para subir",
@@ -47,7 +52,6 @@
     "exportAllFile": "Exportar Todo",
     "exportedFile": "Exportado",
     "fileExported": "Archivo exportado: {fileName}",
-    "exportSuccess": "Exportación exitosa: {fileName}",
     "batchDownloaded": "Procesamiento completo, el archivo se descargó automáticamente",
     "extractedText": "Texto Extraído",
     "translating": "Traduciendo...",
@@ -80,7 +84,7 @@
     "readOnlyModeTooltip": "El texto es demasiado largo: el editor está temporalmente en solo lectura y muestra solo una vista previa parcial. Tu contenido completo no se ve afectado: el procesamiento y la exportación siguen usando todo el texto.",
     "clearInputTooltip": "Limpiar contenido introducido y archivos subidos",
     "smartLineBreak": "Salto de Línea Inteligente",
-    "replaceText": "Reemplazar Texto",
+    "replaceText": "Reemplazar Texto ",
     "generateJson": "Generar JSON",
     "exportSettingTooltip": "Exportar configuración a archivo",
     "importSettingTooltip": "Importar configuración desde archivo",
@@ -90,10 +94,8 @@
     "importSettingError": "Fallo al importar, reintenta",
     "removeCharsAfterTranslation": "Eliminar caracteres tras traducción",
     "removeCharsAfterTranslationTooltip": "Eliminar automáticamente caracteres especificados tras traducir (separar con espacios)",
-    "selectedLanguages": "Seleccionados",
     "search": "Buscar",
     "noMatches": "Sin herramientas coincidentes",
-    "selectAll": "Seleccionar todo",
     "clearAll": "Limpiar todo",
     "cancel": "Cancelar",
     "apply": "Aplicar",
@@ -147,6 +149,11 @@
     "relatedTools": "Herramientas relacionadas"
   },
   "TextSplitter": {
+    "resultTooLarge": "Resultado demasiado grande (>500), vista previa oculta por rendimiento",
+    "showAnyway": "Mostrar de todos modos",
+    "processTextError": "Error al procesar el texto: {error}",
+    "zipExported": "Exportado como ZIP: {count} → {fileName}",
+    "zipExportFailed": "Error al exportar el ZIP: {error}",
     "clientDescription": "Divide inteligentemente textos largos. Por caracteres o frases. Ideal para IA, redes sociales, edición. Para textos no-UTF-8 (ej: algunos archivos franceses), sube el archivo directamente para detección auto de codificación.",
     "noExportableText": "No se detectó contenido exportable, verifica entrada",
     "splitCharacterCount": "Caracteres por Segmento",
@@ -174,6 +181,18 @@
     "batchExport": "Exportar Lote"
   },
   "tools": {
+    "subtitleTranslator": {
+      "title": "Traductor Subtítulos",
+      "description": "Traducción por lote SRT, ASS, VTT, LRC. 120+ idiomas."
+    },
+    "jsonTranslate": {
+      "title": "Traductor JSON i18n",
+      "description": "Herramienta eficiente de traducción JSON multilingüe"
+    },
+    "mdTranslator": {
+      "title": "Traductor Markdown",
+      "description": "Traducción Markdown por lote, conserva formato y código"
+    },
     "textSplitter": {
       "title": "Divisor de Texto",
       "description": "División inteligente de texto largo para IA y redes sociales",
@@ -223,6 +242,58 @@
         "Delimitadores personalizados con caracteres de escape \\\\n\\\\n, \\\\t",
         "Exportación por lotes numerada 1/N, 2/N para publicación secuencial"
       ]
+    },
+    "chineseConversion": {
+      "title": "Conversión chino",
+      "description": "Convertir en lote simplificado, tradicional Taiwán, tradicional Hong Kong y forma nueva de caracteres japoneses"
+    },
+    "novelProcessor": {
+      "title": "Formateador de novelas web chinas",
+      "description": "Corrección de problemas de formato de novelas web chinas descargadas con un clic, diseño con saltos de línea inteligentes"
+    },
+    "textToolbox": {
+      "title": "Asistente de texto regex",
+      "description": "Coincidencia regex, ordenación, filtrado y más para el procesamiento masivo de texto"
+    },
+    "dataBatch": {
+      "title": "Procesador de texto",
+      "description": "Procesamiento por lotes de datos Excel — deduplicación, extracción por columnas, fusión, reglas encadenadas"
+    },
+    "jsonValueExtractor": {
+      "title": "Extractor Valor JSON",
+      "description": "Extraer valores JSON por lote, salida formateada"
+    },
+    "jsonNodeEdit": {
+      "title": "Edición JSON por Lote",
+      "description": "Editar nodos JSON por lote, prefijo/sufijo/reemplazar"
+    },
+    "jsonValueTransformer": {
+      "title": "Mapeador Valor JSON",
+      "description": "Mapeo y migración de valores con JSONPath"
+    },
+    "jsonValueSwapper": {
+      "title": "Intercambiador Valor JSON",
+      "description": "Intercambiar valores de dos campos en un clic"
+    },
+    "jsonNodeInserter": {
+      "title": "Insertador Nodo JSON",
+      "description": "Insertar nuevos nodos en posición especificada por lote"
+    },
+    "jsonSortClassify": {
+      "title": "Ordenar & Clasificar JSON",
+      "description": "Ordenar y agrupar arrays, reglas personalizadas"
+    },
+    "jsonMatchUpdate": {
+      "title": "Actualización Match JSON",
+      "description": "Actualización por lote basada en coincidencia de campos"
+    },
+    "dataParserFlare": {
+      "title": "Convertidor Flare",
+      "description": "Conversión marcadores navegador y formato Flare"
+    },
+    "dataParserImgPrompt": {
+      "title": "Generador Datos IMGPrompt",
+      "description": "Generar datos JSON IMGPrompt por lote"
     }
   },
   "navigation": {
@@ -241,130 +312,6 @@
     "homeDescription": "20+ herramientas para traducción, texto, JSON y conversión de datos. Impulsa la eficiencia de desarrolladores y creadores.",
     "ogTitle": "ToolsByAI | Herramientas de Traducción y Dev con IA",
     "ogDescription": "ToolsByAI: 17 herramientas open source gratis para traducción de subtítulos, Markdown, JSON i18n y procesamiento por lotes. 25+ motores IA."
-  },
-  "languages": {
-    "auto": "Detección Auto",
-    "en": "Inglés",
-    "zh": "Chino",
-    "zh-hant": "Chino Tradicional",
-    "es": "Español",
-    "fr": "Francés",
-    "de": "Alemán",
-    "ja": "Japonés",
-    "ko": "Coreano",
-    "hi": "Hindi",
-    "ar": "Árabe",
-    "ru": "Ruso",
-    "pt-br": "Portugués (Brasil)",
-    "id": "Indonesio",
-    "vi": "Vietnamita",
-    "it": "Italiano",
-    "yue": "Cantonés",
-    "pl": "Polaco",
-    "uk": "Ucraniano",
-    "nl": "Holandés",
-    "ro": "Rumano",
-    "el": "Griego",
-    "hu": "Húngaro",
-    "sv": "Sueco",
-    "cs": "Checo",
-    "pt-pt": "Portugués (Portugal)",
-    "ca": "Catalán",
-    "sr": "Serbio",
-    "bg": "Búlgaro",
-    "hy": "Armenio",
-    "da": "Danés",
-    "sq": "Albanés",
-    "fi": "Finlandés",
-    "nb": "Noruego",
-    "sk": "Eslovaco",
-    "hr": "Croata",
-    "be": "Bielorruso",
-    "scn": "Siciliano",
-    "ka": "Georgiano",
-    "lmo": "Lombardo",
-    "lt": "Lituano",
-    "gl": "Gallego",
-    "bs": "Bosnio",
-    "sl": "Esloveno",
-    "mk": "Macedonio",
-    "lv": "Letón",
-    "et": "Estonio",
-    "is": "Islandés",
-    "mt": "Maltés",
-    "cy": "Galés",
-    "ga": "Irlandés",
-    "br": "Bretón",
-    "eu": "Vasco",
-    "yi": "Yidis",
-    "lb": "Luxemburgués",
-    "oc": "Occitano",
-    "an": "Aragonés",
-    "la": "Latín",
-    "eo": "Esperanto",
-    "tr": "Turco",
-    "he": "Hebreo",
-    "fa": "Persa",
-    "ur": "Urdu",
-    "ps": "Pastún",
-    "prs": "Dari",
-    "ckb": "Kurdo central",
-    "kmr": "Kurdo del norte",
-    "uz": "Uzbeko",
-    "kk": "Kazajo",
-    "ky": "Kirguís",
-    "tk": "Turcomano",
-    "az": "Azerbaiyano",
-    "tg": "Tayiko",
-    "mn": "Mongol",
-    "ba": "Baskir",
-    "tt": "Tártaro",
-    "ug": "Uigur",
-    "bn": "Bengalí",
-    "mr": "Maratí",
-    "te": "Telugu",
-    "ta": "Tamil",
-    "gu": "Gujarati",
-    "kn": "Canarés",
-    "pa": "Panyabí",
-    "ml": "Malayalam",
-    "bho": "Bhojpuri",
-    "mai": "Maithili",
-    "ne": "Nepalí",
-    "si": "Cingalés",
-    "as": "Asamés",
-    "gom": "Konkani",
-    "sa": "Sánscrito",
-    "th": "Tailandés",
-    "lo": "Laosiano",
-    "my": "Birmano",
-    "ms": "Malayo",
-    "fil": "Filipino (Tagalo)",
-    "jv": "Javanés",
-    "su": "Sundanés",
-    "ace": "Acehnés",
-    "pag": "Pangasinense",
-    "pam": "Pampango",
-    "ceb": "Cebuano",
-    "sw": "Suajili",
-    "ha": "Hausa",
-    "am": "Amárico",
-    "ig": "Igbo",
-    "wo": "Wólof",
-    "xh": "Xhosa",
-    "zu": "Zulú",
-    "af": "Afrikáans",
-    "om": "Oromo",
-    "st": "Sotho del sur",
-    "tn": "Setsuana",
-    "ts": "Tsonga",
-    "mg": "Malgache",
-    "ln": "Lingala",
-    "ht": "Criollo haitiano",
-    "qu": "Quechua",
-    "ay": "Aimara",
-    "gn": "Guaraní",
-    "mi": "Maorí"
   },
   "CopyToClipboard": {
     "empty": "Contenido vacío, nada que copiar",
