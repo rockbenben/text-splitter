@@ -43,7 +43,7 @@ const TextSplitter = () => {
     setCopiedIndexes(new Set());
     if (texts.length > 500) {
       setAutoHide(true);
-      message.warning("Result too large (>500), display hidden for performance.");
+      message.warning(tSplitter("resultTooLarge"));
     } else {
       setAutoHide(false);
       message.success(tSplitter("textSplit"));
@@ -57,7 +57,7 @@ const TextSplitter = () => {
   const splitByParagraph = async (method: "cn" | "en" = "cn") => {
     setSplittedTexts([]);
     if (!sourceText.trim()) {
-      message.error(t("noSourceText"));
+      message.warning(t("noSourceText"));
       return;
     }
 
@@ -75,7 +75,7 @@ const TextSplitter = () => {
     } catch (error: unknown) {
       console.error("Split by paragraph failed:", error);
       const errMsg = getErrorMessage(error);
-      message.error("An error occurred while processing the text: " + errMsg);
+      message.error(tSplitter("processTextError", { error: errMsg }), 10);
     }
   };
 
@@ -109,7 +109,7 @@ const TextSplitter = () => {
   const splitText = () => {
     setSplittedTexts([]);
     if (!sourceText.trim()) {
-      message.error(t("noSourceText"));
+      message.warning(t("noSourceText"));
       return;
     }
 
@@ -222,11 +222,11 @@ const TextSplitter = () => {
       const zipContent = await zip.generateAsync({ type: "blob" });
       saveAs(zipContent, `${nameWithoutExt}_split_files.zip`);
 
-      message.success(`Exported As Zip: ${texts.length} ${nameWithoutExt}_split_files.zip}`, 5);
+      message.success(tSplitter("zipExported", { count: texts.length, fileName: `${nameWithoutExt}_split_files.zip` }), 5);
     } catch (error: unknown) {
       console.error("ZIP export failed: ", error);
       const errMsg = getErrorMessage(error);
-      message.error("ZIP export failed: " + errMsg);
+      message.error(tSplitter("zipExportFailed", { error: errMsg }), 10);
     }
   };
 
@@ -453,13 +453,13 @@ const TextSplitter = () => {
 
           {autoHide && !hideResults && (
             <Alert
-              message="Result too large (>500), display hidden for performance."
+              title={tSplitter("resultTooLarge")}
               type="warning"
               showIcon
               className="mb-4"
               action={
                 <Button size="small" type="text" onClick={() => setAutoHide(false)}>
-                  Show Anyway
+                  {tSplitter("showAnyway")}
                 </Button>
               }
             />
