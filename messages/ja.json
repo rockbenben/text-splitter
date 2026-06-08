@@ -113,6 +113,7 @@
     "apiStatusTesting": "テスト中",
     "apiStatusConnected": "✓ 接続済み",
     "apiStatusFailed": "接続失敗",
+    "apiStatusTimeout": "接続がタイムアウトしました",
     "testConnection": "接続テスト",
     "moreProviderSettings": "その他のProvider設定",
     "format": "フォーマット",
@@ -236,7 +237,7 @@
       ],
       "features": [
         "AI モデル文脈：GPT-5 400K、Claude 4.6/4.7 1M、Gemini 3 Pro 1M、DeepSeek V4 1M",
-        "SNS プラットフォーム文字数テンプレート：X 280、Threads 500、Bluesky 300、note 5000、LINE…",
+        "SNS プラットフォーム文字数テンプレート：X 280、Threads 500、Bluesky 300、Mastodon 500、LinkedIn 3000",
         "中英混在文の中国語（。！？）と英語（. ! ?）句読点自動認識",
         "非 UTF-8 ファイル自動検出（GBK、Shift-JIS、EUC-KR）で文字化け防止",
         "カスタム区切り文字：\\\\n\\\\n、\\\\t などエスケープ対応",

@@ -126,6 +126,7 @@
     "apiStatusTesting": "Teste",
     "apiStatusConnected": "✓ Verbunden",
     "apiStatusFailed": "Verbindung fehlgeschlagen",
+    "apiStatusTimeout": "Zeitüberschreitung der Verbindung",
     "testConnection": "Verbindung testen",
     "moreProviderSettings": "Weitere Provider-Einstellungen",
     "gtxFreeAPIUnavailable": "Der GTX Free-Dienst ist vorübergehend nicht erreichbar — möglicherweise eine Netzwerkbeschränkung. Versuche es später erneut oder wechsle zu einem anderen Übersetzungsdienst.",
@@ -321,7 +322,7 @@
   },
   "feedback": {
     "feedback1": "Feedback & Vorschläge",
-    "feedback2": "Wenn Sie Probleme haben oder Vorschläge, lassen Sie es mich wissen!Ihr Feedback beeinflusst die zukünftige Entwicklung und hilft uns, bessere Tools zu bau…",
+    "feedback2": "Wenn Sie bei der Nutzung auf Probleme stoßen oder Vorschläge und Ideen haben, lassen Sie es mich gerne jederzeit wissen! Ihr Feedback fließt direkt in die Entwicklung und Verbesserung künftiger Funktionen ein und hilft uns, gemeinsam Tools zu bauen, die den Bedürfnissen aller besser entsprechen.",
     "feedback3": "Bitte beschreiben Sie Ihren Anwendungsfall, das Problem oder Ihre Idee. Ich lese jede Nachricht und werde so schnell wie möglich antworten/optimieren.",
     "reaction0": "Gefällt mir",
     "reaction1": "Unterstützung",
