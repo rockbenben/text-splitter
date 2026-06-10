@@ -389,7 +389,7 @@ const TextSplitter = () => {
                   <Tooltip title={t("hideResultsTooltip")}>
                     <span>{t("hideResults")}</span>
                   </Tooltip>
-                  <Switch size="small" checked={hideResults} onChange={setHideResults} />
+                  <Switch size="small" checked={hideResults} onChange={setHideResults} aria-label={t("hideResults")} />
                 </Flex>
               </Form.Item>
 
