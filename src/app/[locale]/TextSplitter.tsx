@@ -90,15 +90,22 @@ const TextSplitter = () => {
     // 按符号分割
     const parts = text.split(regex);
     const result: string[] = [];
+    // 空内容段(连续/行首分隔符)对应的分隔符不能随内容一起丢 —— 上一段
+    // 存在则接到其末尾,否则积攒为下一段的前缀。此前直接 skip,"一句。。两句"
+    // 会丢一个 "。",导出合并文本无法还原输入字符。
+    let pendingSeparators = "";
 
     for (let i = 0; i < parts.length; i += 2) {
       const content = parts[i];
-      const separator = parts[i + 1];
+      const separator = parts[i + 1] ?? "";
 
       if (content && content.trim()) {
         // 将分割符号保留在当前段落的末尾
-        const segment = separator ? (content + separator).trim() : content.trim();
-        result.push(segment);
+        result.push((pendingSeparators + content + separator).trim());
+        pendingSeparators = "";
+      } else if (separator) {
+        if (result.length > 0) result[result.length - 1] += separator;
+        else pendingSeparators += separator;
       }
     }
 
@@ -129,16 +136,21 @@ const TextSplitter = () => {
     const alignSymbols = getCustomSymbolsArray();
     const singleLineText = sourceText.replace(/[\r\n]+/g, " ");
     const newSplittedTexts: string[] = [];
+    // InputNumber 无 precision 约束,0.5 这类小数会让 slice 截断小数下标,
+    // 产出一半空段(段数翻倍、卡片空白)。向上取整到 ≥1 的整数。
+    const intLimit = Math.max(1, Math.ceil(limit));
     let start = 0;
 
     while (start < singleLineText.length) {
-      let end = start + limit;
+      let end = start + intLimit;
 
       if (end < singleLineText.length && alignSymbols.length > 0) {
-        // 从结束位置向前搜索确定精确的分割点
+        // 从结束位置向前搜索确定精确的分割点。块覆盖 start..end-1,扫描起点
+        // 必须是 end-1 —— 从 end 起扫会把窗口外第一个字符上的分隔符也算进来,
+        // 切出 limit+1 长的块(越过用户设定的上限)。
         const findSplitPoint = (symbols: string[]) => {
           if (symbols.length === 0) return null;
-          for (let i = end; i >= start; i--) {
+          for (let i = end - 1; i >= start; i--) {
             // 对于自定义符号，我们需要检查多字符符号
             if (
               symbols.some((symbol) => {
@@ -152,19 +164,11 @@ const TextSplitter = () => {
                 }
               })
             ) {
-              // 对于多字符符号，我们需要正确调整 i
-              const matchedSymbol = symbols.find((symbol) => {
-                if (symbol.length === 1) {
-                  return singleLineText[i] === symbol;
-                } else {
-                  const startIndex = i - symbol.length + 1;
-                  if (startIndex < start) return false;
-                  return singleLineText.substring(startIndex, i + 1) === symbol;
-                }
-              });
-              const adjustment = matchedSymbol ? matchedSymbol.length : 1;
-              // 确保分割点不会超出内容范围
-              return i + adjustment < singleLineText.length ? i + adjustment : end;
+              // i 是符号【末字符】的下标(上面的匹配按"以 i 结尾"判断),
+              // 切点固定为 i+1 —— 此前再加 symbol.length 会把切点推过
+              // len-1 个字符,多字符分隔符("……"、"---")后面的词被拦腰
+              // 切进上一块。
+              return i + 1 < singleLineText.length ? i + 1 : end;
             }
           }
           return null;
@@ -177,6 +181,13 @@ const TextSplitter = () => {
 
       // 处理最后一段文本
       end = Math.min(end, singleLineText.length);
+      // 硬切点落在代理对(emoji)中间会把字符劈成两个 U+FFFD —— 复制/导出都
+      // 是永久损坏。高位代理收尾且后面还有字符时退一格让整个字符进下一块;
+      // intLimit=1 退无可退(块至少 1 码元),进一格保字符完整(仅此处可超限)。
+      if (end < singleLineText.length) {
+        const cu = singleLineText.charCodeAt(end - 1);
+        if (cu >= 0xd800 && cu <= 0xdbff) end = end - 1 > start ? end - 1 : end + 1;
+      }
       const segment = singleLineText.slice(start, end);
       newSplittedTexts.push(segment);
 
