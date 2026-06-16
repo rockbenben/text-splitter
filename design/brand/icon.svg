@@ -1,0 +1,19 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Text Splitter mark — one long block sliced at a smart boundary. A chunky orange
+       cut line divides the text; the lower segment shifts away as its own chunk.
+       Bold dashes keep the accent alive at 16px. -->
+  <rect width="512" height="512" fill="#15171C"/>
+
+  <!-- upper segment -->
+  <rect x="104" y="168" width="304" height="30" rx="8" fill="#4A515B"/>
+  <rect x="104" y="208" width="304" height="30" rx="8" fill="#4A515B"/>
+
+  <!-- cut line (orange, chunky dashes) -->
+  <rect x="92" y="262" width="92" height="14" rx="7" fill="#FF7A3D"/>
+  <rect x="210" y="262" width="92" height="14" rx="7" fill="#FF7A3D"/>
+  <rect x="328" y="262" width="92" height="14" rx="7" fill="#FF7A3D"/>
+
+  <!-- lower segment (offset — separated chunk) -->
+  <rect x="150" y="300" width="304" height="30" rx="8" fill="#4A515B"/>
+  <rect x="150" y="340" width="248" height="30" rx="8" fill="#4A515B"/>
+</svg>

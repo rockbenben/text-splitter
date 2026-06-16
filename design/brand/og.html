@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap');
+  :root { --bg:#15171C; --panel:#1A1D23; --ink:#ECEAE3; --muted:#9AA1AB; --line:#2A2F38;
+    --orange:#FF7A3D; --orange-t:#FFA878; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1200px; height:630px; }
+  body { background:var(--bg); color:var(--ink); display:flex; overflow:hidden;
+    position:relative; font-family:'Schibsted Grotesk',system-ui,sans-serif; }
+  body::before { content:""; position:absolute; inset:0;
+    background:radial-gradient(900px 520px at 86% 30%, rgba(255,122,61,.10), transparent 60%); }
+  .left { flex:1; padding:60px 36px 56px 78px; display:flex; flex-direction:column;
+    justify-content:center; gap:24px; position:relative; z-index:1; }
+  .eyebrow { font-family:'JetBrains Mono',monospace; font-size:17px; font-weight:500;
+    letter-spacing:.26em; text-transform:uppercase; color:var(--muted);
+    display:flex; align-items:center; gap:13px; }
+  .eyebrow .marks { display:inline-flex; gap:5px; align-items:center; }
+  .eyebrow .marks i { width:8px; height:11px; display:block; border-radius:2px; background:var(--orange); }
+  .eyebrow .marks i.gap { width:5px; background:transparent; }
+  .title { font-weight:800; font-size:78px; line-height:1.0; letter-spacing:-.035em; }
+  .title .hl { color:var(--orange); }
+  .pills { display:flex; gap:12px; margin-top:2px; }
+  .pill { display:flex; align-items:center; gap:9px; padding:11px 20px;
+    border:1px solid rgba(255,122,61,.30); background:rgba(255,122,61,.08);
+    border-radius:999px; font-size:21px; font-weight:700; color:var(--orange-t); }
+  .pill .dot { width:8px; height:8px; border-radius:50%; background:var(--orange); }
+  .desc { font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--muted);
+    line-height:1.6; max-width:42ch; }
+  .url { font-family:'JetBrains Mono',monospace; font-size:19px; font-weight:500;
+    color:var(--ink); display:flex; align-items:center; gap:12px; margin-top:2px; }
+  .url::before { content:""; width:26px; height:2px; background:var(--orange); }
+
+  .right { width:486px; flex:none; display:flex; align-items:center;
+    padding-right:64px; position:relative; z-index:1; }
+  .stack { width:100%; position:relative; }
+  .chunk { background:var(--panel); border:1px solid var(--line); border-radius:13px;
+    padding:20px 24px; margin-bottom:18px; position:relative;
+    box-shadow:0 24px 50px -28px rgba(0,0,0,.8); }
+  .chunk:nth-child(1) { margin-left:0; }
+  .chunk:nth-child(2) { margin-left:34px; }
+  .chunk:nth-child(3) { margin-left:68px; }
+  .chunk .hd { display:flex; align-items:center; gap:10px; margin-bottom:14px;
+    font-family:'JetBrains Mono',monospace; font-size:15px; color:var(--orange-t); font-weight:500; }
+  .chunk .hd .tag { width:22px; height:22px; border-radius:6px; background:rgba(255,122,61,.16);
+    color:var(--orange); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; }
+  .chunk .ln { height:11px; border-radius:6px; background:#3a3a3f; margin:9px 0; }
+  .chunk .ln.w1{width:100%}.chunk .ln.w2{width:86%}.chunk .ln.w3{width:62%}
+</style>
+</head>
+<body>
+  <div class="left">
+    <div class="eyebrow"><span class="marks"><i></i><i class="gap"></i><i></i><i class="gap"></i><i></i></span> Tools&nbsp;By&nbsp;AI · Text&nbsp;Splitter</div>
+    <div class="title">Long text into<br><span class="hl">clean chunks</span></div>
+    <div class="pills">
+      <span class="pill"><span class="dot"></span>Free</span>
+      <span class="pill"><span class="dot"></span>No signup</span>
+      <span class="pill"><span class="dot"></span>In&#8209;browser</span>
+    </div>
+    <div class="desc">By length, Chinese paragraph or English sentence · snaps to 。！？/.!? · batch export, auto-ZIP.</div>
+    <div class="url">tools.newzone.top</div>
+  </div>
+  <div class="right">
+    <div class="stack">
+      <div class="chunk"><div class="hd"><span class="tag">1</span>Chunk 01 · 1,000 chars</div>
+        <div class="ln w1"></div><div class="ln w2"></div><div class="ln w3"></div></div>
+      <div class="chunk"><div class="hd"><span class="tag">2</span>Chunk 02 · 1,000 chars</div>
+        <div class="ln w1"></div><div class="ln w2"></div></div>
+      <div class="chunk"><div class="hd"><span class="tag">3</span>Chunk 03 · 640 chars</div>
+        <div class="ln w2"></div><div class="ln w3"></div></div>
+    </div>
+  </div>
+</body>
+</html>

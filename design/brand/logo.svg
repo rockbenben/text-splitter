@@ -1,0 +1,24 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Text Splitter — long text is chunked at smart boundaries. The cut snaps to a
+       sentence end (the orange 。/period dot); segments separate into clean chunks. -->
+  <rect width="512" height="512" fill="#15171C"/>
+
+  <!-- chunk 1 -->
+  <rect x="80" y="150" width="352" height="22" rx="6" fill="#4A515B"/>
+  <rect x="80" y="184" width="352" height="22" rx="6" fill="#4A515B"/>
+  <!-- last line ends at a sentence boundary -->
+  <rect x="80" y="218" width="250" height="22" rx="6" fill="#4A515B"/>
+  <circle cx="350" cy="229" r="11" fill="#FF7A3D"/>
+
+  <!-- cut line snapping to the boundary (orange dashed) + scissor nicks -->
+  <rect x="80" y="266" width="58" height="8" rx="4" fill="#FF7A3D"/>
+  <rect x="158" y="266" width="58" height="8" rx="4" fill="#FF7A3D"/>
+  <rect x="236" y="266" width="58" height="8" rx="4" fill="#FF7A3D"/>
+  <rect x="314" y="266" width="58" height="8" rx="4" fill="#FF7A3D"/>
+  <rect x="392" y="266" width="40" height="8" rx="4" fill="#FF7A3D"/>
+
+  <!-- chunk 2 (offset — a separate exported segment) -->
+  <rect x="120" y="300" width="352" height="22" rx="6" fill="#4A515B"/>
+  <rect x="120" y="334" width="352" height="22" rx="6" fill="#4A515B"/>
+  <rect x="120" y="368" width="208" height="22" rx="6" fill="#4A515B"/>
+</svg>
