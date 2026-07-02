@@ -54,6 +54,7 @@
     "exportedFile": "Esportato",
     "extractedText": "Testo Estratto",
     "translating": "Traduzione in corso...",
+    "translateDone": "Traduzione completata",
     "multiTranslating": "Traduzione in corso, totale lingue:",
     "model": "Modello",
     "sameLanguageTarget": "Lingue sorgente e destinazione uguali; destinazione adattata automaticamente a",
@@ -97,7 +98,7 @@
     "requestTimeoutSec": "Timeout",
     "requestTimeoutSecTooltip": "Attesa massima per richiesta (secondi). Il pensiero LLM richiede più tempo; si consigliano 180 s o più.",
     "customExportFilename": "Modello nome file",
-    "customExportFilenameTooltip": "'{'name'}' = nome originale, '{'lang'}' = lingua, '{'ext'}' = estensione, '{'date'}' = data, '{'time'}' = ora",
+    "customExportFilenameTooltip": "'{'name'}' = nome originale, '{'lang'}' = lingua, '{'ext'}' = estensione, '{'date'}' = data, '{'time'}' = ora; in modalità multilingua '{'lang'}' viene aggiunto automaticamente per evitare conflitti di nome",
     "partialFailureTitle": "{count} riga/righe non riuscite",
     "partialFailureDesc": "Le righe non riuscite hanno mantenuto il testo originale come segnaposto, il file rimane utilizzabile. Questi fallimenti sono solitamente fluttuazioni di rete o instabilità temporanea del servizio di traduzione — i servizi gratuiti e i server auto-ospitati sono particolarmente soggetti a questo, e non è un problema della tua configurazione. Fai clic su Riprova per continuare (le righe riuscite vengono dalla cache, senza ritraduzione); se continua a fallire, riprova più tardi o prova un altro servizio di traduzione. O fai clic su Visualizza righe non riuscite per gestirle manualmente.",
     "retryFailedLines": "Riprova",
@@ -135,6 +136,7 @@
     "translategemmaUnavailable": "Il servizio TranslateGemma è temporaneamente irraggiungibile, assicurati che il tuo server locale (LM Studio / llama.cpp / Ollama) sia in esecuzione e l'URL sia corretto.",
     "networkUnavailable": "Il servizio di traduzione è temporaneamente irraggiungibile — potrebbe essere un problema di rete o il servizio ha un piccolo intoppo. Riprova più tardi o passa a un altro servizio di traduzione.",
     "translationTimeout": "La richiesta di traduzione è scaduta — potrebbe essere una rete lenta o il servizio impiega troppo tempo a rispondere. Riprova più tardi o passa a un altro servizio di traduzione.",
+    "translationTimeoutLocal": "Traduzione con modello locale scaduta. Un LLM locale può bloccarsi in un ciclo di ripetizione: riduci max_tokens (il limite di output) nelle Impostazioni avanzate e assicurati che la lingua di origine selezionata corrisponda al testo effettivo.",
     "langGroupCommon": "Comuni",
     "langGroupEurope": "Europa",
     "langGroupMiddleEast": "Medio Oriente",
@@ -237,20 +239,6 @@
           "a": "100% lato client: lettura, divisione ed export avvengono interamente nel tuo browser — nulla viene caricato, quindi i contenuti sensibili sono al sicuro. Codice sorgente aperto su GitHub (rockbenben/text-splitter) per self-hosting o audit."
         }
       ],
-      "howto": [
-        {
-          "name": "Immettere testo lungo nello strumento",
-          "text": "Incollare testo molto lungo (capitoli di romanzo, discorsi, articoli di ricerca) o caricare file TXT. Per file non UTF-8 (francese GBK, giapponese Shift-JIS, coreano EUC-KR), caricare il file direttamente per rilevamento automatico codifica."
-        },
-        {
-          "name": "Impostare numero di caratteri in base a modello",
-          "text": "ChatGPT gratuito 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; strumenti traduzione 5000. Lo strumento divide ai confini di paragrafo senza tagliare le frasi."
-        },
-        {
-          "name": "Esportare per input IA o pubblicazione social",
-          "text": "Copiare singoli segmenti direttamente in ChatGPT/Claude/Gemini. Esportazione batch come file numerati 1/N, 2/N per pubblicazione sequenziale Twitter/Threads. Esportazione unita per salvare testo lungo organizzato."
-        }
-      ],
       "features": [
         "Contesti IA: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Modelli piattaforme social: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
@@ -324,7 +312,11 @@
     "textParser": "Strumenti Testo",
     "jsonParser": "Strumenti JSON",
     "dataParser": "Strumenti Dati",
-    "otherTools": "Altri Strumenti"
+    "otherTools": "Altri Strumenti",
+    "externalTools": {
+      "legendtalk": "Tavola rotonda dei pensatori IA",
+      "imgprompt": "Prompt per immagini IA"
+    }
   },
   "Metadata": {
     "title": "ToolsByAI - Utility Sviluppatori & Traduzione IA Online",

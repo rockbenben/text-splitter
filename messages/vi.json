@@ -54,6 +54,7 @@
     "exportedFile": "Đã xuất",
     "extractedText": "Văn bản đã trích xuất",
     "translating": "Đang dịch...",
+    "translateDone": "Đã dịch xong",
     "multiTranslating": "Đang dịch, tổng số ngôn ngữ:",
     "model": "Mô hình",
     "sameLanguageTarget": "Ngôn ngữ nguồn và đích giống nhau; đích tự động điều chỉnh thành",
@@ -97,7 +98,7 @@
     "requestTimeoutSec": "Thời gian chờ",
     "requestTimeoutSecTooltip": "Thời gian chờ tối đa mỗi yêu cầu (giây). LLM suy nghĩ mất nhiều thời gian hơn; khuyến nghị 180 giây trở lên.",
     "customExportFilename": "Mẫu tên tệp xuất",
-    "customExportFilenameTooltip": "'{'name'}' = tên tệp gốc, '{'lang'}' = ngôn ngữ, '{'ext'}' = phần mở rộng, '{'date'}' = ngày, '{'time'}' = thời gian",
+    "customExportFilenameTooltip": "'{'name'}' = tên tệp gốc, '{'lang'}' = ngôn ngữ, '{'ext'}' = phần mở rộng, '{'date'}' = ngày, '{'time'}' = thời gian; ở chế độ đa ngôn ngữ, '{'lang'}' được thêm tự động để tránh trùng tên",
     "partialFailureTitle": "{count} dòng dịch thất bại",
     "partialFailureDesc": "Các dòng thất bại đã giữ nguyên văn bản gốc làm chỗ giữ chỗ, tệp vẫn dùng được. Những thất bại này thường do biến động mạng hoặc dịch vụ dịch tạm thời không ổn định — dịch vụ miễn phí và máy chủ tự lưu trữ đặc biệt dễ gặp, và không phải do cấu hình của bạn. Nhấp Thử lại để tiếp tục (các dòng thành công đến từ bộ nhớ đệm, không dịch lại); nếu vẫn thất bại, hãy thử lại sau hoặc chuyển sang dịch vụ dịch khác. Hoặc nhấp Xem các dòng thất bại để xử lý thủ công.",
     "retryFailedLines": "Thử lại",
@@ -135,6 +136,7 @@
     "translategemmaUnavailable": "Dịch vụ TranslateGemma tạm thời không kết nối được, hãy đảm bảo máy chủ cục bộ của bạn (LM Studio / llama.cpp / Ollama) đang chạy và URL chính xác.",
     "networkUnavailable": "Dịch vụ dịch tạm thời không kết nối được — có thể là sự cố mạng hoặc dịch vụ đang gặp trục trặc tạm thời. Vui lòng thử lại sau hoặc chuyển sang dịch vụ dịch khác.",
     "translationTimeout": "Yêu cầu dịch đã hết thời gian — có thể là mạng chậm hoặc dịch vụ phản hồi quá lâu. Vui lòng thử lại sau hoặc chuyển sang dịch vụ dịch khác.",
+    "translationTimeoutLocal": "Dịch bằng mô hình cục bộ đã hết thời gian. Một LLM cục bộ có thể bị kẹt trong vòng lặp lặp lại — hãy giảm max_tokens (giới hạn đầu ra) trong Cài đặt nâng cao và đảm bảo ngôn ngữ nguồn đã chọn khớp với văn bản thực tế.",
     "langGroupCommon": "Phổ biến",
     "langGroupEurope": "Châu Âu",
     "langGroupMiddleEast": "Trung Đông",
@@ -237,20 +239,6 @@
           "a": "100% phía client: đọc, chia và xuất văn bản đều diễn ra trong trình duyệt — không có gì được tải lên máy chủ, nội dung nhạy cảm vẫn an toàn. Mã nguồn mở trên GitHub (rockbenben/text-splitter) để tự host hoặc kiểm tra."
         }
       ],
-      "howto": [
-        {
-          "name": "Nhập văn bản dài vào công cụ",
-          "text": "Dán văn bản rất dài (chương tiểu thuyết, bài phát biểu, bài nghiên cứu) hoặc tải lên tệp TXT. Với tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS), tải tệp trực tiếp để tự phát hiện mã hóa."
-        },
-        {
-          "name": "Đặt số ký tự theo mô hình AI hoặc nền tảng",
-          "text": "ChatGPT miễn phí 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; công cụ dịch 5000. Công cụ chia tại biên đoạn văn không cắt câu."
-        },
-        {
-          "name": "Xuất cho nhập AI hoặc đăng mạng xã hội",
-          "text": "Sao chép từng đoạn riêng trực tiếp vào ChatGPT/Claude/Gemini. Xuất hàng loạt thành tệp đánh số 1/N, 2/N cho đăng tuần tự Twitter/Threads. Xuất gộp để lưu văn bản dài có tổ chức."
-        }
-      ],
       "features": [
         "Ngữ cảnh AI: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Mẫu nền tảng xã hội: Twitter 280, Threads 500, Zalo 1000, LinkedIn 3000",
@@ -324,7 +312,11 @@
     "textParser": "Công cụ Văn bản",
     "jsonParser": "Công cụ JSON",
     "dataParser": "Công cụ Dữ liệu",
-    "otherTools": "Công cụ Khác"
+    "otherTools": "Công cụ Khác",
+    "externalTools": {
+      "legendtalk": "Bàn tròn nhà tư tưởng AI",
+      "imgprompt": "Câu lệnh tạo ảnh AI"
+    }
   },
   "Metadata": {
     "title": "ToolsByAI - Bộ Công Cụ Dịch Thuật & Dữ Liệu AI Online",

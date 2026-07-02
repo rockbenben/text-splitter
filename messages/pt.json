@@ -54,6 +54,7 @@
     "exportedFile": "Exportado",
     "extractedText": "Texto Extraído",
     "translating": "Traduzindo...",
+    "translateDone": "Tradução concluída",
     "multiTranslating": "Traduzindo, total de idiomas:",
     "model": "Modelo",
     "sameLanguageTarget": "Idiomas de origem e destino iguais; destino ajustado automaticamente para",
@@ -97,7 +98,7 @@
     "requestTimeoutSec": "Tempo limite",
     "requestTimeoutSecTooltip": "Espera máxima por solicitação (segundos). O raciocínio do LLM leva mais tempo; recomenda-se 180 s ou mais.",
     "customExportFilename": "Padrão de nome de arquivo",
-    "customExportFilenameTooltip": "'{'name'}' = nome original, '{'lang'}' = idioma, '{'ext'}' = extensão, '{'date'}' = data, '{'time'}' = hora",
+    "customExportFilenameTooltip": "'{'name'}' = nome original, '{'lang'}' = idioma, '{'ext'}' = extensão, '{'date'}' = data, '{'time'}' = hora; no modo multilíngue, '{'lang'}' é adicionado automaticamente para evitar conflitos de nome",
     "partialFailureTitle": "{count} linha(s) falharam",
     "partialFailureDesc": "As linhas que falharam mantiveram o texto original como espaço reservado, o arquivo continua utilizável. Essas falhas geralmente são oscilações de rede ou instabilidade temporária do serviço de tradução — serviços gratuitos e servidores auto-hospedados são especialmente propensos, e não é um problema de configuração sua. Clique em Tentar novamente para continuar (as linhas bem-sucedidas vêm do cache, sem retradução); se continuar falhando, tente novamente mais tarde ou troque para outro serviço de tradução. Ou clique em Ver linhas que falharam para tratá-las manualmente.",
     "retryFailedLines": "Tentar novamente",
@@ -135,6 +136,7 @@
     "translategemmaUnavailable": "O serviço TranslateGemma está temporariamente inacessível, verifique se o seu servidor local (LM Studio / llama.cpp / Ollama) está em execução e o URL está correto.",
     "networkUnavailable": "O serviço de tradução está temporariamente inacessível — pode ser um problema de rede ou o serviço está com algum problema momentâneo. Tente novamente mais tarde ou troque para outro serviço de tradução.",
     "translationTimeout": "A solicitação de tradução expirou — pode ser uma rede lenta ou o serviço está demorando muito para responder. Tente novamente mais tarde ou troque para outro serviço de tradução.",
+    "translationTimeoutLocal": "O tempo da tradução com o modelo local esgotou. Um LLM local pode travar em um loop de repetição — reduza max_tokens (o limite de saída) nas Configurações avançadas e verifique se o idioma de origem selecionado corresponde ao texto real.",
     "langGroupCommon": "Comuns",
     "langGroupEurope": "Europa",
     "langGroupMiddleEast": "Médio Oriente",
@@ -237,20 +239,6 @@
           "a": "100% no navegador: leitura, divisão e exportação acontecem todas localmente — nada é enviado a servidores, então conteúdo sensível fica seguro. Código aberto no GitHub (rockbenben/text-splitter) para auto-hospedagem ou auditoria."
         }
       ],
-      "howto": [
-        {
-          "name": "Inserir texto longo na ferramenta",
-          "text": "Cole texto muito longo (capítulos de romance, discursos, artigos) ou carregue arquivo TXT. Para arquivos não-UTF-8 (francês GBK, japonês Shift-JIS), carregue o arquivo diretamente para detecção auto de codificação."
-        },
-        {
-          "name": "Definir número de caracteres por IA ou plataforma",
-          "text": "ChatGPT grátis 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; ferramentas tradução 5000. Divide em limites de parágrafo sem cortar frases."
-        },
-        {
-          "name": "Exportar para entrada IA ou postagem social",
-          "text": "Copie segmentos individuais diretamente em ChatGPT/Claude/Gemini. Exporte em lote como arquivos numerados 1/N, 2/N para postagem sequencial Twitter/Threads. Exportação mesclada para salvar texto longo organizado."
-        }
-      ],
       "features": [
         "Contextos IA: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Templates de plataformas sociais: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
@@ -324,7 +312,11 @@
     "textParser": "Ferramentas Texto",
     "jsonParser": "Ferramentas JSON",
     "dataParser": "Ferramentas Dados",
-    "otherTools": "Outras Ferramentas"
+    "otherTools": "Outras Ferramentas",
+    "externalTools": {
+      "legendtalk": "Mesa-redonda de pensadores de IA",
+      "imgprompt": "Prompts de imagem de IA"
+    }
   },
   "Metadata": {
     "title": "ToolsByAI - Ferramentas de IA e Dados para Desenvolvedores",

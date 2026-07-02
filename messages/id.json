@@ -54,6 +54,7 @@
     "exportedFile": "Diekspor",
     "extractedText": "Teks Diekstrak",
     "translating": "Menerjemahkan...",
+    "translateDone": "Terjemahan selesai",
     "multiTranslating": "Menerjemahkan, total bahasa:",
     "model": "Model",
     "sameLanguageTarget": "Bahasa sumber dan target sama; target otomatis disesuaikan ke",
@@ -97,7 +98,7 @@
     "requestTimeoutSec": "Batas Waktu",
     "requestTimeoutSecTooltip": "Waktu tunggu maksimum per permintaan (detik). Pemikiran LLM membutuhkan waktu lebih lama; direkomendasikan 180 detik atau lebih.",
     "customExportFilename": "Pola Nama File Ekspor",
-    "customExportFilenameTooltip": "'{'name'}' = nama file asli, '{'lang'}' = bahasa, '{'ext'}' = ekstensi, '{'date'}' = tanggal, '{'time'}' = waktu",
+    "customExportFilenameTooltip": "'{'name'}' = nama file asli, '{'lang'}' = bahasa, '{'ext'}' = ekstensi, '{'date'}' = tanggal, '{'time'}' = waktu; dalam mode multibahasa, '{'lang'}' ditambahkan otomatis untuk mencegah bentrokan nama",
     "partialFailureTitle": "{count} baris gagal diterjemahkan",
     "partialFailureDesc": "Baris yang gagal mempertahankan teks asli sebagai placeholder, file tetap dapat digunakan. Kegagalan semacam ini biasanya disebabkan oleh fluktuasi jaringan atau ketidakstabilan sementara layanan terjemahan — layanan gratis dan server yang di-host sendiri sangat rentan, dan ini bukan masalah konfigurasi Anda. Klik Coba lagi untuk melanjutkan (baris yang berhasil berasal dari cache, tanpa penerjemahan ulang); jika tetap gagal, coba lagi nanti atau beralih ke layanan terjemahan lain. Atau klik Lihat baris yang gagal untuk menanganinya secara manual.",
     "retryFailedLines": "Coba lagi",
@@ -135,6 +136,7 @@
     "translategemmaUnavailable": "Layanan TranslateGemma sementara tidak dapat dijangkau, pastikan server lokal Anda (LM Studio / llama.cpp / Ollama) sedang berjalan dan URL sudah benar.",
     "networkUnavailable": "Layanan terjemahan sementara tidak dapat dijangkau — bisa jadi masalah jaringan atau gangguan sementara pada layanan. Silakan coba lagi nanti atau beralih ke layanan terjemahan lain.",
     "translationTimeout": "Permintaan terjemahan habis waktu — bisa jadi jaringan lambat atau layanan terlalu lama merespons. Silakan coba lagi nanti atau beralih ke layanan terjemahan lain.",
+    "translationTimeoutLocal": "Penerjemahan model lokal kehabisan waktu. LLM lokal bisa macet dalam perulangan berulang — turunkan max_tokens (batas keluaran) di Pengaturan Lanjutan, dan pastikan bahasa sumber yang dipilih sesuai dengan teks sebenarnya.",
     "langGroupCommon": "Umum",
     "langGroupEurope": "Eropa",
     "langGroupMiddleEast": "Timur Tengah",
@@ -253,20 +255,6 @@
           "a": "Pemrosesan frontend 100%: pembacaan teks, pemisahan, ekspor semua di browser, teks asli tidak diunggah ke server mana pun, konten sensitif aman. Kode sumber open source di GitHub (rockbenben/text-splitter), bisa self-deploy atau audit."
         }
       ],
-      "howto": [
-        {
-          "name": "Masukkan teks panjang ke alat",
-          "text": "Tempel teks sangat panjang (bab novel, pidato, makalah penelitian) atau unggah file TXT. Untuk file non-UTF-8 (Prancis GBK, Jepang Shift-JIS, Korea EUC-KR), unggah file langsung untuk deteksi pengkodean otomatis."
-        },
-        {
-          "name": "Atur jumlah karakter sesuai model AI atau platform",
-          "text": "ChatGPT gratis 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; alat terjemahan 5000. Alat membagi pada batas paragraf tanpa memotong kalimat."
-        },
-        {
-          "name": "Ekspor untuk input AI atau posting media sosial",
-          "text": "Salin segmen individu langsung ke ChatGPT/Claude/Gemini. Ekspor batch sebagai file bernomor 1/N, 2/N untuk posting berurutan di Twitter/Threads. Ekspor gabungan untuk menyimpan teks panjang yang terorganisir."
-        }
-      ],
       "features": [
         "Konteks AI: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Template platform sosial: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000",
@@ -324,7 +312,11 @@
     "textParser": "Alat Teks",
     "jsonParser": "Alat JSON",
     "dataParser": "Alat Data",
-    "otherTools": "Alat Lainnya"
+    "otherTools": "Alat Lainnya",
+    "externalTools": {
+      "legendtalk": "Meja Bundar Pemikir AI",
+      "imgprompt": "Prompt Gambar AI"
+    }
   },
   "Metadata": {
     "title": "ToolsByAI - Peralatan Data & Terjemahan AI untuk Developer",

@@ -56,6 +56,7 @@
     "batchDownloaded": "Procesamiento completo, el archivo se descargó automáticamente",
     "extractedText": "Texto Extraído",
     "translating": "Traduciendo...",
+    "translateDone": "Traducción completada",
     "multiTranslating": "Traduciendo, total idiomas:",
     "model": "Modelo",
     "sameLanguageTarget": "Idiomas origen y destino iguales; destino ajustado automáticamente a",
@@ -110,7 +111,7 @@
     "requestTimeoutSec": "Tiempo de espera",
     "requestTimeoutSecTooltip": "Espera máxima por solicitud (segundos). El pensamiento de LLM tarda más; se recomiendan 180 s o más.",
     "customExportFilename": "Patrón de nombre de archivo",
-    "customExportFilenameTooltip": "'{'name'}' = nombre original, '{'lang'}' = idioma, '{'ext'}' = extensión, '{'date'}' = fecha, '{'time'}' = hora",
+    "customExportFilenameTooltip": "'{'name'}' = nombre original, '{'lang'}' = idioma, '{'ext'}' = extensión, '{'date'}' = fecha, '{'time'}' = hora; en modo multiidioma se agrega '{'lang'}' automáticamente para evitar conflictos de nombres",
     "partialFailureTitle": "{count} línea(s) fallaron",
     "partialFailureDesc": "Las líneas fallidas conservaron el texto original como marcador de posición, manteniendo el archivo utilizable. Estos fallos suelen ser interrupciones de red o problemas temporales del servicio de traducción — los servicios gratuitos y los servidores autoalojados son especialmente propensos a esto, y no es un problema de tu configuración. Haz clic en Reintentar para continuar (las líneas exitosas vienen de la caché, sin retraducción); si sigue fallando, inténtalo más tarde o prueba otro servicio de traducción. O haz clic en Ver líneas fallidas para gestionarlas manualmente.",
     "retryFailedLines": "Reintentar",
@@ -135,6 +136,7 @@
     "translategemmaUnavailable": "El servicio TranslateGemma está temporalmente inaccesible, asegúrate de que tu servidor local (LM Studio / llama.cpp / Ollama) esté en ejecución y la URL sea correcta.",
     "networkUnavailable": "El servicio de traducción está temporalmente inaccesible — podría ser un problema de red o el servicio está teniendo un percance. Inténtalo de nuevo más tarde o cambia a otro servicio de traducción.",
     "translationTimeout": "La solicitud de traducción agotó el tiempo de espera — podría ser una red lenta o el servicio está tardando demasiado en responder. Inténtalo de nuevo más tarde o cambia a otro servicio de traducción.",
+    "translationTimeoutLocal": "Se agotó el tiempo de la traducción con el modelo local. Un LLM local puede quedarse atascado en un bucle de repetición: reduce max_tokens (el límite de salida) en la configuración avanzada y asegúrate de que el idioma de origen seleccionado coincida con el texto real.",
     "langGroupCommon": "Comunes",
     "langGroupEurope": "Europa",
     "langGroupMiddleEast": "Oriente Medio",
@@ -237,20 +239,6 @@
           "a": "100% del lado del cliente: lectura, división y exportación ocurren totalmente en tu navegador — nada se sube, así que el contenido sensible está seguro. Código abierto en GitHub (rockbenben/text-splitter) para auto-hospedaje o auditoría."
         }
       ],
-      "howto": [
-        {
-          "name": "Introducir texto largo en la herramienta",
-          "text": "Pegue texto muy largo (capítulos de novela, discursos, artículos) o suba archivo TXT. Para archivos no-UTF-8 (francés GBK, japonés Shift-JIS), suba el archivo directamente para detección auto de codificación."
-        },
-        {
-          "name": "Establecer número de caracteres según IA",
-          "text": "ChatGPT gratis 16K, Plus 32K, Pro 128K, Claude 200K, Gemini 1M; Twitter 280, Threads 500, Mastodon 500; herramientas traducción 5000. Divide en límites de párrafo sin cortar frases."
-        },
-        {
-          "name": "Exportar para entrada IA o publicación social",
-          "text": "Copie segmentos individuales directamente a ChatGPT/Claude/Gemini. Exporte por lotes como archivos numerados 1/N, 2/N para publicación secuencial Twitter/Threads. Exportación fusionada para guardar texto largo organizado."
-        }
-      ],
       "features": [
         "Contexto IA: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
         "Plantillas de plataformas sociales: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
@@ -324,7 +312,11 @@
     "textParser": "Herramientas Texto",
     "jsonParser": "Herramientas JSON",
     "dataParser": "Herramientas Datos",
-    "otherTools": "Otras Herramientas"
+    "otherTools": "Otras Herramientas",
+    "externalTools": {
+      "legendtalk": "Mesa redonda de pensadores IA",
+      "imgprompt": "Prompts de imágenes IA"
+    }
   },
   "Metadata": {
     "title": "ToolsByAI | Herramientas de Traducción y Dev con IA",

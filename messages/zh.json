@@ -60,6 +60,7 @@
     "exportedFile": "已导出",
     "extractedText": "提取的文本",
     "translating": "翻译中",
+    "translateDone": "翻译完成",
     "multiTranslating": "正在翻译，目标语言共",
     "model": "模型",
     "sameLanguageTarget": "源语言与目标语言相同，已自动调整目标语言为",
@@ -103,7 +104,7 @@
     "requestTimeoutSec": "超时时间",
     "requestTimeoutSecTooltip": "单次请求的最大等待时间（秒）。LLM 思考耗时较长，建议 180 秒以上",
     "customExportFilename": "导出文件名格式",
-    "customExportFilenameTooltip": "'{'name'}' = 原始文件名, '{'lang'}' = 语言, '{'ext'}' = 扩展名, '{'date'}' = 日期, '{'time'}' = 时间",
+    "customExportFilenameTooltip": "'{'name'}' = 原始文件名, '{'lang'}' = 语言, '{'ext'}' = 扩展名, '{'date'}' = 日期, '{'time'}' = 时间；多语言模式会自动加 '{'lang'}' 防止文件名冲突",
     "partialFailureTitle": "翻译失败 {count} 行",
     "partialFailureDesc": "失败的行已用原文占位（不影响文件结构）。这种失败大多是网络抖动或翻译服务临时不稳定——免费服务和自建服务器特别容易碰到，不是你的设置问题。点「再试一次」即可继续，已成功的行走缓存不会重翻；如果还是失败，稍后再点或换个翻译服务试试。也可点「查看失败行」自己处理。",
     "retryFailedLines": "再试一次",
@@ -135,6 +136,7 @@
     "translategemmaUnavailable": "TranslateGemma 服务暂时连不上，请确认本地服务器（LM Studio / llama.cpp / Ollama）已启动且 URL 正确。",
     "networkUnavailable": "翻译服务暂时连不上，可能是网络或服务的临时问题。稍后再试，或换一个翻译服务。",
     "translationTimeout": "翻译请求超时，可能是网络较慢或翻译服务响应慢。稍后再试，或换一个翻译服务。",
+    "translationTimeoutLocal": "本地模型翻译超时。本地大模型可能陷入复读循环——请在高级设置中调低 max_tokens（输出上限），并确认所选源语言与文本实际语言一致。",
     "langGroupCommon": "常用",
     "langGroupEurope": "欧洲",
     "langGroupMiddleEast": "中东",
@@ -237,20 +239,6 @@
           "a": "完全前端处理：文本读取、分割、导出都在浏览器内完成，原文不上传任何服务器，敏感内容也可放心使用。源代码开源在 GitHub（rockbenben/text-splitter），可自部署或审查实现细节。"
         }
       ],
-      "howto": [
-        {
-          "name": "输入长文本到工具",
-          "text": "粘贴超长文本（小说章节、演讲稿、论文）或上传 TXT 文件。法语 GBK、日语 Shift-JIS 等非 UTF-8 文件请直接上传以自动识别编码。"
-        },
-        {
-          "name": "根据 AI 模型或平台设置字符数",
-          "text": "ChatGPT 免费版 16K、Plus 32K、Pro 128K、Claude 200K、Gemini 1M；微博 140、Twitter 280、小红书 1000；翻译工具 5000。工具在段落边界分割不切断句子。"
-        },
-        {
-          "name": "导出为 AI 输入或社交发布",
-          "text": "复制单段内容直接粘贴到 ChatGPT/Claude/Gemini。批量导出为独立文件按 1/N、2/N 编号，方便按顺序发布到 Twitter/微博/小红书。合并导出用于保存为整理后的长文。"
-        }
-      ],
       "features": [
         "AI 模型上下文：GPT-5 400K、Claude 4.6/4.7 1M、Gemini 3 Pro 1M、DeepSeek V4 1M",
         "社交平台字数模板：Twitter 280、微博 140、小红书 1000、Threads 500",
@@ -324,7 +312,11 @@
     "textParser": "文本处理",
     "jsonParser": "JSON 处理",
     "dataParser": "数据转换",
-    "otherTools": "其他工具"
+    "otherTools": "其他工具",
+    "externalTools": {
+      "legendtalk": "AI 思想家圆桌",
+      "imgprompt": "AI 绘图提示词"
+    }
   },
   "Metadata": {
     "title": "ToolsByAI | 免费开源的 AI 翻译与数据处理工具集",
