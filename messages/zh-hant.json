@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "支援轉義字元：\\n (換行)、\\r (回車)、\\t (製表符)、\\s (空格)、\\\\ (反斜槓)",
     "skipToContent": "跳至主要內容",
     "fileProcessFailed": "檔案處理失敗，請檢查檔案編碼或換一個檔案",
     "fileReadFailed": "讀取檔案失敗",
@@ -48,6 +49,7 @@
     "extractText": "提取純文字",
     "translationResult": "翻譯結果",
     "copy": "複製",
+    "expand": "展開",
     "remove": "刪除",
     "format": "格式化",
     "formatTooltip": "格式化：移除空行及首尾空格",
@@ -165,6 +167,7 @@
     "errorHint5xx": "伺服器錯誤，請稍後重試",
     "errorHintRelay": "網路錯誤（可能是 CORS 限制），請在 API 設定中開啟「中轉 API」",
     "errorHintRelay403": "介面回傳 403 禁止存取，請在 API 設定中開啟「中轉 API」",
+    "errorHintGeminiKey": "無法連線 Gemini：請先檢查網路（部分網路環境無法直連 Google 服務）。若網路正常，則可能是 Google 自 2026-06-19 起拒絕「無限制 API Key」——請在 AI Studio 重新產生金鑰（預設已限制），或在 Google Cloud 主控台為舊金鑰新增 Gemini API 限制",
     "rateLimitCooldown": "請求過於頻繁，已自動暫停片刻後重試"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "處理文字時發生錯誤：{error}",
     "zipExported": "已匯出 ZIP：{count} → {fileName}",
     "zipExportFailed": "ZIP 匯出失敗：{error}",
-    "clientDescription": "智慧拆分長文字，支援按字元數或整句分段，適用於 AI 輸入、社交媒體發布和文檔編輯。對於非 UTF-8 編碼文字（如部分法語檔案），請直接上傳檔案，系統將自動識別編碼以避免亂碼。",
+    "clientDescription": "四種拆分方式：按分隔符、按字元數、中文分段、英文分段。結果可複製或匯出為合併文字，也可每段匯出為獨立檔案（超過 {zipThreshold} 段自動打包 ZIP）。非 UTF-8 編碼檔案（如部分法語、日語文字）請直接上傳，系統會自動識別編碼避免亂碼。",
     "noExportableText": "未檢測到可匯出內容，請檢查輸入",
     "splitCharacterCount": "分割字元數",
     "exportFileName": "匯出檔案名",
     "customSplitSymbol": "分隔符",
+    "symbolNoMatch": "分隔符未在文字中出現，本次未做切分。請改用該語言的句末標點，或換用「中文分段」「英文分段」模式",
     "chineseEndingSymbol": "中日韓",
     "englishEndingSymbol": "英文/拉丁",
-    "supportEscapeChars": "支援轉義字元：\\r\n (換行)、\\r (回車)、\\t (製表符)、\\s (空格)、\\\\ (反斜槓)",
-    "emptyForSymbolOnly": "填 0 或留空：忽略長度，按下方分隔符切分",
     "splitBySymbol": "按符號分割",
+    "splitBySymbolHint": "在每個分隔符處切分文字；可讓相鄰的多段合併為一段。",
+    "symbolInterval": "每段分隔符數",
+    "symbolIntervalHint": "1 = 每個分隔符各成一段；2 = 相鄰兩段合併為一段",
     "splitByLength": "按長度切分",
     "splitByLengthHint": "按字元數把文字切成塊。若下方填入分隔符，切點會自動對齊到最近的分隔符，避免句子被截斷。",
     "splitByChineseParagraph": "中文分段",
-    "splitByChineseParagraphTooltip": "基於中文段落規則，按換行符智慧分割",
+    "splitByChineseParagraphTooltip": "依中文標點與段落規則辨識邊界後切分",
     "splitByEnglishParagraph": "英文分段",
-    "splitByEnglishParagraphTooltip": "使用英文句子算法，智慧識別段落邊界",
+    "modeSymbol": "符號",
+    "modeLength": "長度",
+    "modeChinese": "中文",
+    "modeEnglish": "英文",
+    "splitByEnglishParagraphTooltip": "以 NLP 依英文句子切分，每句一行",
     "splitText": "開始分割",
     "segment": "段",
     "textSplit": "分割完成",
     "exportedMergedText": "已匯出合併文字",
     "checkDownloadDirectory": "已匯出所有分割檔案，請檢查下載目錄",
-    "mergeText": "合併所有分段（用兩個換行符分隔）",
+    "copyMergedText": "複製合併文字",
+    "copyMergedTextTooltip": "將所有分段以合併分隔符連接成一段全文，複製到剪貼簿",
+    "mergeSeparator": "合併分隔符",
+    "mergeSeparatorHint": "複製/匯出合併文字時用於連接各段。留空即使用預設值：兩個換行符（空行）",
+    "mergeText": "將所有分段以合併分隔符連接成一份全文，匯出為單一文字檔",
     "exportMergedText": "匯出合併文字",
-    "exportIndividualFiles": "批次匯出每個分割段為獨立文字檔案",
-    "batchExport": "批次匯出"
+    "exportIndividualFiles": "每段匯出為獨立文字檔，超過 {zipThreshold} 段自動打包為 ZIP",
+    "batchExport": "匯出分段檔案"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "文字分割",
-      "description": "智慧分割長文字，適用於 AI 輸入和社交媒體",
-      "metaTitle": "文字 / TXT 檔案分割工具 - ChatGPT、Claude、Gemini、Twitter 智慧拆分",
-      "metaDescription": "長文字 / TXT 檔案智慧分割，按字元數、段落、自訂分隔符拆分，適配 ChatGPT、Claude、Gemini、Twitter、微博。",
+      "description": "按符號、字數或整句拆分長文字，適配 AI 投餵與分段發布",
+      "metaTitle": "文字/TXT 分割工具 - ChatGPT、Claude、Gemini、Twitter 拆分",
+      "metaDescription": "長文字 / TXT 智慧分割：按符號、字元數或中英文整句拆分，可複製合併全文或分段匯出 ZIP，適配 ChatGPT、Claude、Gemini、Twitter、微博。",
       "faq": [
+        {
+          "q": "四種拆分模式怎麼選？「每段分隔符數」是做什麼的？",
+          "a": "「符號」按你填的分隔符切分，每累計 N 個分隔符切一刀：「每段分隔符數」填 1 就是一句一段，填 3 就是三句合成一段，適合把長文壓成固定粒度的區塊。「長度」按字元數切塊，若同時填了分隔符，切點會自動回退到最近的分隔符，避免句子被攔腰截斷（該模式會先把換行統一成空格）。「中文」「英文」按語言規則識別句子邊界，一句一行，適合逐句翻譯或整理字幕稿。"
+        },
         {
           "q": "ChatGPT、Claude、Gemini 等 AI 模型和翻譯工具的字元限制是多少？",
           "a": "AI 模型上下文限制（以 token 爲單位）：ChatGPT GPT-5 約 400K、Claude Sonnet 4.6 / Opus 4.7 1M、Gemini 3 Pro 1M、DeepSeek V4 1M。中文約 1-2 字/token（Claude 更寬松），英文約 4 字元/token。翻譯工具限制：Google Translate 和 DeepL 免費版均爲 5000 字元/次。設定「分割字元數」按目標 AI 或 API 的容量上限留出緩衝。"
         },
         {
           "q": "Twitter、微博、小紅書等社交平臺的長文怎麼一鍵分段發布？",
-          "a": "各平臺限制：Twitter 280 字、Threads 500 字、微博 140 字（中文 1 字算 1 字）、小紅書正文 1000 字、豆瓣廣播 140 字、LinkedIn 3000 字。中文用「中文分段」模式、英文用「英文分段」模式，保留句子完整。批次匯出爲獨立檔案可按序號 1/N、2/N 依次發布。"
+          "a": "各平臺限制：Twitter 280 字、Threads 500 字、微博 140 字（中文 1 字算 1 字）、小紅書正文 1000 字、豆瓣廣播 140 字、LinkedIn 3000 字。中文用「中文分段」模式、英文用「英文分段」模式，保留句子完整。用「匯出分段檔案」按序號 1/N、2/N 依次發布，超過 3 段自動打包 ZIP。"
+        },
+        {
+          "q": "拆分後還能合併回一整份文字嗎？三個結果按鈕有什麼區別？",
+          "a": "可以。結果區三個按鈕按「動作 × 形態」區分：「複製合併文字」把所有分段接成一份全文複製到剪貼簿；「匯出合併文字」把同一份全文存成單個 .txt；「匯出分段檔案」每段一個檔案，超過 3 段自動打包 ZIP。連接各段的符號在設定區的「合併分隔符」裡改，預設兩個換行符（空行），支援 \\n、\\t、\\s 等轉義；留空即回落到預設的兩個換行符。注意「長度」與中英文分段模式會先把換行壓成空格、丟棄空行，合併結果是重新拼接的文字，不等於原始排版。"
         },
         {
           "q": "分割後想直接翻譯這些文字塊，有什麼搭配工具推薦？",
@@ -232,7 +253,7 @@
         },
         {
           "q": "中英混排、法語/日語等非 UTF-8 編碼的長文字怎麼處理？",
-          "a": "中英混排用「中文分段」模式可同時識別中文（。！？）和英文（. ! ?）句末標點，不會在單詞中間切斷。自訂分隔符支援 \\\\n\\\\n（雙換行）、\\\\t（製表符）等轉義。法語（GBK）、日語（Shift-JIS）、韓語（EUC-KR）等非 UTF-8 檔案請直接上傳（而非粘貼），工具會自動檢測編碼避免亂碼。"
+          "a": "中英混排用「中文分段」模式可同時識別中文（。！？）和英文（. ! ?）句末標點，不會在單詞中間切斷。「分隔符」欄位填多個符號時用空格隔開，支援 \\n、\\t 等轉義；它在「符號」模式是切分依據，在「長度」模式只用於對齊切點。法語（GBK）、日語（Shift-JIS）、韓語（EUC-KR）等非 UTF-8 檔案請直接上傳（而非粘貼），工具會自動檢測編碼避免亂碼。"
         },
         {
           "q": "上傳文字會儲存到伺服器嗎？工具是否開源？",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "AI 模型上下文：GPT-5 400K、Claude 4.6/4.7 1M、Gemini 3 Pro 1M、DeepSeek V4 1M",
-        "社交平臺字數範本：Twitter 280、微博 140、小紅書 1000、Threads 500",
-        "中英混排智慧識別中文（。！？）和英文（. ! ?）句末標點",
-        "非 UTF-8 檔案自動識別（GBK、Shift-JIS、EUC-KR）避免亂碼",
-        "自訂分隔符支援 \\\\n\\\\n、\\\\t 等轉義字元",
-        "批次匯出帶 1/N、2/N 編號，方便順序發布"
+        "四種拆分模式：按分隔符、按字元數、中文整句、英文整句",
+        "「每段分隔符數」可把相鄰多句合併為一段，控制分塊粒度",
+        "按字元數切分時切點自動對齊分隔符，句子不被截斷",
+        "結果可複製或匯出為合併文字，合併分隔符支援 \\n、\\t 等轉義",
+        "每段匯出為獨立檔案，段數較多時自動打包 ZIP",
+        "非 UTF-8 檔案自動識別編碼（GBK、Shift-JIS、EUC-KR）避免亂碼"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "資料批處理",
       "description": "Excel 表格批次去重、欄位提取、文字合併，多規則按序執行"
+    },
+    "textJoiner": {
+      "title": "文字拼接",
+      "description": "多欄文字逐行按範本合併，批次生成 CSV、SQL、JSON"
     },
     "jsonValueExtractor": {
       "title": "JSON 欄位值提取",
@@ -312,7 +337,7 @@
     "textParser": "文字處理",
     "jsonParser": "JSON 處理",
     "dataParser": "資料轉換",
-    "otherTools": "其他工具",
+    "otherTools": "更多工具",
     "externalTools": {
       "legendtalk": "AI 思想家圓桌",
       "imgprompt": "AI 繪圖提示詞"
@@ -343,6 +368,11 @@
     "reaction4": "看不懂",
     "placeholder": "請留言，無需登錄（填寫郵箱可獲回復提醒）",
     "metaDescription": "意見回饋頁：回報使用問題、提交功能建議、參與工具改進。基於 Waline 評論系統，匿名也可發言。"
+  },
+  "AppError": {
+    "title": "頁面載入出錯",
+    "description": "頁面載入失敗,可能是網站剛更新到新版本,請重新載入。",
+    "reload": "重新載入"
   },
   "NotFound": {
     "title": "頁面未找到",

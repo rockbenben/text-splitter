@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "Kaçış karakterlerini destekler: \\n (yeni satır), \\r (dönüş), \\t (sekme), \\s (boşluk), \\\\ (ters eğik çizgi)",
     "skipToContent": "Ana içeriğe geç",
     "fileProcessFailed": "Dosya işlenemedi — kodlamasını kontrol edin veya başka bir dosya deneyin",
     "fileReadFailed": "Dosya okunamadı",
@@ -48,6 +49,7 @@
     "extractText": "Metni Çıkar",
     "translationResult": "Sonuç",
     "copy": "Kopyala",
+    "expand": "daha fazla",
     "remove": "Kaldır",
     "exportFile": "Dışa Aktar",
     "exportAllFile": "Tümünü Dışa Aktar",
@@ -165,6 +167,7 @@
     "errorHint5xx": "Sunucu hatası, lütfen daha sonra tekrar deneyin",
     "errorHintRelay": "Ağ hatası (muhtemelen CORS) — API Ayarlarında \"API Aktarıcı\"yı açın",
     "errorHintRelay403": "API 403 Forbidden döndürdü — API Ayarlarında \"API Aktarıcı\"yı açın",
+    "errorHintGeminiKey": "Gemini'ye ulaşılamıyor: önce ağınızı kontrol edin (bazı ağlar Google hizmetlerine doğrudan erişemez). Ağ sorunsuzsa, 19 Haziran 2026'dan itibaren Google kısıtlamasız API anahtarlarını reddediyor — anahtarınızı AI Studio'da yeniden oluşturun (varsayılan olarak kısıtlı) veya Google Cloud Console'da eski anahtara Gemini API kısıtlaması ekleyin",
     "rateLimitCooldown": "İstek sınırına ulaşıldı — kısa bir duraklamadan sonra otomatik olarak yeniden denenecek"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "Metin işlenirken hata: {error}",
     "zipExported": "ZIP olarak dışa aktarıldı: {count} → {fileName}",
     "zipExportFailed": "ZIP dışa aktarımı başarısız: {error}",
-    "clientDescription": "Uzun metinleri akıllıca böler. Karakter veya cümlelere göre. AI, sosyal medya, düzenleme için ideal. UTF-8 olmayan metinler için (örn: bazı Fransızca dosyalar), otomatik kodlama algılama için dosyayı doğrudan yükleyin.",
+    "clientDescription": "Dört bölme yolu: ayırıcıya göre, karakter sayısına göre, Çince cümleler ve İngilizce cümleler. Birleştirilmiş metni kopyalayın veya dışa aktarın, ya da bölüm başına bir dosya alın ({zipThreshold}'ten fazla bölüm otomatik ZIP). UTF-8 olmayan dosyaları doğrudan yükleyin; kodlama otomatik algılanır.",
     "noExportableText": "Dışa aktarılabilir içerik algılanmadı, girişi kontrol edin",
     "splitCharacterCount": "Bölüm Başına Karakter",
     "exportFileName": "Dışa Aktarma Dosya Adı",
     "customSplitSymbol": "Ayırıcılar",
+    "symbolNoMatch": "Ayırıcıların hiçbiri metinde geçmiyor, bu yüzden bölme yapılmadı. Kendi dilinizin noktalama işaretlerini kullanın ya da «Çince Paragraf» veya «İngilizce Paragraf» moduna geçin",
     "chineseEndingSymbol": "CJK (中日韩)",
     "englishEndingSymbol": "İngilizce/Latin",
-    "supportEscapeChars": "Kaçış karakterlerini destekler: \\r\n (yeni satır), \\r (dönüş), \\t (sekme), \\s (boşluk), \\\\ (ters eğik çizgi)",
-    "emptyForSymbolOnly": "0 veya boş: uzunluğu yok say, aşağıdaki ayırıcıya göre böl",
     "splitBySymbol": "Sembole Göre Böl",
+    "splitBySymbolHint": "Metni her ayırıcıda böler; bitişik bölümler tek bir bölümde birleştirilebilir.",
+    "symbolInterval": "Bölüm başına ayırıcı",
+    "symbolIntervalHint": "1 = her ayırıcı ayrı bir bölüm; 2 = her iki bölümü birleştir",
     "splitByLength": "Uzunluğa göre",
     "splitByLengthHint": "Metni karakter sayısına göre bloklara böler. Aşağıya ayırıcı girerseniz kesim noktaları en yakın ayırıcıya hizalanır ve cümleler ortadan kesilmez.",
     "splitByChineseParagraph": "Çince Paragraf",
-    "splitByChineseParagraphTooltip": "Çince paragraf kurallarına dayalı akıllı bölümleme",
+    "splitByChineseParagraphTooltip": "Sınırları Çince noktalama ve paragraf kurallarına göre algılayıp böler",
     "splitByEnglishParagraph": "İngilizce Paragraf",
-    "splitByEnglishParagraphTooltip": "Akıllı algılama için İngilizce cümle algoritmalarını kullanır",
+    "modeSymbol": "Simge",
+    "modeLength": "Uzunluk",
+    "modeChinese": "Çince",
+    "modeEnglish": "İngilizce",
+    "splitByEnglishParagraphTooltip": "NLP ile İngilizce cümlelere böler, her satıra bir cümle",
     "splitText": "Böl",
     "segment": "Bölüm",
     "textSplit": "Bölme Tamamlandı",
     "exportedMergedText": "Birleştirilmiş metin dışa aktarıldı",
     "checkDownloadDirectory": "Dosyalar dışa aktarıldı, indirme klasörünü kontrol edin",
-    "mergeText": "Tüm bölümleri birleştir (2 yeni satırla ayrılmış)",
+    "copyMergedText": "Birleştirilmiş metni kopyala",
+    "copyMergedTextTooltip": "Tüm bölümleri birleştirme ayıracıyla birleştirip metnin tamamını panoya kopyala",
+    "mergeSeparator": "Birleştirme ayıracı",
+    "mergeSeparatorHint": "Kopyalarken veya dışa aktarırken bölümleri birleştirir. Boş bırakırsanız varsayılan kullanılır: iki satır sonu (boş satır)",
+    "mergeText": "Tüm bölümleri birleştirme ayıracıyla birleştirip tek bir metin dosyası olarak dışa aktar",
     "exportMergedText": "Birleştirilmiş Metni Dışa Aktar",
-    "exportIndividualFiles": "Her bölümü metin dosyası olarak dışa aktar",
-    "batchExport": "Toplu Dışa Aktar"
+    "exportIndividualFiles": "Her bölümü ayrı metin dosyası olarak dışa aktar; {zipThreshold}'ten fazla bölüm otomatik olarak ZIP'lenir",
+    "batchExport": "Bölüm dosyalarını dışa aktar"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "Metin Bölücü",
-      "description": "AI ve sosyal medya için akıllı uzun metin bölme",
+      "description": "Uzun metni ayırıcıya, uzunluğa veya cümleye göre böl — sonra yeniden birleştir",
       "metaTitle": "Metin / TXT Dosya Bölücü - ChatGPT, Claude, Gemini, Twitter",
-      "metaDescription": "Uzun metin veya TXT dosyalarını ChatGPT, Claude, Gemini, Twitter için karakter, paragraf veya ayraçla böl. GBK/Shift-JIS otomatik.",
+      "metaDescription": "Uzun metni/TXT'yi ayırıcıya, karaktere ya da cümleye göre bölün; birleşik metni kopyalayın veya ZIP alın. ChatGPT, Claude, Gemini için.",
       "faq": [
+        {
+          "q": "Dört mod arasında nasıl seçim yaparım ve «bölüm başına ayırıcı» ne işe yarar?",
+          "a": "Sembol modu yazdığınız ayırıcılarda, her N ayırıcıda bir keser: 1 dediğinizde her cümle bir bölüm, 3 dediğinizde üç cümle tek bölüm olur — uzun metni eşit boyutlu bloklara sıkıştırmak için elverişlidir. Uzunluk modu karakter sayısına göre keser; ayırıcı da doluysa kesme noktası en yakın ayırıcıya geri çekilir, böylece cümle ortadan bölünmez (bu mod önce satır sonlarını boşluğa çevirir). Çince ve İngilizce modları cümle sınırlarını dil kurallarına göre bulur, satır başına bir cümle — cümle cümle çeviri veya altyazı taslağı için idealdir."
+        },
         {
           "q": "ChatGPT, Claude, Gemini ve çeviri araçlarının karakter limitleri nelerdir?",
           "a": "AI modeli bağlam limitleri (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Çince ~1-2 karakter/token, İngilizce ~4 karakter/token. Çeviri: Google Translate ve DeepL ücretsiz her ikisi de 5000 karakter/istek. 'Bölme Karakter Sayısı'nı hedef AI'nin token kapasitesinin altında tamponla ayarlayın."
         },
         {
           "q": "Twitter, Threads, LinkedIn için uzun gönderileri nasıl bölerim?",
-          "a": "Limitler: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Türkçe ve Latin için 'İngilizce Paragraf' modunu kullanın — cümle bütünlüğünü korur. Sıralı yayın için ayrı dosyalar olarak toplu dışa aktarın (1/N, 2/N)."
+          "a": "Limitler: Twitter 280, Threads 500, LinkedIn 3000, Mastodon 500, Bluesky 300. Türkçe ve Latin için 'İngilizce Paragraf' modunu kullanın — cümle bütünlüğünü korur. Sıralı yayın için «Bölüm dosyalarını dışa aktar» kullanın (1/N, 2/N); 3'ten fazla bölüm ZIP olarak gelir."
+        },
+        {
+          "q": "Bölümleri tekrar tek metne birleştirebilir miyim? Üç sonuç düğmesi arasındaki fark ne?",
+          "a": "Evet. «Birleştirilmiş metni kopyala» tüm bölümleri birleşik hâlde panoya alır; «Birleştirilmiş Metni Dışa Aktar» aynı metni tek bir .txt olarak kaydeder; «Bölüm dosyalarını dışa aktar» bölüm başına bir dosya yazar (3'ü aşınca ZIP). Bağlayıcı, «Birleştirme ayıracı» ayarıdır — varsayılan iki satır sonu, \\n, \\t, \\s desteklenir; boş bırakılırsa varsayılana dönülür. Uzunluk ve cümle modları satır sonlarını boşluğa çevirip boş satırları atar."
         },
         {
           "q": "Bölmeden sonra parçaları çevirmek veya temizlemek için hangi araçlar iyi eşleşir?",
@@ -232,7 +253,7 @@
         },
         {
           "q": "Karışık metin veya UTF-8 olmayan dosyalar (Fransızca GBK, Japonca Shift-JIS) nasıl işlenir?",
-          "a": "Karışık metin için Çince Paragraf modunu kullanın — hem Çince (。！？) hem İngilizce (. ! ?) noktalama işaretlerini tanır, kelimeyi ortadan bölmez. Özel ayırıcılar \\\\n\\\\n ve \\\\t kaçış karakterlerini destekler. UTF-8 olmayan dosyalar için yapıştırmak yerine **dosyayı doğrudan yükleyin** — kodlama otomatik algılanır."
+          "a": "Karışık metin için Çince Paragraf modunu kullanın — hem Çince (。！？) hem İngilizce (. ! ?) noktalama işaretlerini tanır, kelimeyi ortadan bölmez. «Ayırıcı» alanına boşlukla ayrılmış birden çok sembol yazılabilir ve \\n ile \\t desteklenir; Sembol modunda kesme ölçütü, Uzunluk modunda yalnızca hizalama içindir. UTF-8 olmayan dosyalar için yapıştırmak yerine **dosyayı doğrudan yükleyin** — kodlama otomatik algılanır."
         },
         {
           "q": "Metnim bir sunucuya yükleniyor mu? Araç açık kaynak mı?",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "AI bağlam: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "Sosyal platform şablonları: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
-        "Karışık CJK (。！？) ve Latin (. ! ?) metinler için akıllı noktalama algılama",
-        "UTF-8 olmayan otomatik algılama (GBK, Shift-JIS, EUC-KR) bozuk karakterleri önler",
-        "\\\\n\\\\n, \\\\t kaçış karakter desteği ile özel ayırıcılar",
-        "Sıralı paylaşım için 1/N, 2/N numaralı toplu dışa aktarım"
+        "Dört mod: ayırıcıya göre, karakter sayısına göre, Çince cümle, İngilizce cümle",
+        "«Bölüm başına ayırıcı» komşu cümleleri birleştirerek bölüm boyutunu ayarlar",
+        "Karakter sayısına göre keserken kesme noktası en yakın ayırıcıya hizalanır",
+        "Birleştirilmiş metni kopyala veya dışa aktar; ayıraç \\n ve \\t destekler",
+        "Bölüm başına bir dosya; büyük gruplar otomatik olarak ZIP olur",
+        "UTF-8 olmayan dosyalar (GBK, Shift-JIS, EUC-KR) otomatik algılanır"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "Kişisel Metin İşleyici",
       "description": "Excel toplu veri işleme — tekilleştirme, sütun çıkarma, metin birleştirme, zincirli kurallar"
+    },
+    "textJoiner": {
+      "title": "Metin Birleştirici",
+      "description": "Birden çok metin sütununu şablonlarla satır satır birleştirerek toplu CSV, SQL ve JSON oluşturun"
     },
     "jsonValueExtractor": {
       "title": "JSON Değer Çıkarıcı",
@@ -312,7 +337,7 @@
     "textParser": "Metin Araçları",
     "jsonParser": "JSON Araçları",
     "dataParser": "Veri Araçları",
-    "otherTools": "Diğer Araçlar",
+    "otherTools": "Daha Fazla Araç",
     "externalTools": {
       "legendtalk": "AI Düşünürler Yuvarlak Masası",
       "imgprompt": "AI Görsel İstemleri"
@@ -342,7 +367,12 @@
     "reaction3": "Ne?",
     "reaction4": "Kafam Karıştı",
     "placeholder": "Mesaj bırakın (giriş gerekmez, yanıt için e-posta isteğe bağlı)",
-    "metaDescription": "Tools By AI geri bildirim sayfası: hata bildir, özellik öner veya kullanım örneklerini paylaş. Waline tabanlı, anonim gönderim mümkün, ücretsiz."
+    "metaDescription": "Tools By AI geri bildirim sayfası: hata bildir, özellik öner, kullanım örneği paylaş. Waline tabanlı, anonim, ücretsiz."
+  },
+  "AppError": {
+    "title": "Sayfa yüklenemedi",
+    "description": "Sayfa yüklenemedi — bu, site güncellemesinden hemen sonra olabilir. Lütfen yeniden yükleyin.",
+    "reload": "Yeniden yükle"
   },
   "NotFound": {
     "title": "Sayfa Bulunamadı",

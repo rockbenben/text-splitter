@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "Supporta caratteri escape: \\n (nuova riga), \\r (ritorno), \\t (tab), \\s (spazio), \\\\ (barra rovesciata)",
     "skipToContent": "Vai al contenuto principale",
     "fileProcessFailed": "Elaborazione del file non riuscita — controlla la codifica o prova un altro file",
     "fileReadFailed": "Lettura del file non riuscita",
@@ -48,6 +49,7 @@
     "extractText": "Estrai Testo",
     "translationResult": "Risultato",
     "copy": "Copia",
+    "expand": "altro",
     "remove": "Rimuovi",
     "exportFile": "Esporta",
     "exportAllFile": "Esporta Tutto",
@@ -165,6 +167,7 @@
     "errorHint5xx": "Errore del server, riprova più tardi",
     "errorHintRelay": "Errore di rete (probabilmente CORS): attiva \"Relay API\" nelle impostazioni API",
     "errorHintRelay403": "L'API ha restituito 403 Forbidden: attiva \"Relay API\" nelle impostazioni API",
+    "errorHintGeminiKey": "Impossibile raggiungere Gemini: controlla prima la rete (alcune reti non raggiungono direttamente i servizi Google). Se la rete funziona, dal 19 giugno 2026 Google rifiuta le chiavi API senza restrizioni — rigenera la chiave in AI Studio (limitata per impostazione predefinita) o aggiungi una restrizione Gemini API alla vecchia chiave nella console Google Cloud",
     "rateLimitCooldown": "Limite di richieste raggiunto — breve pausa, nuovo tentativo automatico"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "Errore durante l'elaborazione del testo: {error}",
     "zipExported": "Esportato come ZIP: {count} → {fileName}",
     "zipExportFailed": "Esportazione ZIP non riuscita: {error}",
-    "clientDescription": "Divide intelligentemente testi lunghi. Per caratteri o frasi. Ideale per IA, social media, editing. Per testi non-UTF-8 (es: alcuni file francesi), carica direttamente il file per rilevamento auto codifica.",
+    "clientDescription": "Quattro modi per dividere: per separatore, per numero di caratteri, frasi cinesi e frasi inglesi. Copia o esporta il testo unito, oppure un file per segmento (oltre {zipThreshold} segmenti diventano uno ZIP). Per i file non UTF-8 caricali direttamente: la codifica viene rilevata in automatico.",
     "noExportableText": "Nessun contenuto esportabile rilevato, verifica input",
     "splitCharacterCount": "Caratteri per Segmento",
     "exportFileName": "Nome File Export",
     "customSplitSymbol": "Separatori",
+    "symbolNoMatch": "Nessun separatore compare nel testo, quindi non è stato diviso nulla. Usa la punteggiatura della tua lingua oppure passa a «Paragrafo Cinese» o «Paragrafo Inglese»",
     "chineseEndingSymbol": "CJK (中日韩)",
     "englishEndingSymbol": "Inglese/Latino",
-    "supportEscapeChars": "Supporta caratteri escape: \\r\n (nuova riga), \\r (ritorno), \\t (tab), \\s (spazio), \\\\ (barra rovesciata)",
-    "emptyForSymbolOnly": "0 o vuoto: ignora la lunghezza e divide per il delimitatore sotto",
     "splitBySymbol": "Dividi per Simbolo",
+    "splitBySymbolHint": "Divide il testo a ogni separatore; i segmenti adiacenti possono essere uniti in uno.",
+    "symbolInterval": "Separatori per segmento",
+    "symbolIntervalHint": "1 = un segmento per separatore; 2 = unisci ogni due segmenti",
     "splitByLength": "Per lunghezza",
     "splitByLengthHint": "Divide il testo in blocchi per numero di caratteri. Se inserisci dei delimitatori sotto, i tagli si allineano al più vicino per non tagliare le frasi.",
     "splitByChineseParagraph": "Paragrafo Cinese",
-    "splitByChineseParagraphTooltip": "Divisione intelligente basata su regole paragrafo cinese",
+    "splitByChineseParagraphTooltip": "Rileva i confini in base alla punteggiatura e alle regole dei paragrafi cinesi, poi divide",
     "splitByEnglishParagraph": "Paragrafo Inglese",
-    "splitByEnglishParagraphTooltip": "Usa algoritmos frasi inglesi per rilevamento intelligente",
+    "modeSymbol": "Simbolo",
+    "modeLength": "Lunghezza",
+    "modeChinese": "Cinese",
+    "modeEnglish": "Inglese",
+    "splitByEnglishParagraphTooltip": "Divide in frasi inglesi tramite NLP, una per riga",
     "splitText": "Dividi",
     "segment": "Segmento",
     "textSplit": "Divisione Completata",
     "exportedMergedText": "Testo unito esportato",
     "checkDownloadDirectory": "File esportati, verifica cartella download",
-    "mergeText": "Unisci tutti i segmenti (separati da 2 nuove righe)",
+    "copyMergedText": "Copia testo unito",
+    "copyMergedTextTooltip": "Unisci tutti i segmenti con il separatore di unione e copia l'intero testo negli appunti",
+    "mergeSeparator": "Separatore di unione",
+    "mergeSeparatorHint": "Unisce i segmenti quando copi o esporti. Lascia vuoto per il valore predefinito: due a capo (una riga vuota)",
+    "mergeText": "Unisci tutti i segmenti con il separatore di unione ed esportali come singolo file di testo",
     "exportMergedText": "Esporta Testo Unito",
-    "exportIndividualFiles": "Esporta ogni segmento come file testo",
-    "batchExport": "Esporta Batch"
+    "exportIndividualFiles": "Esporta ogni segmento come file di testo separato; oltre {zipThreshold} segmenti vengono compressi in uno ZIP",
+    "batchExport": "Esporta file dei segmenti"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "Divisore Testo",
-      "description": "Divisione intelligente testo lungo per IA e social media",
+      "description": "Dividi testi lunghi per separatore, lunghezza o frase — e riuniscili",
       "metaTitle": "Divisore Testo / File TXT - ChatGPT, Claude, Gemini, Twitter",
-      "metaDescription": "Suddivide testo lungo o file TXT per ChatGPT, Claude, Gemini, Twitter, Weibo: caratteri, paragrafo, delimitatore. GBK/Shift-JIS auto.",
+      "metaDescription": "Dividi testi lunghi o TXT per separatore, caratteri o frasi; copia il testo unito o esportalo in ZIP. Per ChatGPT, Claude, Gemini.",
       "faq": [
+        {
+          "q": "Come scelgo tra le quattro modalità e a cosa serve «separatori per segmento»?",
+          "a": "La modalità Simbolo taglia sui separatori inseriti, ogni N: con 1 ogni frase è un segmento, con 3 se ne accorpano tre — utile per blocchi regolari. La modalità Lunghezza taglia per caratteri; con un separatore il taglio arretra al più vicino per non spezzare la frase (gli a capo diventano spazi). Le modalità Cinese e Inglese individuano le frasi secondo la lingua, una per riga — ideale per traduzioni frase per frase o sottotitoli."
+        },
         {
           "q": "Quali limiti di caratteri hanno ChatGPT, Claude, Gemini e gli strumenti di traduzione?",
           "a": "Limiti di contesto modelli IA (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Cinese ~1-2 caratteri/token, inglese ~4 caratteri/token. Traduzione: Google Translate e DeepL gratuiti entrambi 5000 caratteri/richiesta. Imposta 'Numero caratteri' con margine sotto la capacità del modello IA target."
         },
         {
           "q": "Come dividere post lunghi per Twitter, Threads, Mastodon e LinkedIn?",
-          "a": "Limiti: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000. Usa modalità 'Paragrafo inglese' per italiano e lingue latine — preserva l'integrità delle frasi. Esportazione batch come file separati per pubblicazione sequenziale (1/N, 2/N)."
+          "a": "Limiti: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000. Usa modalità 'Paragrafo inglese' per italiano e lingue latine — preserva l'integrità delle frasi. Usa «Esporta file dei segmenti» per pubblicare in sequenza (1/N, 2/N); oltre 3 segmenti arriva uno ZIP."
+        },
+        {
+          "q": "Posso riunire i segmenti in un unico testo? Che differenza c'è tra i tre pulsanti dei risultati?",
+          "a": "Sì. «Copia testo unito» mette tutti i segmenti negli appunti; «Esporta testo unito» salva lo stesso testo in un unico .txt; «Esporta file dei segmenti» scrive un file per segmento (ZIP oltre i 3). Li unisce l'impostazione «Separatore di unione»: due a capo di default, con escape \\n, \\t e \\s; vuoto torna al valore predefinito. Le modalità Lunghezza e frasi convertono gli a capo in spazi e scartano le righe vuote, quindi l'impaginazione originale non viene ripristinata."
         },
         {
           "q": "Una volta divisi i segmenti, quali strumenti si abbinano bene per tradurli o pulirli ulteriormente?",
@@ -232,7 +253,7 @@
         },
         {
           "q": "Come gestire testo misto o file non UTF-8 (francese GBK, giapponese Shift-JIS)?",
-          "a": "Per testo misto, usa modalità Paragrafo cinese — riconosce sia la punteggiatura cinese (。！？) che inglese (. ! ?) senza tagliare le parole. Delimitatori personalizzati supportano \\\\n\\\\n e \\\\t. Per file non UTF-8, **carica il file direttamente** invece di incollare — codifica rilevata automaticamente."
+          "a": "Per testo misto, usa modalità Paragrafo cinese — riconosce sia la punteggiatura cinese (。！？) che inglese (. ! ?) senza tagliare le parole. Il campo «Separatore» accetta più simboli separati da spazi e supporta \\n e \\t; in modalità Simbolo definisce i tagli, in modalità Lunghezza li allinea soltanto. Per file non UTF-8, **carica il file direttamente** invece di incollare — codifica rilevata automaticamente."
         },
         {
           "q": "Il mio testo viene caricato su un server? Lo strumento è open source?",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "Contesti IA: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "Modelli piattaforme social: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
-        "Rilevamento punteggiatura intelligente per testo CJK misto (。！？) e Latino (. ! ?)",
-        "Rilevamento automatico non UTF-8 (GBK, Shift-JIS, EUC-KR) previene caratteri illeggibili",
-        "Delimitatori personalizzati con supporto caratteri di escape \\\\n\\\\n, \\\\t",
-        "Esportazione batch numerata 1/N, 2/N per pubblicazione sequenziale"
+        "Quattro modalità: per separatore, per numero di caratteri, frasi cinesi, frasi inglesi",
+        "«Separatori per segmento» accorpa frasi vicine per regolare la granularità",
+        "Tagliando per caratteri, il punto di taglio si aggancia al separatore più vicino",
+        "Copia o esporta il testo unito; separatore di unione con \\n e \\t",
+        "Un file per segmento; i lotti più grandi vengono compressi in uno ZIP",
+        "File non UTF-8 (GBK, Shift-JIS, EUC-KR) rilevati automaticamente"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "Elaboratore di Testo",
       "description": "Elaborazione batch di dati Excel — deduplicazione, estrazione colonne, fusione, regole concatenate"
+    },
+    "textJoiner": {
+      "title": "Unificatore di Testo",
+      "description": "Unisci più colonne di testo riga per riga con modelli per generare in batch CSV, SQL e JSON"
     },
     "jsonValueExtractor": {
       "title": "Estrattore Valore JSON",
@@ -312,7 +337,7 @@
     "textParser": "Strumenti Testo",
     "jsonParser": "Strumenti JSON",
     "dataParser": "Strumenti Dati",
-    "otherTools": "Altri Strumenti",
+    "otherTools": "Altri strumenti",
     "externalTools": {
       "legendtalk": "Tavola rotonda dei pensatori IA",
       "imgprompt": "Prompt per immagini IA"
@@ -343,6 +368,11 @@
     "reaction4": "Confuso",
     "placeholder": "Lascia un messaggio (nessun login richiesto, email opzionale per risposta)",
     "metaDescription": "Pagina feedback per Tools By AI: segnala bug, suggerisci funzionalità, condividi casi d'uso. Basata su Waline, anonimo consentito."
+  },
+  "AppError": {
+    "title": "Errore di caricamento della pagina",
+    "description": "Impossibile caricare la pagina: può accadere subito dopo un aggiornamento del sito. Ricarica la pagina.",
+    "reload": "Ricarica"
   },
   "NotFound": {
     "title": "Pagina non trovata",

@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "Hỗ trợ ký tự thoát: \\n (dòng mới), \\r (xuống dòng), \\t (tab), \\s (dấu cách), \\\\ (dấu gạch chéo ngược)",
     "skipToContent": "Chuyển đến nội dung chính",
     "fileProcessFailed": "Xử lý tệp thất bại — kiểm tra mã hóa hoặc thử tệp khác",
     "fileReadFailed": "Đọc tệp thất bại",
@@ -48,6 +49,7 @@
     "extractText": "Trích xuất văn bản",
     "translationResult": "Kết quả",
     "copy": "Sao chép",
+    "expand": "xem thêm",
     "remove": "Xóa",
     "exportFile": "Xuất",
     "exportAllFile": "Xuất tất cả",
@@ -165,6 +167,7 @@
     "errorHint5xx": "Lỗi máy chủ, vui lòng thử lại sau",
     "errorHintRelay": "Lỗi mạng (có thể do CORS) — hãy bật \"Chuyển tiếp API\" trong Cài đặt API",
     "errorHintRelay403": "API trả về 403 Forbidden — hãy bật \"Chuyển tiếp API\" trong Cài đặt API",
+    "errorHintGeminiKey": "Không thể kết nối Gemini: hãy kiểm tra mạng trước (một số mạng không thể truy cập trực tiếp dịch vụ Google). Nếu mạng bình thường, từ 19/06/2026 Google từ chối các API key không giới hạn — hãy tạo lại key trong AI Studio (mặc định đã giới hạn) hoặc thêm giới hạn Gemini API cho key cũ trong Google Cloud Console",
     "rateLimitCooldown": "Đạt giới hạn yêu cầu — tạm dừng một lát rồi tự động thử lại"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "Lỗi khi xử lý văn bản: {error}",
     "zipExported": "Đã xuất ZIP: {count} → {fileName}",
     "zipExportFailed": "Xuất ZIP thất bại: {error}",
-    "clientDescription": "Chia văn bản dài một cách thông minh. Theo ký tự hoặc câu. Lý tưởng cho AI, mạng xã hội, chỉnh sửa. Đối với văn bản không phải UTF-8 (ví dụ: một số tệp tiếng Pháp), hãy tải tệp lên trực tiếp để tự động phát hiện mã hóa.",
+    "clientDescription": "Bốn cách chia: theo dấu phân tách, theo số ký tự, câu tiếng Trung và câu tiếng Anh. Sao chép hoặc xuất văn bản gộp, hoặc mỗi đoạn một tệp (hơn {zipThreshold} đoạn tự đóng gói ZIP). Với tệp không phải UTF-8, hãy tải tệp lên trực tiếp — mã hóa được nhận diện tự động.",
     "noExportableText": "Không phát hiện nội dung có thể xuất, kiểm tra đầu vào",
     "splitCharacterCount": "Ký tự mỗi đoạn",
     "exportFileName": "Tên tệp xuất",
     "customSplitSymbol": "Dấu phân cách",
+    "symbolNoMatch": "Không có dấu phân tách nào xuất hiện trong văn bản nên chưa chia được. Hãy dùng dấu câu của ngôn ngữ đó hoặc chuyển sang chế độ «Đoạn văn tiếng Trung» hoặc «Đoạn văn tiếng Anh»",
     "chineseEndingSymbol": "CJK (中日韩)",
     "englishEndingSymbol": "Tiếng Anh/Latin",
-    "supportEscapeChars": "Hỗ trợ ký tự thoát: \\r\n (dòng mới), \\r (xuống dòng), \\t (tab), \\s (dấu cách), \\\\ (dấu gạch chéo ngược)",
-    "emptyForSymbolOnly": "0 hoặc trống: bỏ qua độ dài, chia theo dấu phân cách bên dưới",
     "splitBySymbol": "Chia theo ký hiệu",
+    "splitBySymbolHint": "Cắt văn bản tại mỗi dấu phân cách; các đoạn liền kề có thể gộp thành một.",
+    "symbolInterval": "Số dấu phân cách mỗi đoạn",
+    "symbolIntervalHint": "1 = mỗi dấu phân cách thành một đoạn; 2 = gộp hai đoạn liền kề thành một",
     "splitByLength": "Theo độ dài",
     "splitByLengthHint": "Chia văn bản thành các khối theo số ký tự. Nếu điền dấu phân cách bên dưới, điểm cắt sẽ căn về dấu gần nhất để câu không bị cắt giữa chừng.",
     "splitByChineseParagraph": "Đoạn văn tiếng Trung",
-    "splitByChineseParagraphTooltip": "Phân chia thông minh dựa trên quy tắc đoạn văn tiếng Trung",
+    "splitByChineseParagraphTooltip": "Nhận diện ranh giới theo dấu câu và quy tắc đoạn văn tiếng Trung rồi cắt",
     "splitByEnglishParagraph": "Đoạn văn tiếng Anh",
-    "splitByEnglishParagraphTooltip": "Sử dụng thuật toán câu tiếng Anh để phát hiện thông minh",
+    "modeSymbol": "Ký hiệu",
+    "modeLength": "Độ dài",
+    "modeChinese": "Tiếng Trung",
+    "modeEnglish": "Tiếng Anh",
+    "splitByEnglishParagraphTooltip": "Cắt thành câu tiếng Anh bằng NLP, mỗi câu một dòng",
     "splitText": "Chia",
     "segment": "Đoạn",
     "textSplit": "Chia hoàn tất",
     "exportedMergedText": "Đã xuất văn bản gộp",
     "checkDownloadDirectory": "Đã xuất tệp, kiểm tra thư mục tải xuống",
-    "mergeText": "Gộp tất cả các đoạn (cách nhau bởi 2 dòng mới)",
+    "copyMergedText": "Sao chép văn bản gộp",
+    "copyMergedTextTooltip": "Nối tất cả các đoạn bằng dấu phân tách gộp rồi sao chép toàn văn vào clipboard",
+    "mergeSeparator": "Dấu phân tách gộp",
+    "mergeSeparatorHint": "Dùng để nối các đoạn khi sao chép hoặc xuất. Để trống sẽ dùng mặc định: hai dòng mới (một dòng trống)",
+    "mergeText": "Nối tất cả các đoạn bằng dấu phân tách gộp rồi xuất thành một tệp văn bản duy nhất",
     "exportMergedText": "Xuất văn bản gộp",
-    "exportIndividualFiles": "Xuất từng đoạn thành tệp văn bản",
-    "batchExport": "Xuất hàng loạt"
+    "exportIndividualFiles": "Xuất từng đoạn thành tệp văn bản riêng; hơn {zipThreshold} đoạn sẽ tự động đóng gói ZIP",
+    "batchExport": "Xuất tệp từng đoạn"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "Bộ chia văn bản",
-      "description": "Chia văn bản dài thông minh cho AI và mạng xã hội",
+      "description": "Chia văn bản dài theo dấu phân tách, độ dài hoặc câu — và gộp lại",
       "metaTitle": "Bộ chia Văn bản / Tệp TXT - ChatGPT, Claude, Gemini, Twitter",
-      "metaDescription": "Chia văn bản dài hoặc tệp TXT cho ChatGPT, Claude, Gemini, Twitter theo số ký tự, đoạn, hoặc dấu phân cách. Tự nhận GBK/Shift-JIS.",
+      "metaDescription": "Chia văn bản dài hoặc TXT theo dấu phân tách, số ký tự hoặc câu; sao chép bản gộp hoặc xuất ZIP. Cho ChatGPT, Claude, Gemini.",
       "faq": [
+        {
+          "q": "Chọn chế độ nào trong bốn chế độ, và «số dấu mỗi đoạn» dùng để làm gì?",
+          "a": "Chế độ Ký hiệu cắt tại các dấu bạn nhập, cứ mỗi N dấu cắt một lần: đặt 1 thì mỗi câu một đoạn, đặt 3 thì ba câu gộp thành một đoạn, tiện khi cần nén văn bản dài thành các khối đều nhau. Chế độ Độ dài cắt theo số ký tự; nếu có nhập dấu phân tách, điểm cắt sẽ lùi về dấu gần nhất để câu không bị đứt (chế độ này chuyển các dấu xuống dòng thành khoảng trắng trước). Chế độ Tiếng Trung và Tiếng Anh nhận diện ranh giới câu theo quy tắc ngôn ngữ, mỗi câu một dòng — hợp cho dịch từng câu hoặc soạn phụ đề."
+        },
         {
           "q": "Giới hạn ký tự của ChatGPT, Claude, Gemini và công cụ dịch là bao nhiêu?",
           "a": "Giới hạn ngữ cảnh mô hình AI (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Số ký tự chia' với đệm dưới dung lượng AI mục tiêu."
         },
         {
           "q": "Làm sao chia bài đăng dài cho Twitter, Threads, Facebook và LinkedIn?",
-          "a": "Giới hạn: Twitter 280, Threads 500, Zalo 1000, Facebook 63206, LinkedIn 3000, Mastodon 500. Dùng chế độ 'Đoạn tiếng Anh' cho tiếng Việt và Latin — giữ tính toàn vẹn câu. Xuất hàng loạt dưới dạng tệp riêng cho đăng tuần tự (1/N, 2/N)."
+          "a": "Giới hạn: Twitter 280, Threads 500, Zalo 1000, Facebook 63206, LinkedIn 3000, Mastodon 500. Dùng chế độ 'Đoạn tiếng Anh' cho tiếng Việt và Latin — giữ tính toàn vẹn câu. Dùng «Xuất tệp từng đoạn» để đăng tuần tự (1/N, 2/N); hơn 3 đoạn sẽ nhận về dạng ZIP."
+        },
+        {
+          "q": "Sau khi chia có gộp lại thành một văn bản được không? Ba nút kết quả khác nhau thế nào?",
+          "a": "Được. Ba nút chia theo trục hành động × hình thái: «Sao chép văn bản gộp» đưa toàn bộ các đoạn đã nối vào clipboard; «Xuất văn bản gộp» lưu chính văn bản đó thành một tệp .txt; «Xuất tệp từng đoạn» ghi mỗi đoạn một tệp và đóng gói ZIP khi vượt 3 đoạn. Thứ nối các đoạn là thiết lập «Dấu phân tách gộp» — mặc định hai dòng mới (một dòng trống), hỗ trợ \\n, \\t và \\s. Để trống sẽ quay về giá trị mặc định. Lưu ý chế độ Độ dài và các chế độ câu đổi dấu xuống dòng thành khoảng trắng và bỏ dòng trống, nên văn bản gộp không khớp với bố cục gốc."
         },
         {
           "q": "Sau khi chia, công cụ nào kết hợp tốt để dịch hoặc làm sạch thêm các đoạn?",
@@ -232,7 +253,7 @@
         },
         {
           "q": "Xử lý văn bản hỗn hợp hoặc tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS) thế nào?",
-          "a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Dấu phân cách tùy chỉnh hỗ trợ \\\\n\\\\n và \\\\t. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
+          "a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Ô «Dấu phân tách» nhận nhiều ký hiệu cách nhau bằng khoảng trắng và hỗ trợ \\n, \\t; ở chế độ Ký hiệu nó quyết định chỗ cắt, ở chế độ Độ dài chỉ dùng để canh điểm cắt. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
         },
         {
           "q": "Văn bản của tôi có được tải lên máy chủ không? Công cụ có mã nguồn mở không?",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "Ngữ cảnh AI: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "Mẫu nền tảng xã hội: Twitter 280, Threads 500, Zalo 1000, LinkedIn 3000",
-        "Phát hiện dấu câu thông minh cho văn bản CJK hỗn hợp (。！？) và Latin (. ! ?)",
-        "Tự phát hiện không phải UTF-8 (GBK, Shift-JIS, EUC-KR) ngăn ký tự lỗi",
-        "Dấu phân cách tùy chỉnh với hỗ trợ ký tự thoát \\\\n\\\\n, \\\\t",
-        "Xuất hàng loạt đánh số 1/N, 2/N cho đăng tuần tự"
+        "Bốn chế độ: theo dấu phân tách, theo số ký tự, câu tiếng Trung, câu tiếng Anh",
+        "«Số dấu mỗi đoạn» gộp các câu liền kề để điều chỉnh độ lớn mỗi đoạn",
+        "Khi cắt theo số ký tự, điểm cắt tự canh về dấu phân tách gần nhất",
+        "Sao chép hoặc xuất văn bản gộp; dấu phân tách gộp hỗ trợ \\n và \\t",
+        "Mỗi đoạn một tệp; lô lớn sẽ tự đóng gói thành ZIP",
+        "Tệp không phải UTF-8 (GBK, Shift-JIS, EUC-KR) được nhận diện tự động"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "Xử lý văn bản",
       "description": "Xử lý dữ liệu Excel hàng loạt — loại bỏ trùng, trích xuất cột, hợp nhất văn bản, quy tắc nối tiếp"
+    },
+    "textJoiner": {
+      "title": "Công Cụ Ghép Văn Bản",
+      "description": "Ghép nhiều cột văn bản theo từng dòng bằng mẫu để tạo hàng loạt CSV, SQL và JSON"
     },
     "jsonValueExtractor": {
       "title": "Trình trích xuất Giá trị JSON",
@@ -312,7 +337,7 @@
     "textParser": "Công cụ Văn bản",
     "jsonParser": "Công cụ JSON",
     "dataParser": "Công cụ Dữ liệu",
-    "otherTools": "Công cụ Khác",
+    "otherTools": "Thêm công cụ",
     "externalTools": {
       "legendtalk": "Bàn tròn nhà tư tưởng AI",
       "imgprompt": "Câu lệnh tạo ảnh AI"
@@ -343,6 +368,11 @@
     "reaction4": "Bối rối",
     "placeholder": "Để lại tin nhắn (không cần đăng nhập, email tùy chọn để trả lời)",
     "metaDescription": "Trang phản hồi Tools By AI: báo lỗi, đề xuất tính năng, chia sẻ tình huống sử dụng. Dựa trên Waline, đăng ẩn danh được phép, miễn phí."
+  },
+  "AppError": {
+    "title": "Không tải được trang",
+    "description": "Không thể tải trang — điều này có thể xảy ra ngay sau khi trang web được cập nhật. Vui lòng tải lại.",
+    "reload": "Tải lại"
   },
   "NotFound": {
     "title": "Không tìm thấy trang",

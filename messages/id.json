@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "Mendukung karakter escape: \\n (baris baru), \\r (kembali), \\t (tab), \\s (spasi), \\\\ (garis miring terbalik)",
     "skipToContent": "Lewati ke konten utama",
     "fileProcessFailed": "Gagal memproses file — periksa encoding-nya atau coba file lain",
     "fileReadFailed": "Gagal membaca file",
@@ -48,6 +49,7 @@
     "extractText": "Ekstrak Teks",
     "translationResult": "Hasil",
     "copy": "Salin",
+    "expand": "selengkapnya",
     "remove": "Hapus",
     "exportFile": "Ekspor",
     "exportAllFile": "Ekspor Semua",
@@ -165,6 +167,7 @@
     "errorHint5xx": "Kesalahan server, silakan coba lagi nanti",
     "errorHintRelay": "Kesalahan jaringan (kemungkinan CORS) — aktifkan \"Relay API\" di Pengaturan API",
     "errorHintRelay403": "API mengembalikan 403 Forbidden — aktifkan \"Relay API\" di Pengaturan API",
+    "errorHintGeminiKey": "Tidak dapat terhubung ke Gemini: periksa jaringan Anda terlebih dahulu (beberapa jaringan tidak dapat mengakses layanan Google secara langsung). Jika jaringan baik-baik saja, sejak 19 Juni 2026 Google menolak kunci API tanpa pembatasan — buat ulang kunci di AI Studio (dibatasi secara default) atau tambahkan pembatasan Gemini API pada kunci lama di Google Cloud Console",
     "rateLimitCooldown": "Batas permintaan tercapai — jeda sejenak, akan dicoba ulang otomatis"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "Kesalahan saat memproses teks: {error}",
     "zipExported": "Diekspor sebagai ZIP: {count} → {fileName}",
     "zipExportFailed": "Ekspor ZIP gagal: {error}",
-    "clientDescription": "Membagi teks panjang dengan cerdas. Berdasarkan karakter atau kalimat. Ideal untuk AI, media sosial, pengeditan. Untuk teks non-UTF-8 (mis: beberapa file Prancis), unggah file secara langsung untuk deteksi pengkodean otomatis.",
+    "clientDescription": "Empat cara membagi: per pemisah, per jumlah karakter, kalimat Cina, dan kalimat Inggris. Salin atau ekspor teks gabungan, atau satu file per segmen (lebih dari {zipThreshold} segmen otomatis jadi ZIP). Untuk file non-UTF-8, unggah filenya langsung — pengkodean terdeteksi otomatis.",
     "noExportableText": "Tidak ada konten yang dapat diekspor terdeteksi, periksa input",
     "splitCharacterCount": "Karakter per Segmen",
     "exportFileName": "Nama File Ekspor",
     "customSplitSymbol": "Pemisah",
+    "symbolNoMatch": "Tidak ada pemisah yang muncul dalam teks, jadi tidak ada yang dibagi. Gunakan tanda baca bahasa Anda atau beralih ke mode «Paragraf Mandarin» atau «Paragraf Inggris»",
     "chineseEndingSymbol": "CJK (中日韩)",
     "englishEndingSymbol": "Inggris/Latin",
-    "supportEscapeChars": "Mendukung karakter escape: \\r\n (baris baru), \\r (kembali), \\t (tab), \\s (spasi), \\\\ (garis miring terbalik)",
-    "emptyForSymbolOnly": "0 atau kosong: abaikan panjang, bagi berdasarkan pemisah di bawah",
     "splitBySymbol": "Bagi Berdasarkan Simbol",
+    "splitBySymbolHint": "Membagi teks pada setiap pemisah; segmen yang berdekatan dapat digabung menjadi satu.",
+    "symbolInterval": "Pemisah per segmen",
+    "symbolIntervalHint": "1 = satu segmen per pemisah; 2 = gabungkan setiap dua segmen",
     "splitByLength": "Berdasarkan panjang",
     "splitByLengthHint": "Membagi teks menjadi blok berdasarkan jumlah karakter. Jika mengisi pemisah di bawah, titik potong menyesuaikan ke pemisah terdekat agar kalimat tidak terpotong.",
     "splitByChineseParagraph": "Paragraf Mandarin",
-    "splitByChineseParagraphTooltip": "Pembagian cerdas berdasarkan aturan paragraf Mandarin",
+    "splitByChineseParagraphTooltip": "Deteksi batas berdasarkan tanda baca dan aturan paragraf Tionghoa, lalu bagi",
     "splitByEnglishParagraph": "Paragraf Inggris",
-    "splitByEnglishParagraphTooltip": "Menggunakan algoritma kalimat Inggris untuk deteksi cerdas",
+    "modeSymbol": "Simbol",
+    "modeLength": "Panjang",
+    "modeChinese": "Mandarin",
+    "modeEnglish": "Inggris",
+    "splitByEnglishParagraphTooltip": "Bagi menjadi kalimat bahasa Inggris melalui NLP, satu per baris",
     "splitText": "Bagi",
     "segment": "Segmen",
     "textSplit": "Pembagian Selesai",
     "exportedMergedText": "Teks gabungan diekspor",
     "checkDownloadDirectory": "File diekspor, periksa folder unduhan",
-    "mergeText": "Gabungkan semua segmen (dipisahkan oleh 2 baris baru)",
+    "copyMergedText": "Salin Teks Gabungan",
+    "copyMergedTextTooltip": "Sambungkan semua segmen dengan pemisah gabungan dan salin seluruh teks ke papan klip",
+    "mergeSeparator": "Pemisah Gabungan",
+    "mergeSeparatorHint": "Menyambung segmen saat menyalin atau mengekspor. Kosongkan untuk memakai default: dua baris baru (satu baris kosong)",
+    "mergeText": "Sambungkan semua segmen dengan pemisah gabungan dan ekspor sebagai satu file teks",
     "exportMergedText": "Ekspor Teks Gabungan",
-    "exportIndividualFiles": "Ekspor setiap segmen sebagai file teks",
-    "batchExport": "Ekspor Batch"
+    "exportIndividualFiles": "Ekspor setiap segmen sebagai file teks terpisah; lebih dari {zipThreshold} segmen otomatis dikemas menjadi ZIP",
+    "batchExport": "Ekspor File Segmen"
   },
   "tools": {
     "subtitleTranslator": {
@@ -228,19 +241,31 @@
       "title": "Pemrosesan Teks Pribadi",
       "description": "Pemrosesan data Excel batch — deduplikasi, ekstraksi kolom, gabung teks, aturan berurutan"
     },
+    "textJoiner": {
+      "title": "Penggabung Teks",
+      "description": "Gabungkan beberapa kolom teks baris demi baris dengan template untuk menghasilkan CSV, SQL, dan JSON secara massal"
+    },
     "textSplitter": {
       "title": "Pemisah Teks",
-      "description": "Pemisahan teks panjang cerdas untuk AI dan media sosial",
+      "description": "Bagi teks panjang per pemisah, panjang, atau kalimat — lalu gabungkan lagi",
       "metaTitle": "Pemotong Teks / File TXT - ChatGPT, Claude, Gemini, Twitter",
-      "metaDescription": "Potong teks panjang atau file TXT untuk ChatGPT, Claude, Gemini, Twitter berdasarkan karakter, paragraf, atau pemisah. GBK/Shift-JIS otomatis.",
+      "metaDescription": "Bagi teks panjang atau TXT per pemisah, karakter, atau kalimat; salin hasil gabungan atau ekspor ZIP. Untuk ChatGPT, Claude, Gemini.",
       "faq": [
+        {
+          "q": "Bagaimana memilih di antara empat mode, dan apa fungsi «pemisah per segmen»?",
+          "a": "Mode Simbol memotong di pemisah yang Anda isi, setiap N sekali: isi 1 berarti satu kalimat satu segmen, isi 3 menggabungkan tiga kalimat — praktis untuk blok seragam. Mode Panjang memotong per jumlah karakter; bila ada pemisah, titik potong mundur ke yang terdekat agar kalimat tidak terbelah (baris baru jadi spasi dulu). Mode Cina dan Inggris mendeteksi batas kalimat menurut bahasa, satu kalimat per baris — cocok untuk terjemahan per kalimat atau subtitel."
+        },
         {
           "q": "Berapa batas karakter untuk ChatGPT, Claude, Gemini, dan alat terjemahan?",
           "a": "Batas konteks model AI (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target."
         },
         {
           "q": "Bagaimana membagi post panjang untuk Twitter, Threads, LinkedIn?",
-          "a": "Batas: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000, Mastodon 500, WhatsApp Status 700. Gunakan mode 'Paragraf Inggris' untuk Indonesia dan Latin — menjaga integritas kalimat. Ekspor batch sebagai file terpisah untuk posting berurutan (1/N, 2/N)."
+          "a": "Batas: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000, Mastodon 500, WhatsApp Status 700. Gunakan mode 'Paragraf Inggris' untuk Indonesia dan Latin — menjaga integritas kalimat. Gunakan «Ekspor File Segmen» untuk posting berurutan (1/N, 2/N); lebih dari 3 segmen datang sebagai ZIP."
+        },
+        {
+          "q": "Bisakah segmen digabung kembali jadi satu teks? Apa beda ketiga tombol hasil?",
+          "a": "Bisa. «Salin Teks Gabungan» menaruh seluruh segmen tersambung ke papan klip; «Ekspor Teks Gabungan» menyimpannya sebagai satu .txt; «Ekspor File Segmen» menulis satu file per segmen (ZIP bila lebih dari 3). Perekatnya adalah «Pemisah Gabungan» — default dua baris baru, mendukung \\n, \\t, \\s; dikosongkan berarti kembali ke default. Mode Panjang dan mode kalimat mengubah baris baru jadi spasi dan membuang baris kosong."
         },
         {
           "q": "Ingin langsung menerjemahkan blok teks yang dipotong, ada alat pendamping yang direkomendasikan?",
@@ -248,7 +273,7 @@
         },
         {
           "q": "Bagaimana menangani teks campuran atau file non-UTF-8 (Prancis GBK, Jepang Shift-JIS)?",
-          "a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Pemisah khusus mendukung \\\\n\\\\n dan \\\\t. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
+          "a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Kolom «Pemisah» menerima beberapa simbol yang dipisah spasi dan mendukung \\n serta \\t; di mode Simbol ia menentukan titik potong, di mode Panjang hanya menyelaraskannya. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
         },
         {
           "q": "Apakah teks yang diunggah disimpan di server? Apakah alat ini open source?",
@@ -256,12 +281,12 @@
         }
       ],
       "features": [
-        "Konteks AI: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "Template platform sosial: Twitter 280, Threads 500, LINE 1000, LinkedIn 3000",
-        "Deteksi tanda baca cerdas untuk teks CJK campuran (。！？) dan Latin (. ! ?)",
-        "Deteksi otomatis non-UTF-8 (GBK, Shift-JIS, EUC-KR) mencegah karakter rusak",
-        "Pemisah khusus dengan dukungan karakter escape \\\\n\\\\n, \\\\t",
-        "Ekspor batch bernomor 1/N, 2/N untuk posting berurutan"
+        "Empat mode: per pemisah, per jumlah karakter, kalimat Cina, kalimat Inggris",
+        "«Pemisah per segmen» menggabungkan kalimat berdekatan untuk mengatur granularitas",
+        "Saat memotong per karakter, titik potong menempel ke pemisah terdekat",
+        "Salin atau ekspor teks gabungan; pemisah gabungan mendukung \\n dan \\t",
+        "Satu file per segmen; batch besar otomatis dikemas jadi ZIP",
+        "File non-UTF-8 (GBK, Shift-JIS, EUC-KR) terdeteksi otomatis agar tidak rusak"
       ]
     },
     "jsonValueExtractor": {
@@ -320,11 +345,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI - Peralatan Data & Terjemahan AI untuk Developer",
-    "description": "ToolsByAI: 17 alat open source gratis untuk penerjemahan subtitle, Markdown, JSON i18n, dan pemrosesan teks/JSON batch. 25+ AI engine.",
+    "description": "ToolsByAI: 17 alat open source untuk menerjemahkan subtitle, Markdown, dan JSON i18n. Tanpa instalasi, berbasis browser.",
     "homeTitle": "Suite ToolsByAI",
     "homeDescription": "20+ alat untuk terjemahan, teks, JSON, dan konversi data. Tingkatkan efisiensi pengembang dan kreator.",
     "ogTitle": "ToolsByAI - Alat Dev AI Gratis dan Open Source",
-    "ogDescription": "ToolsByAI: 17 alat open source gratis untuk penerjemahan subtitle, Markdown, JSON i18n, dan pemrosesan teks/JSON batch. 25+ AI engine."
+    "ogDescription": "ToolsByAI: 17 alat open source untuk menerjemahkan subtitle, Markdown, dan JSON i18n. Tanpa instalasi, berbasis browser."
   },
   "CopyToClipboard": {
     "empty": "Konten kosong, tidak ada yang disalin",
@@ -342,7 +367,12 @@
     "reaction3": "Apa?",
     "reaction4": "Bingung",
     "placeholder": "Tinggalkan pesan (tidak perlu login, email opsional untuk balasan)",
-    "metaDescription": "Halaman feedback Tools By AI: laporkan bug, sarankan fitur, atau bagikan ide penggunaan. Berbasis Waline, posting anonim diizinkan, gratis."
+    "metaDescription": "Halaman feedback Tools By AI: laporkan bug, sarankan fitur, atau bagikan ide. Berbasis Waline, posting anonim, gratis."
+  },
+  "AppError": {
+    "title": "Halaman gagal dimuat",
+    "description": "Halaman tidak dapat dimuat — ini bisa terjadi tepat setelah situs diperbarui. Silakan muat ulang.",
+    "reload": "Muat ulang"
   },
   "NotFound": {
     "title": "Halaman Tidak Ditemukan",

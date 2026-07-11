@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "이스케이프 문자 지원: \\n (줄바꿈), \\r (복귀), \\t (탭), \\s (공백), \\\\ (백슬래시)",
     "skipToContent": "본문으로 건너뛰기",
     "fileProcessFailed": "파일 처리에 실패했습니다. 인코딩을 확인하거나 다른 파일을 사용해 보세요",
     "fileReadFailed": "파일을 읽지 못했습니다",
@@ -48,6 +49,7 @@
     "extractText": "텍스트 추출",
     "translationResult": "번역 결과",
     "copy": "복사",
+    "expand": "더 보기",
     "remove": "제거",
     "exportFile": "내보내기",
     "exportAllFile": "모두 내보내기",
@@ -165,6 +167,7 @@
     "errorHint5xx": "서버 오류입니다. 나중에 다시 시도하세요",
     "errorHintRelay": "네트워크 오류(CORS 제한일 수 있음). API 설정에서 \"API 중계\"를 켜세요",
     "errorHintRelay403": "API가 403 Forbidden을 반환했습니다. API 설정에서 \"API 중계\"를 켜세요",
+    "errorHintGeminiKey": "Gemini에 연결할 수 없습니다. 먼저 네트워크를 확인하세요(일부 네트워크에서는 Google 서비스에 직접 연결할 수 없습니다). 네트워크가 정상이라면 2026년 6월 19일부터 Google이 무제한 API 키를 거부하고 있습니다. AI Studio에서 키를 다시 생성하거나(기본적으로 제한됨) Google Cloud 콘솔에서 기존 키에 Gemini API 제한을 추가하세요",
     "rateLimitCooldown": "요청 한도 도달 — 잠시 멈춘 뒤 자동으로 재시도합니다"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "텍스트 처리 중 오류: {error}",
     "zipExported": "ZIP로 내보냈습니다: {count} → {fileName}",
     "zipExportFailed": "ZIP 내보내기에 실패했습니다: {error}",
-    "clientDescription": "장문을 스마트하게 분할. 글자 수 또는 완전한 문장 단위 분할을 지원하며, AI 입력, SNS 게시, 문서 편집에 적합합니다. 비 UTF-8 인코딩 텍스트(일부 프랑스어 파일 등)의 경우 파일을 직접 업로드하면 시스템이 자동으로 인코딩을 인식하여 깨짐을 방지합니다.",
+    "clientDescription": "네 가지 분할 방식: 구분자, 글자 수, 중국어 단락, 영어 단락. 결과는 병합 텍스트로 복사·내보내거나 분할마다 개별 파일로 내보낼 수 있습니다({zipThreshold}개 초과 시 자동 ZIP). 비 UTF-8 파일은 파일로 직접 업로드하면 인코딩을 자동 감지해 깨짐을 방지합니다.",
     "noExportableText": "내보낼 수 있는 내용이 감지되지 않았습니다. 입력을 확인하세요",
     "splitCharacterCount": "분할 글자 수",
     "exportFileName": "내보내기 파일명",
     "customSplitSymbol": "구분 문자",
+    "symbolNoMatch": "구분자가 텍스트에 없어 분할되지 않았습니다. 해당 언어의 문장 부호로 바꾸거나 「중국어 단락」 또는 「영어 단락」 모드를 사용하세요",
     "chineseEndingSymbol": "중일한",
     "englishEndingSymbol": "영어/라틴",
-    "supportEscapeChars": "이스케이프 문자 지원: \\r\n (줄바꿈), \\r (복귀), \\t (탭), \\s (공백), \\\\ (백슬래시)",
-    "emptyForSymbolOnly": "0 또는 비움: 길이 무시, 아래 구분자로 분할",
     "splitBySymbol": "기호로 분할",
+    "splitBySymbolHint": "각 구분 문자에서 텍스트를 나눕니다; 인접한 단락을 하나로 병합할 수 있습니다.",
+    "symbolInterval": "단락당 구분 문자 수",
+    "symbolIntervalHint": "1 = 구분 문자마다 한 단락; 2 = 인접한 두 단락을 하나로 병합",
     "splitByLength": "길이로 분할",
     "splitByLengthHint": "문자 수로 텍스트를 블록으로 나눕니다. 아래에 구분자를 입력하면 분할 지점이 가장 가까운 구분자에 맞춰져 문장이 중간에 잘리지 않습니다.",
     "splitByChineseParagraph": "중국어 단락",
-    "splitByChineseParagraphTooltip": "중국어 단락 규칙에 따라 줄바꿈으로 스마트 분할",
+    "splitByChineseParagraphTooltip": "중국어 문장 부호와 단락 규칙으로 경계를 인식한 뒤 분할",
     "splitByEnglishParagraph": "영어 단락",
-    "splitByEnglishParagraphTooltip": "영어 문장 알고리즘을 사용하여 단락 경계를 스마트하게 인식",
+    "modeSymbol": "기호",
+    "modeLength": "길이",
+    "modeChinese": "중국어",
+    "modeEnglish": "영어",
+    "splitByEnglishParagraphTooltip": "NLP로 영어 문장 단위로 분할, 한 문장씩 한 줄",
     "splitText": "분할 시작",
     "segment": "단락",
     "textSplit": "분할 완료",
     "exportedMergedText": "병합된 텍스트를 내보냈습니다",
     "checkDownloadDirectory": "모든 분할 파일을 내보냈습니다. 다운로드 디렉토리를 확인하세요",
-    "mergeText": "모든 분할 병합 (두 개의 줄바꿈으로 구분)",
+    "copyMergedText": "병합된 텍스트 복사",
+    "copyMergedTextTooltip": "모든 분할을 병합 구분자로 이어 붙인 전체 텍스트를 클립보드에 복사",
+    "mergeSeparator": "병합 구분자",
+    "mergeSeparatorHint": "병합 텍스트를 복사·내보낼 때 각 분할을 잇습니다. 비워 두면 기본값(줄바꿈 2개, 빈 줄)이 적용됩니다",
+    "mergeText": "모든 분할을 병합 구분자로 이어 붙여 하나의 텍스트 파일로 내보내기",
     "exportMergedText": "병합된 텍스트 내보내기",
-    "exportIndividualFiles": "각 분할 단락을 독립된 텍스트 파일로 일괄 내보내기",
-    "batchExport": "일괄 내보내기"
+    "exportIndividualFiles": "각 분할을 개별 텍스트 파일로 내보내기, {zipThreshold}개 초과 시 자동으로 ZIP 압축",
+    "batchExport": "분할 파일 내보내기"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "텍스트 분할",
-      "description": "장문 스마트 분할, AI 입력 및 SNS에 최적",
+      "description": "긴 텍스트를 구분자·글자 수·문장 단위로 분할하고 다시 병합",
       "metaTitle": "텍스트 / TXT 파일 분할 - ChatGPT/Claude/Gemini/Twitter",
-      "metaDescription": "긴 텍스트나 TXT 파일을 ChatGPT/Claude/Gemini/Twitter용 글자 수·단락·구분자로 분할, 인코딩 자동 인식.",
+      "metaDescription": "긴 텍스트/TXT를 구분자, 글자 수, 문장 단위로 분할. 병합 텍스트 복사와 분할 파일(ZIP) 내보내기 지원. ChatGPT, Claude, Gemini, X에 적합.",
       "faq": [
+        {
+          "q": "네 가지 분할 모드는 어떻게 고르나요? '단락당 구분자 수'는 무엇인가요?",
+          "a": "'기호' 모드는 입력한 구분자에서 자르되 구분자 N개마다 한 번 자릅니다. '단락당 구분자 수'를 1로 하면 한 문장이 한 단락, 3으로 하면 세 문장이 한 단락이 되어 긴 글을 일정한 크기의 덩어리로 압축할 수 있습니다. '길이' 모드는 글자 수로 자르며, 구분자를 함께 입력하면 자르는 지점이 가장 가까운 구분자까지 되돌아가 문장이 중간에 잘리지 않습니다(이 모드는 줄바꿈을 먼저 공백으로 바꿉니다). '중국어'와 '영어' 모드는 언어 규칙으로 문장 경계를 찾아 한 줄에 한 문장씩 배치하므로 문장 단위 번역이나 자막 원고 정리에 알맞습니다."
+        },
         {
           "q": "ChatGPT, Claude, Gemini 등 AI 모델과 번역 도구의 글자 제한은 얼마나 되나요?",
           "a": "AI 모델 컨텍스트 제한(토큰): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. 한국어/중국어 ~1-2자/토큰, 영어 ~4자/토큰. 번역 도구: Google Translate와 DeepL 무료 둘 다 5000자/요청. '분할 글자 수'를 목표 AI의 토큰 용량보다 여유 있게 설정하세요."
         },
         {
           "q": "X(Twitter), Threads, 네이버 블로그 등 긴 글은 어떻게 분할 게시하나요?",
-          "a": "플랫폼 제한: X 280자, Threads 500자, 네이버 블로그 100만자, 카카오스토리 3000자, LinkedIn 3000자. 한국어는 '중국어 단락' 모드(CJK 문장부호 공통 인식) 또는 '영어 단락' 모드를 사용하여 문장 무결성을 유지. 개별 파일로 일괄 내보내기로 1/N, 2/N 순차 게시 가능."
+          "a": "플랫폼 제한: X 280자, Threads 500자, 네이버 블로그 100만자, 카카오스토리 3000자, LinkedIn 3000자. 한국어는 '중국어 단락' 모드(CJK 문장부호 공통 인식) 또는 '영어 단락' 모드를 사용하여 문장 무결성을 유지. '분할 파일 내보내기'로 1/N, 2/N 순차 게시 가능(3개 초과 시 ZIP으로 제공)."
+        },
+        {
+          "q": "분할한 뒤 다시 하나로 합칠 수 있나요? 결과 버튼 세 개는 어떻게 다른가요?",
+          "a": "가능합니다. 세 버튼은 '동작 × 형태'로 나뉩니다. '병합된 텍스트 복사'는 모든 분할을 이어 붙인 전체 텍스트를 클립보드에 넣고, '병합된 텍스트 내보내기'는 같은 전체 텍스트를 하나의 .txt로 저장하며, '분할 파일 내보내기'는 분할마다 파일을 만들고 3개를 넘으면 ZIP으로 묶습니다. 각 분할을 잇는 문자열은 설정의 '병합 구분자'에서 바꿀 수 있고 기본값은 줄바꿈 2개(빈 줄), \\n·\\t·\\s 이스케이프를 지원합니다. 비워 두면 기본값으로 되돌아갑니다. '길이'와 문장 단위 모드는 줄바꿈을 공백으로 바꾸고 빈 줄을 버리므로, 병합 결과는 원래 서식과 같지 않습니다."
         },
         {
           "q": "분할한 텍스트 블록을 바로 번역하고 싶을 때 함께 쓸 만한 도구는?",
@@ -232,7 +253,7 @@
         },
         {
           "q": "한영 혼합이나 프랑스어·일본어 등 비 UTF-8 파일은 어떻게 처리하나요?",
-          "a": "한영 혼합은 '중국어 단락' 모드로 한국어/중국어(。！？)와 영어(. ! ?) 문장 부호를 모두 인식, 단어 중간에 잘리지 않습니다. 사용자 정의 구분자는 \\\\n\\\\n, \\\\t 등 이스케이프 문자 지원. 프랑스어(GBK), 일본어(Shift-JIS), 한국어(EUC-KR) 등 비 UTF-8 파일은 **파일로 직접 업로드**(붙여넣기 X)하면 인코딩 자동 감지로 깨짐 방지."
+          "a": "한영 혼합은 '중국어 단락' 모드로 한국어/중국어(。！？)와 영어(. ! ?) 문장 부호를 모두 인식, 단어 중간에 잘리지 않습니다. '구분자' 항목은 여러 기호를 공백으로 구분해 넣을 수 있고 \\n·\\t 이스케이프를 지원합니다('기호' 모드에서는 자르는 기준, '길이' 모드에서는 자르는 지점 정렬용). 프랑스어(GBK), 일본어(Shift-JIS), 한국어(EUC-KR) 등 비 UTF-8 파일은 **파일로 직접 업로드**(붙여넣기 X)하면 인코딩 자동 감지로 깨짐 방지."
         },
         {
           "q": "업로드한 텍스트가 서버에 저장되나요? 도구는 오픈소스인가요?",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "AI 모델 컨텍스트: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "소셜 플랫폼 글자 템플릿: X 280, Threads 500, 네이버 블로그 100만, 카카오스토리 3000",
-        "한중영 혼합 문장 부호 자동 인식 (。！？ 및 . ! ?)",
-        "비 UTF-8 파일 자동 감지 (GBK, Shift-JIS, EUC-KR)로 깨짐 방지",
-        "사용자 정의 구분자: \\\\n\\\\n, \\\\t 이스케이프 문자 지원",
-        "1/N, 2/N 번호 일괄 내보내기로 순차 게시 편리"
+        "네 가지 분할 모드: 구분자, 글자 수, 중국어 문장, 영어 문장",
+        "'단락당 구분자 수'로 인접 문장을 묶어 분할 단위를 조절",
+        "글자 수 분할에서도 자르는 지점이 구분자에 맞춰져 문장이 안 잘림",
+        "병합 텍스트 복사·내보내기, 병합 구분자는 \\n·\\t 이스케이프 지원",
+        "분할마다 개별 파일로 내보내기, 분할이 많으면 자동 ZIP 압축",
+        "비 UTF-8 파일(GBK, Shift-JIS, EUC-KR) 인코딩 자동 감지로 깨짐 방지"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "텍스트 처리 도구",
       "description": "Excel 표 데이터 일괄 중복 제거·열 추출·텍스트 병합, 다중 규칙 순차 실행"
+    },
+    "textJoiner": {
+      "title": "텍스트 결합기",
+      "description": "여러 텍스트 열을 템플릿으로 줄 단위 결합해 CSV, SQL, JSON을 일괄 생성"
     },
     "jsonValueExtractor": {
       "title": "JSON 값 추출",
@@ -312,7 +337,7 @@
     "textParser": "텍스트 처리",
     "jsonParser": "JSON 처리",
     "dataParser": "데이터 변환",
-    "otherTools": "기타 도구",
+    "otherTools": "더 많은 도구",
     "externalTools": {
       "legendtalk": "AI 사상가 라운드테이블",
       "imgprompt": "AI 이미지 프롬프트"
@@ -343,6 +368,11 @@
     "reaction4": "이해 안 됨",
     "placeholder": "메시지를 남겨주세요. 로그인 불필요 (이메일 입력 시 답변 알림 수신 가능)",
     "metaDescription": "Tools By AI 피드백 페이지: 버그 신고, 기능 요청, 사용 사례 공유. Waline 댓글 기반, 익명 작성 가능, 무료."
+  },
+  "AppError": {
+    "title": "페이지 로드 오류",
+    "description": "페이지를 불러오지 못했습니다. 사이트 업데이트 직후에 발생할 수 있으니 새로고침해 주세요.",
+    "reload": "새로고침"
   },
   "NotFound": {
     "title": "페이지를 찾을 수 없음",

@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "Soporta caracteres escape: \\n (nueva línea), \\r (retorno), \\t (tab), \\s (espacio), \\\\ (barra invertida)",
     "skipToContent": "Saltar al contenido principal",
     "fileProcessFailed": "No se pudo procesar el archivo: comprueba su codificación o prueba con otro",
     "fileReadFailed": "No se pudo leer el archivo",
@@ -48,6 +49,7 @@
     "extractText": "Extraer Texto",
     "translationResult": "Resultado",
     "copy": "Copiar",
+    "expand": "más",
     "remove": "Eliminar",
     "exportFile": "Exportar",
     "exportAllFile": "Exportar Todo",
@@ -165,6 +167,7 @@
     "errorHint5xx": "Error del servidor, inténtelo más tarde",
     "errorHintRelay": "Error de red (posiblemente CORS): active \"Relé API\" en los ajustes de API",
     "errorHintRelay403": "La API devolvió 403 Forbidden: active \"Relé API\" en los ajustes de API",
+    "errorHintGeminiKey": "No se puede conectar con Gemini: compruebe primero su red (algunas redes no pueden acceder directamente a los servicios de Google). Si la red funciona, desde el 19 de junio de 2026 Google rechaza las claves API sin restricciones — regenere su clave en AI Studio (restringida por defecto) o añada una restricción de Gemini API a la clave antigua en la consola de Google Cloud",
     "rateLimitCooldown": "Límite de solicitudes alcanzado — pausa breve, se reintentará automáticamente"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "Error al procesar el texto: {error}",
     "zipExported": "Exportado como ZIP: {count} → {fileName}",
     "zipExportFailed": "Error al exportar el ZIP: {error}",
-    "clientDescription": "Divide inteligentemente textos largos. Por caracteres o frases. Ideal para IA, redes sociales, edición. Para textos no-UTF-8 (ej: algunos archivos franceses), sube el archivo directamente para detección auto de codificación.",
+    "clientDescription": "Cuatro formas de dividir: por separador, por número de caracteres, frases chinas y frases inglesas. Copia o exporta el texto fusionado, o un archivo por segmento (más de {zipThreshold} segmentos se empaquetan en un ZIP). Para archivos no-UTF-8, súbelos directamente: la codificación se detecta automáticamente.",
     "noExportableText": "No se detectó contenido exportable, verifica entrada",
     "splitCharacterCount": "Caracteres por Segmento",
     "exportFileName": "Nombre Archivo Export",
     "customSplitSymbol": "Separadores",
+    "symbolNoMatch": "Ninguno de los separadores aparece en el texto, así que no se dividió nada. Usa signos de puntuación de tu idioma o cambia a «Párrafo Chino» o «Párrafo Inglés»",
     "chineseEndingSymbol": "CJK (中日韩)",
     "englishEndingSymbol": "Inglés/Latín",
-    "supportEscapeChars": "Soporta caracteres escape: \\r\n (nueva línea), \\r (retorno), \\t (tab), \\s (espacio), \\\\ (barra invertida)",
-    "emptyForSymbolOnly": "0 o vacío: ignora la longitud y divide por el delimitador de abajo",
     "splitBySymbol": "Dividir por Símbolo",
+    "splitBySymbolHint": "Divide el texto en cada separador; los segmentos adyacentes pueden fusionarse en uno.",
+    "symbolInterval": "Separadores por segmento",
+    "symbolIntervalHint": "1 = un segmento por separador; 2 = fusionar cada dos segmentos",
     "splitByLength": "Por longitud",
     "splitByLengthHint": "Divide el texto en bloques por número de caracteres. Si rellenas delimitadores abajo, los cortes se ajustan al más cercano para no partir frases.",
     "splitByChineseParagraph": "Párrafo Chino",
-    "splitByChineseParagraphTooltip": "División inteligente basada en reglas de párrafo chino",
+    "splitByChineseParagraphTooltip": "Detecta los límites según la puntuación y las reglas de párrafo del chino y luego divide",
     "splitByEnglishParagraph": "Párrafo Inglés",
-    "splitByEnglishParagraphTooltip": "Usa algoritmos de frases inglesas para detección inteligente",
+    "modeSymbol": "Símbolo",
+    "modeLength": "Longitud",
+    "modeChinese": "Chino",
+    "modeEnglish": "Inglés",
+    "splitByEnglishParagraphTooltip": "Divide en oraciones en inglés mediante NLP, una por línea",
     "splitText": "Dividir",
     "segment": "Segmento",
     "textSplit": "División Completa",
     "exportedMergedText": "Texto fusionado exportado",
     "checkDownloadDirectory": "Archivos exportados, verifica carpeta descargas",
-    "mergeText": "Fusionar todos los segmentos (separados por 2 nuevas líneas)",
+    "copyMergedText": "Copiar texto fusionado",
+    "copyMergedTextTooltip": "Unir todos los segmentos con el separador de fusión y copiar el texto completo al portapapeles",
+    "mergeSeparator": "Separador de fusión",
+    "mergeSeparatorHint": "Une los segmentos al copiar o exportar. Déjalo vacío para el valor por defecto: dos saltos de línea (una línea en blanco)",
+    "mergeText": "Unir todos los segmentos con el separador de fusión y exportarlos como un único archivo de texto",
     "exportMergedText": "Exportar Texto Fusionado",
-    "exportIndividualFiles": "Exportar cada segmento como archivo texto",
-    "batchExport": "Exportar Lote"
+    "exportIndividualFiles": "Exportar cada segmento como archivo de texto independiente; más de {zipThreshold} segmentos se empaquetan en un ZIP",
+    "batchExport": "Exportar archivos de segmentos"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "Divisor de Texto",
-      "description": "División inteligente de texto largo para IA y redes sociales",
+      "description": "Divide textos largos por separador, longitud o frase — y vuelve a unirlos",
       "metaTitle": "Divisor Texto / Archivo TXT - ChatGPT, Claude, Gemini, Twitter",
-      "metaDescription": "Divide texto largo o archivos TXT para ChatGPT, Claude, Gemini, Twitter, Weibo por caracteres, párrafo o delimitador. GBK/Shift-JIS auto.",
+      "metaDescription": "Divide texto largo o TXT por separador, caracteres o frases; copia el texto fusionado o expórtalo en ZIP. Para ChatGPT, Claude, Gemini.",
       "faq": [
+        {
+          "q": "¿Cómo elegir entre los cuatro modos y para qué sirve «separadores por segmento»?",
+          "a": "El modo Símbolo corta en los separadores que escribas, cada N: con 1 cada frase es un segmento; con 3 se agrupan tres — útil para bloques regulares. El modo Longitud corta por caracteres; si hay separador, el corte retrocede al más cercano para no partir la frase (los saltos de línea pasan a espacios). Los modos Chino e Inglés detectan frases según el idioma, una por línea — ideal para traducir frase a frase o preparar subtítulos."
+        },
         {
           "q": "¿Qué límites de caracteres tienen ChatGPT, Claude, Gemini y las herramientas de traducción?",
           "a": "Límites de contexto de modelos IA (tokens): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Chino ~1-2 car/token, inglés ~4 car/token. Traducción: Google Translate y DeepL gratis ambos 5000 car/solicitud. Configure 'Número de caracteres' con margen bajo la capacidad del IA objetivo."
         },
         {
           "q": "¿Cómo dividir posts largos para Twitter, Threads, Mastodon y LinkedIn?",
-          "a": "Límites: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000. Use modo 'Párrafo inglés' para español y lenguas latinas — preserva integridad de frases. Exporte por lotes como archivos separados para publicación secuencial (1/N, 2/N)."
+          "a": "Límites: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000. Use modo 'Párrafo inglés' para español y lenguas latinas — preserva integridad de frases. Use «Exportar archivos de segmentos» para publicar en secuencia (1/N, 2/N); más de 3 segmentos llegan en un ZIP."
+        },
+        {
+          "q": "¿Puedo volver a unir los segmentos en un solo texto? ¿En qué se diferencian los tres botones de resultado?",
+          "a": "Sí. «Copiar texto fusionado» deja todos los segmentos unidos en el portapapeles; «Exportar texto fusionado» guarda ese texto en un único .txt; «Exportar archivos de segmentos» escribe un archivo por segmento (ZIP a partir de 4). Los une el ajuste «Separador de fusión»: dos saltos de línea por defecto, con escapes \\n, \\t y \\s; vacío vuelve al valor por defecto. Los modos Longitud y de frases pasan los saltos a espacios y descartan líneas en blanco, así que no se recupera el formato original."
         },
         {
           "q": "Una vez divididos los segmentos, ¿qué herramientas combinan bien para traducirlos o limpiarlos más?",
@@ -232,7 +253,7 @@
         },
         {
           "q": "¿Cómo manejar texto mixto o archivos no-UTF-8 (francés GBK, japonés Shift-JIS)?",
-          "a": "Para texto mixto, use modo Párrafo chino — reconoce puntuación china (。！？) e inglesa (. ! ?) sin cortar palabras. Delimitadores personalizados soportan \\\\n\\\\n y \\\\t. Para archivos no-UTF-8, **cargue el archivo directamente** en lugar de pegar — la codificación se detecta automáticamente."
+          "a": "Para texto mixto, use modo Párrafo chino — reconoce puntuación china (。！？) e inglesa (. ! ?) sin cortar palabras. El campo «Separador» admite varios símbolos separados por espacios y acepta \\n y \\t; en modo Símbolo define los cortes y en modo Longitud solo los alinea. Para archivos no-UTF-8, **cargue el archivo directamente** en lugar de pegar — la codificación se detecta automáticamente."
         },
         {
           "q": "¿Se sube mi texto a un servidor? ¿Es la herramienta de código abierto?",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "Contexto IA: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "Plantillas de plataformas sociales: Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
-        "Detección inteligente de puntuación mixta CJK (。！？) y latina (. ! ?)",
-        "Auto-detección no-UTF-8 (GBK, Shift-JIS, EUC-KR) evita caracteres ilegibles",
-        "Delimitadores personalizados con caracteres de escape \\\\n\\\\n, \\\\t",
-        "Exportación por lotes numerada 1/N, 2/N para publicación secuencial"
+        "Cuatro modos: por separador, por número de caracteres, frases chinas, frases inglesas",
+        "«Separadores por segmento» agrupa frases contiguas para ajustar la granularidad",
+        "Al cortar por caracteres, el punto de corte se ajusta al separador más cercano",
+        "Copiar o exportar el texto fusionado; separador de fusión con \\n y \\t",
+        "Un archivo por segmento; los lotes grandes se empaquetan en un ZIP",
+        "Archivos no-UTF-8 (GBK, Shift-JIS, EUC-KR) detectados automáticamente"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "Procesador de texto",
       "description": "Procesamiento por lotes de datos Excel — deduplicación, extracción por columnas, fusión, reglas encadenadas"
+    },
+    "textJoiner": {
+      "title": "Unificador de Texto",
+      "description": "Combina varias columnas de texto línea por línea con plantillas para generar en lote CSV, SQL y JSON"
     },
     "jsonValueExtractor": {
       "title": "Extractor Valor JSON",
@@ -312,7 +337,7 @@
     "textParser": "Herramientas Texto",
     "jsonParser": "Herramientas JSON",
     "dataParser": "Herramientas Datos",
-    "otherTools": "Otras Herramientas",
+    "otherTools": "Más herramientas",
     "externalTools": {
       "legendtalk": "Mesa redonda de pensadores IA",
       "imgprompt": "Prompts de imágenes IA"
@@ -320,11 +345,11 @@
   },
   "Metadata": {
     "title": "ToolsByAI | Herramientas de Traducción y Dev con IA",
-    "description": "ToolsByAI: 17 herramientas open source gratis para traducción de subtítulos, Markdown, JSON i18n y procesamiento por lotes. 25+ motores IA.",
+    "description": "ToolsByAI: 17 herramientas open source para traducir subtítulos, Markdown y JSON i18n. Sin instalación, en el navegador.",
     "homeTitle": "Suite ToolsByAI",
     "homeDescription": "20+ herramientas para traducción, texto, JSON y conversión de datos. Impulsa la eficiencia de desarrolladores y creadores.",
     "ogTitle": "ToolsByAI | Herramientas de Traducción y Dev con IA",
-    "ogDescription": "ToolsByAI: 17 herramientas open source gratis para traducción de subtítulos, Markdown, JSON i18n y procesamiento por lotes. 25+ motores IA."
+    "ogDescription": "ToolsByAI: 17 herramientas open source para traducir subtítulos, Markdown y JSON i18n. Sin instalación, en el navegador."
   },
   "CopyToClipboard": {
     "empty": "Contenido vacío, nada que copiar",
@@ -343,6 +368,11 @@
     "reaction4": "Confuso",
     "placeholder": "Deja un mensaje (no requiere login, email opcional para respuesta)",
     "metaDescription": "Página de feedback para Tools By AI: reporta errores, sugiere funciones, comparte casos de uso. Basada en Waline, publicación anónima."
+  },
+  "AppError": {
+    "title": "Error al cargar la página",
+    "description": "No se pudo cargar la página; puede ocurrir justo después de una actualización del sitio. Vuelve a cargarla.",
+    "reload": "Recargar"
   },
   "NotFound": {
     "title": "Página no encontrada",

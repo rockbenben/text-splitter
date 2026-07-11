@@ -1,42 +1,88 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import PageCard from "@/app/components/styled/PageCard";
 import SourceArea from "@/app/components/SourceArea";
 import { Typography, Upload, Button, Input, InputNumber, App, Form, Tooltip, Space, theme, Flex, Spin, Row, Col, Segmented, Alert, Switch, Divider } from "antd";
 import { SettingOutlined, FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
-import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage, escapeRegExp, getFileTypePresetConfig } from "@/app/utils";
+import { splitParagraph, downloadFile, splitFileName, parseSpaceSeparatedItems, parseEscapeChars, getErrorMessage, getFileTypePresetConfig } from "@/app/utils";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import useFileUpload from "@/app/hooks/useFileUpload";
 import { useLocalStorage } from "@/app/hooks/useLocalStorage";
+import { useResetOnSourceChange } from "@/app/hooks/useResetOnSourceChange";
 import { useTextStats } from "@/app/hooks/useTextStats";
-import { useTranslations } from "next-intl";
+import { useTranslations, useLocale } from "next-intl";
 import { saveAs } from "file-saver";
+import { splitBySymbolsOnly, getDefaultSplitSymbols, CJK_SPLIT_SYMBOLS, LATIN_SPLIT_SYMBOLS } from "./splitBySymbols";
 
 const { Dragger } = Upload;
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 
 const uploadFileTypes = getFileTypePresetConfig("richText");
+
+// 合并各段的默认连接符（字面转义串，用时才解转义）。输入框留空即回落到它。
+const DEFAULT_MERGE_SEPARATOR = "\\n\\n";
+// 长度模式的默认块大小。取 5000 = Google Translate / DeepL 免费版单次 5000 字符
+// 上限（见 FAQ），是本工具服务的场景里唯一还成立、且以字符计的硬限制——超了 API
+// 直接拒。旧值 2000 的理由是「LLM 上下文典型块大小」，那是 4k-token 模型时代的
+// 说法：如今 GPT-5 约 400K、Claude / Gemini / DeepSeek 均 1M token，2000 字符占
+// 不到 1%，切了等于没切。社交平台那一侧也不归它管（Twitter 280 / 微博 140 /
+// 小红书 1000 全都更小，且 FAQ 把分段发布导向「中文/英文分段」模式）。
+// 输入框留空即回落到它（三处引用统一走这个常量，别再写字面量）。
+const DEFAULT_LIMIT = 5000;
+// 分段导出超过这个段数就打 ZIP。文案里的数字通过 zipThreshold 参数注入
+// （clientDescription / exportIndividualFiles），改这里即可，FAQ 里的举例需手动同步。
+export const ZIP_THRESHOLD = 3;
+
 
 const TextSplitter = () => {
   const tSplitter = useTranslations("TextSplitter");
   const t = useTranslations("common");
+  const locale = useLocale();
   const { copyToClipboard } = useCopyToClipboard();
   const { token } = theme.useToken();
   const { message } = App.useApp();
   const [splittedTexts, setSplittedTexts] = useState<string[]>([]);
   const [copiedIndexes, setCopiedIndexes] = useState(new Set<number>());
-  // 默认 2000 字符（适合 LLM 上下文切分的典型块大小）；设为 0 则改用分隔符切分
-  const [limit, setLimit] = useLocalStorage("text-splitter-limit", 2000);
+  const [limit, setLimit] = useLocalStorage<number | null>("text-splitter-limit", DEFAULT_LIMIT);
   const [customFileName, setCustomFileName] = useLocalStorage("text-splitter-customFileName", "");
 
-  const [customSplitSymbols, setCustomSplitSymbols] = useLocalStorage("text-splitter-customSplitSymbols", "");
+  // 切分符号（symbol 模式的切分依据）与对齐分隔符（count 模式的可选切点吸附）拆成
+  // 两个键。它们对「空」的含义相反——前者空 = 没得切（回落到默认值），后者空 = 就要
+  // 纯硬切（splitByLengthHint 明写「若下方填入分隔符」）。共用一个键时，给前者配的
+  // 默认值会顺手把后者的对齐静默打开，块长不再等于用户设的值。
+  const defaultSplitSymbols = getDefaultSplitSymbols(locale);
+  const [splitSymbols, setSplitSymbols] = useLocalStorage("text-splitter-splitSymbols", defaultSplitSymbols);
+  const [alignSymbols, setAlignSymbols] = useLocalStorage("text-splitter-alignSymbols", "");
+  // 合并形态的连接符，存字面转义串（与 text-joiner 的 lineSeparator 同约定），用时才解转义
+  const [mergeSeparator, setMergeSeparator] = useLocalStorage("text-splitter-mergeSeparator", DEFAULT_MERGE_SEPARATOR);
   const [hideResults, setHideResults] = useLocalStorage("text-splitter-hideResults", false);
-  const [mode, setMode] = useLocalStorage<"count" | "cn-paragraph" | "en-paragraph">("text-splitter-mode", "count");
+  const [mode, setMode] = useLocalStorage<"symbol" | "count" | "cn-paragraph" | "en-paragraph">("text-splitter-mode", "symbol");
+  // 可为 null（清空输入框），调用点用 ?? 1 兜底。不在 onChange 里回填，placeholder
+  // 才显示得出来——与「分割字符数」同一套清空语义，同一个表单不该有两种清空行为。
+  const [symbolInterval, setSymbolInterval] = useLocalStorage<number | null>("text-splitter-symbolInterval", 1);
 
   const { isFileProcessing, fileList, multipleFiles, sourceText, setSourceText, handleFileUpload, handleUploadRemove, handleUploadChange, resetUpload } = useFileUpload();
 
   const sourceStats = useTextStats(sourceText);
   const [autoHide, setAutoHide] = useState(false);
+
+  // 分段模式是 await 的异步路径：结果回来时源文本可能已经变了。自增序号作废在途请求
+  // （同 useFileUpload 的 loadSeq），否则改源软清刚清完，过期的 promise 又把上一份
+  // 源算出来的分段连同「分割完成」提示写回去——正是软清本要防的那种脏结果。
+  const splitSeq = useRef(0);
+
+  // 产物三件套永远一起复位，只此一处定义：改源、Clear All 都走它，避免出现第三处
+  // 各自记得清哪几个 state 的地方（那种副本迟早漏掉一个）。
+  const clearResults = () => {
+    splitSeq.current++; // 作废在途的分段请求
+    setSplittedTexts([]);
+    setCopiedIndexes(new Set());
+    setAutoHide(false);
+  };
+
+  // 改源软清：分段是纯源派生产物，源一变旧分段就作废。不清的话「复制/导出合并文本」
+  // 会安静地产出上一轮的内容（按钮上没有任何过期提示）。
+  useResetOnSourceChange(sourceText, clearResults);
 
   const updateResults = (texts: string[]) => {
     setSplittedTexts(texts);
@@ -50,9 +96,6 @@ const TextSplitter = () => {
     }
   };
 
-  // 解析多个自定义分割符号，支持转义字符
-  const getCustomSymbolsArray = () => parseSpaceSeparatedItems(customSplitSymbols);
-
   // 使用 splitParagraph 函数处理中文文本并按换行分割
   const splitByParagraph = async (method: "cn" | "en" = "cn") => {
     setSplittedTexts([]);
@@ -61,9 +104,12 @@ const TextSplitter = () => {
       return;
     }
 
+    const seq = ++splitSeq.current;
     try {
       // 使用 splitParagraph 函数处理文本，支持中文和英文
       const processedText = await splitParagraph(sourceText, method);
+      // 等待期间源变了(或被 Clear All 清了)——这份结果已经不对应屏幕上的源，丢弃
+      if (seq !== splitSeq.current) return;
 
       // 按换行符分割
       const paragraphs = processedText
@@ -73,44 +119,36 @@ const TextSplitter = () => {
 
       updateResults(paragraphs);
     } catch (error: unknown) {
+      if (seq !== splitSeq.current) return;
       console.error("Split by paragraph failed:", error);
       const errMsg = getErrorMessage(error);
       message.error(tSplitter("processTextError", { error: errMsg }), 10);
     }
   };
 
-  // 仅按符号分割的函数
-  const splitBySymbolsOnly = (text: string, symbols: string[]): string[] => {
-    if (symbols.length === 0) return [text];
-
-    // 创建正则表达式，使用 escapeRegExp 转义特殊字符
-    const escapedSymbols = symbols.map((symbol) => escapeRegExp(symbol));
-    const regex = new RegExp(`(${escapedSymbols.join("|")})`, "g");
-
-    // 按符号分割
-    const parts = text.split(regex);
-    const result: string[] = [];
-    // 空内容段(连续/行首分隔符)对应的分隔符不能随内容一起丢 —— 上一段
-    // 存在则接到其末尾,否则积攒为下一段的前缀。此前直接 skip,"一句。。两句"
-    // 会丢一个 "。",导出合并文本无法还原输入字符。
-    let pendingSeparators = "";
-
-    for (let i = 0; i < parts.length; i += 2) {
-      const content = parts[i];
-      const separator = parts[i + 1] ?? "";
-
-      if (content && content.trim()) {
-        // 将分割符号保留在当前段落的末尾
-        result.push((pendingSeparators + content + separator).trim());
-        pendingSeparators = "";
-      } else if (separator) {
-        if (result.length > 0) result[result.length - 1] += separator;
-        else pendingSeparators += separator;
-      }
+  // 按分隔符切分：每累计 symbolInterval 个分隔符切一刀
+  const splitBySymbolMode = () => {
+    setSplittedTexts([]);
+    if (!sourceText.trim()) {
+      message.warning(t("noSourceText"));
+      return;
     }
-
-    // 过滤空字符串
-    return result.filter((part) => part.length > 0);
+    // 清空即回落到默认值——与 allowClear + placeholder 在 antd 里的既定语义一致
+    // （同 mergeSeparator），用户点叉号不会掉进一个"字段看着已填却报错"的死角。
+    const symbols = parseSpaceSeparatedItems(splitSymbols || defaultSplitSymbols);
+    splitSeq.current++; // 同步路径也要作废在途的分段请求，否则它回来会盖掉这次结果
+    const units = splitBySymbolsOnly(sourceText, symbols, symbolInterval ?? 1);
+    // 一个分隔符都没在文本里出现：结果就是原文本身。对句末标点既非全角也非 ASCII
+    // 的语种（阿拉伯语 ؟、印地语 ۔、泰语等，站点共 18 个 locale），默认值不可能猜中，
+    // 若照常报「分割完成」，用户看到的是绿色成功提示 + 一张装着全文的卡片。
+    if (!symbols.some((symbol) => sourceText.includes(symbol))) {
+      setSplittedTexts(units);
+      setCopiedIndexes(new Set());
+      setAutoHide(false);
+      message.warning(tSplitter("symbolNoMatch"), 8);
+      return;
+    }
+    updateResults(units);
   };
 
   const splitText = () => {
@@ -120,31 +158,23 @@ const TextSplitter = () => {
       return;
     }
 
-    // limit 为 0 或空 => 纯按分隔符切分，此时分隔符字段必填。
-    if (!limit || limit === 0) {
-      const symbols = getCustomSymbolsArray();
-      if (symbols.length === 0) {
-        message.error(tSplitter("customSplitSymbol"));
-        return;
-      }
-      updateResults(splitBySymbolsOnly(sourceText, symbols));
-      return;
-    }
-
-    // limit > 0：按长度切块。若用户填了分隔符，切点自动吸附到最近的分隔符（避免截句）；
-    // 留空则硬按长度切。是否对齐完全由分隔符字段是否有值决定，无需单独开关。
-    const alignSymbols = getCustomSymbolsArray();
+    // limit > 0：按长度切块。若用户填了对齐分隔符，切点自动吸附到最近的分隔符（避免截句）；
+    // 留空则硬按长度切。是否对齐完全由该字段是否有值决定，无需单独开关——所以这个字段
+    // 默认必须是空的，不能借用切分符号的默认值把对齐静默打开。
+    const alignSymbolList = parseSpaceSeparatedItems(alignSymbols);
+    splitSeq.current++; // 作废在途的分段请求
     const singleLineText = sourceText.replace(/[\r\n]+/g, " ");
     const newSplittedTexts: string[] = [];
     // InputNumber 无 precision 约束,0.5 这类小数会让 slice 截断小数下标,
-    // 产出一半空段(段数翻倍、卡片空白)。向上取整到 ≥1 的整数。
-    const intLimit = Math.max(1, Math.ceil(limit));
+    // 产出一半空段(段数翻倍、卡片空白)。向上取整到 ≥1 的整数。(留空、旧存量 limit=0
+    // 都按 DEFAULT_LIMIT 处理，不做迁移)
+    const intLimit = Math.max(1, Math.ceil(limit || DEFAULT_LIMIT));
     let start = 0;
 
     while (start < singleLineText.length) {
       let end = start + intLimit;
 
-      if (end < singleLineText.length && alignSymbols.length > 0) {
+      if (end < singleLineText.length && alignSymbolList.length > 0) {
         // 从结束位置向前搜索确定精确的分割点。块覆盖 start..end-1,扫描起点
         // 必须是 end-1 —— 从 end 起扫会把窗口外第一个字符上的分隔符也算进来,
         // 切出 limit+1 长的块(越过用户设定的上限)。
@@ -175,7 +205,7 @@ const TextSplitter = () => {
         };
 
         // 使用自定义符号查找分割点
-        const newEnd = findSplitPoint(alignSymbols);
+        const newEnd = findSplitPoint(alignSymbolList);
         end = newEnd || end;
       }
 
@@ -206,19 +236,45 @@ const TextSplitter = () => {
     });
   };
 
-  // 将完整分割文本导出为单个文件
-  const handleExportFullText = () => {
+  // 合并形态统一在这里定义：复制与导出必须产出同一份文本，否则两个按钮名字对齐、结果却不一致。
+  // 清空输入框回落到默认值 —— allowClear + placeholder 在 antd 里就是「留空=默认」的语义,
+  // 若真按空串拼接,用户点一下叉号就会把全部分段粘成一堵墙,且空值还会被持久化。
+  const getMergedText = () => splittedTexts.join(parseEscapeChars(mergeSeparator || DEFAULT_MERGE_SEPARATOR));
+
+  // 将完整分割文本复制到剪贴板
+  const handleCopyMergedText = () => {
     if (splittedTexts.length === 0) {
       message.error(tSplitter("noExportableText"));
       return;
     }
-    let fileName = customFileName || multipleFiles[0]?.name || "split_text_all";
-    if (fileName.lastIndexOf(".") < 0) {
-      fileName = `${fileName}.txt`;
+    copyToClipboard(getMergedText());
+  };
+
+  // 导出名：用户自己填的名字尊重其后缀；从上传文件推导出来的名字只借主名，
+  // 后缀一律 .txt —— 切开的 messages.json 已经不是合法 JSON，再顶着 .json
+  // 下载会覆盖/冒充原文件，而文件名输入框旁边挂的也是 .txt 后缀标。
+  const resolveExportName = (fallback: string) => {
+    if (customFileName) return splitFileName(customFileName);
+    const uploaded = multipleFiles[0]?.name;
+    return { nameWithoutExt: uploaded ? splitFileName(uploaded).nameWithoutExt : fallback, ext: ".txt" };
+  };
+
+  // 将完整分割文本导出为单个文件
+  const handleExportFullText = async () => {
+    if (splittedTexts.length === 0) {
+      message.error(tSplitter("noExportableText"));
+      return;
     }
-    const fullText = splittedTexts.join("\n\n");
-    downloadFile(fullText, fileName);
-    message.success(tSplitter("exportedMergedText"));
+    const { nameWithoutExt, ext } = resolveExportName("split_text_all");
+    // downloadFile 会 reject（Blob 超限、浏览器拦截下载），不 await 的话
+    // 成功提示照弹，用户以为存下来了
+    try {
+      await downloadFile(getMergedText(), `${nameWithoutExt}${ext}`);
+      message.success(tSplitter("exportedMergedText"));
+    } catch (error: unknown) {
+      console.error("Merged export failed: ", error);
+      message.error(tSplitter("processTextError", { error: getErrorMessage(error) }), 10);
+    }
   };
 
   // 导出 ZIP 文件
@@ -247,31 +303,42 @@ const TextSplitter = () => {
       message.error(tSplitter("noExportableText"));
       return;
     }
-    const baseFileName = customFileName || multipleFiles[0]?.name || "split_text";
-    // 判断是否包含后缀
-    const hasExtension = baseFileName.lastIndexOf(".") > 0;
-    let nameWithoutExt, ext;
-    if (hasExtension) {
-      const dotIndex = baseFileName.lastIndexOf(".");
-      nameWithoutExt = baseFileName.substring(0, dotIndex);
-      ext = baseFileName.substring(dotIndex);
-    } else {
-      // 没有后缀则默认使用 .txt
-      nameWithoutExt = baseFileName;
-      ext = ".txt";
-    }
-    // 如果分割文本超过 3 个，打包成 ZIP 文件
-    if (splittedTexts.length > 3) {
+    const { nameWithoutExt, ext } = resolveExportName("split_text");
+    if (splittedTexts.length > ZIP_THRESHOLD) {
       await exportAsZip(splittedTexts, nameWithoutExt, ext);
     } else {
-      // 少于或等于 3 个文件时，单独下载
-      for (const [index, text] of splittedTexts.entries()) {
-        const fileName = `${nameWithoutExt}_${index + 1}${ext}`;
-        await downloadFile(text, fileName);
+      // 不超过阈值时逐个下载；同样不能让某一个 reject 之后还报「已导出」
+      try {
+        for (const [index, text] of splittedTexts.entries()) {
+          await downloadFile(text, `${nameWithoutExt}_${index + 1}${ext}`);
+        }
+        message.success(`${tSplitter("checkDownloadDirectory")}: ${splittedTexts.length}`, 5);
+      } catch (error: unknown) {
+        console.error("Segment export failed: ", error);
+        message.error(tSplitter("processTextError", { error: getErrorMessage(error) }), 10);
       }
-      message.success(`${tSplitter("checkDownloadDirectory")}: ${splittedTexts.length}`, 5);
     }
   };
+
+  // 两个模式各有一个分隔符输入，但语义不同，所以是两个字段、两个 localStorage 键：
+  //   symbol 模式 —— 切分依据，清空回落到 defaultSplitSymbols（placeholder 显示它，
+  //                  与 allowClear 的既定语义一致）
+  //   count  模式 —— 可选的切点对齐，清空 = 纯硬切（故无 placeholder、无默认值）
+  // 转义字符清单挂 label 的 tooltip：两个分隔符字段会同屏出现（本字段 + 合并分隔符），
+  // 常显两遍同样的说明会把配置面板压成说明书（实测 4 行说明 vs 1 行控件）。
+  const renderSymbolsField = (value: string, onChange: (next: string) => void, placeholder?: string) => (
+    <Form.Item label={tSplitter("customSplitSymbol")} tooltip={t("supportEscapeChars")}>
+      <Input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} aria-label={tSplitter("customSplitSymbol")} allowClear />
+      <Space size="small" className="!mt-2">
+        <Button size="small" onClick={() => onChange(CJK_SPLIT_SYMBOLS)}>
+          {tSplitter("chineseEndingSymbol")}
+        </Button>
+        <Button size="small" onClick={() => onChange(LATIN_SPLIT_SYMBOLS)}>
+          {tSplitter("englishEndingSymbol")}
+        </Button>
+      </Space>
+    </Form.Item>
+  );
 
   return (
     <Spin spinning={isFileProcessing} description={t("pleaseWait")} size="large">
@@ -291,7 +358,9 @@ const TextSplitter = () => {
                   danger
                   onClick={() => {
                     resetUpload();
-                    setSplittedTexts([]);
+                    // 不依赖 resetUpload 把 sourceText 置空来间接触发软清:源本就为空时
+                    // 那条链路不会触发,而产物三件套里的 copiedIndexes/autoHide 会留在屏上。
+                    clearResults();
                     message.success(t("resetUploadSuccess"));
                   }}
                   icon={<ClearOutlined />}
@@ -331,66 +400,89 @@ const TextSplitter = () => {
           <PageCard
             title={<Space><SettingOutlined /> {t("configuration")}</Space>}>
             <Form layout="vertical" className="[&_.ant-form-item]:!mb-3">
-              {/* 三种模式：
-                  - count: 按长度切块；limit>0 时可选"对齐分隔符"使断点落在分隔符上。
-                           limit=0 或为空时自动变为纯按分隔符切分（要求必须填分隔符）。
+              {/* 四种模式：
+                  - symbol: 纯按分隔符切分，每累计 symbolInterval 个分隔符切一刀。
+                  - count: 按长度切块；若填了分隔符，切点自动吸附到最近的分隔符。
                   - cn/en-paragraph: 调 splitParagraph() 做语言感知的段落检测 */}
-              <Form.Item label={t("operation")} className="!mb-2">
+              {/* 短标签（符号/长度/中文/英文）省空间；每项挂 tooltip 放详细说明，
+                  取代原来那条常显 hint 行。执行按钮仍用 splitBy* 全称，故这里另立短键。 */}
+              <Form.Item label={t("operation")} className="!mb-3">
                 <Segmented
                   block
                   value={mode}
                   onChange={(value) => setMode(value as typeof mode)}
                   options={[
-                    { label: tSplitter("splitByLength"), value: "count" },
-                    { label: tSplitter("splitByChineseParagraph"), value: "cn-paragraph" },
-                    { label: tSplitter("splitByEnglishParagraph"), value: "en-paragraph" },
+                    { label: <Tooltip title={tSplitter("splitBySymbolHint")}><span>{tSplitter("modeSymbol")}</span></Tooltip>, value: "symbol" },
+                    { label: <Tooltip title={tSplitter("splitByLengthHint")}><span>{tSplitter("modeLength")}</span></Tooltip>, value: "count" },
+                    { label: <Tooltip title={tSplitter("splitByChineseParagraphTooltip")}><span>{tSplitter("modeChinese")}</span></Tooltip>, value: "cn-paragraph" },
+                    { label: <Tooltip title={tSplitter("splitByEnglishParagraphTooltip")}><span>{tSplitter("modeEnglish")}</span></Tooltip>, value: "en-paragraph" },
                   ]}
                 />
               </Form.Item>
-              <Typography.Text type="secondary" className="!text-xs !block !mb-3">
-                {mode === "count" && tSplitter("splitByLengthHint")}
-                {mode === "cn-paragraph" && tSplitter("splitByChineseParagraphTooltip")}
-                {mode === "en-paragraph" && tSplitter("splitByEnglishParagraphTooltip")}
-              </Typography.Text>
 
-              {/* count 模式：长度阈值（min=0；=0 时纯按分隔符切）+ 可选的对齐分隔符细化边界 */}
+              {/* symbol 模式：分隔符（必填）+ 每 N 个分隔符切一刀 */}
+              {mode === "symbol" && (
+                <>
+                  {renderSymbolsField(splitSymbols, setSplitSymbols, defaultSplitSymbols)}
+                  <Form.Item label={tSplitter("symbolInterval")} help={tSplitter("symbolIntervalHint")}>
+                    <InputNumber
+                      min={1}
+                      precision={0}
+                      value={symbolInterval}
+                      onChange={setSymbolInterval}
+                      placeholder="1"
+                      className="!w-full"
+                      aria-label={tSplitter("symbolInterval")}
+                    />
+                  </Form.Item>
+                </>
+              )}
+
+              {/* count 模式：长度阈值（min=1）+ 可选的对齐分隔符细化边界 */}
               {mode === "count" && (
                 <>
-                  <Form.Item label={tSplitter("splitCharacterCount")} help={tSplitter("emptyForSymbolOnly")}>
+                  <Form.Item label={tSplitter("splitCharacterCount")}>
                     <InputNumber
-                      min={0}
-                      value={limit ?? null}
-                      onChange={(value) => setLimit(value ?? 0)}
-                      placeholder="2000"
+                      min={1}
+                      value={limit}
+                      onChange={setLimit}
+                      placeholder={String(DEFAULT_LIMIT)}
                       suffix={t("charLabel")}
                       className="!w-full"
                       aria-label={tSplitter("splitCharacterCount")}
                     />
                   </Form.Item>
-
-                  {/* 分隔符字段总是可见。limit>0 时有值则对齐，空则硬按长度切；limit=0 时必填。 */}
-                  <Form.Item label={tSplitter("customSplitSymbol")} help={tSplitter("supportEscapeChars")}>
-                    <Input
-                      value={customSplitSymbols}
-                      onChange={(e) => setCustomSplitSymbols(e.target.value)}
-                      placeholder={tSplitter("customSplitSymbol")}
-                      aria-label={tSplitter("customSplitSymbol")}
-                      allowClear
-                    />
-                    <Space size="small" className="!mt-2">
-                      <Button size="small" onClick={() => setCustomSplitSymbols("。 ？ ！")}>
-                        {tSplitter("chineseEndingSymbol")}
-                      </Button>
-                      <Button size="small" onClick={() => setCustomSplitSymbols(". ? !")}>
-                        {tSplitter("englishEndingSymbol")}
-                      </Button>
-                    </Space>
-                  </Form.Item>
+                  {/* 无 placeholder：这个字段留空是有意义的配置（纯硬切），不该暗示存在默认值 */}
+                  {renderSymbolsField(alignSymbols, setAlignSymbols)}
                 </>
               )}
 
-              {/* 通用：结果过多时隐藏预览（保留导出功能） */}
-              <Form.Item className="!mb-3">
+              {/* 以上是「怎么切」，以下是「切完拿什么」——两组关注点用一条细分隔线断开，
+                  比给每组加标题省 18 份翻译，信息层级同样成立。 */}
+              <Divider className="!my-4" />
+
+              {/* 合并分隔符：复制/导出合并文本共用的连接符。转义清单同样走 label tooltip。 */}
+              <Form.Item label={tSplitter("mergeSeparator")} help={tSplitter("mergeSeparatorHint")} tooltip={t("supportEscapeChars")}>
+                <Input
+                  value={mergeSeparator}
+                  onChange={(e) => setMergeSeparator(e.target.value)}
+                  placeholder={DEFAULT_MERGE_SEPARATOR}
+                  aria-label={tSplitter("mergeSeparator")}
+                  allowClear
+                />
+              </Form.Item>
+
+              {/* 导出文件名：既用于批量导出，也用于 ZIP 命名 */}
+              <Form.Item label={tSplitter("exportFileName")}>
+                <Space.Compact className="w-full">
+                  <Input value={customFileName} onChange={(e) => setCustomFileName(e.target.value)} placeholder="split_text" aria-label={tSplitter("exportFileName")} allowClear />
+                  <Space.Addon>.txt</Space.Addon>
+                </Space.Compact>
+              </Form.Item>
+
+              {/* 隐藏结果预览是「产物怎么呈现」，归到输出组末尾；夹在切分参数中间时
+                  读起来像切分选项（保留导出功能，只是不渲染卡片） */}
+              <Form.Item className="!mb-0">
                 <Flex justify="space-between" align="center">
                   <Tooltip title={t("hideResultsTooltip")}>
                     <span>{t("hideResults")}</span>
@@ -398,40 +490,35 @@ const TextSplitter = () => {
                   <Switch size="small" checked={hideResults} onChange={setHideResults} aria-label={t("hideResults")} />
                 </Flex>
               </Form.Item>
-
-              {/* 导出文件名放最后：既用于批量导出，也用于 ZIP 命名 */}
-              <Form.Item label={tSplitter("exportFileName")} className="!mb-0">
-                <Space.Compact className="w-full">
-                  <Input value={customFileName} onChange={(e) => setCustomFileName(e.target.value)} placeholder="split_text" aria-label={tSplitter("exportFileName")} allowClear />
-                  <Space.Addon>.txt</Space.Addon>
-                </Space.Compact>
-              </Form.Item>
             </Form>
           </PageCard>
         </Col>
-      </Row>
 
-      {/* 主执行按钮：按 mode 分派到对应的 split 函数。
-          count 模式下，limit=0 走 splitText() 的纯分隔符分支。 */}
-      <Button
-        type="primary"
-        size="large"
-        block
-        className="!mt-4"
-        icon={<ScissorOutlined />}
-        onClick={() => {
-          if (mode === "count") splitText();
-          else if (mode === "cn-paragraph") splitByParagraph("cn");
-          else splitByParagraph("en");
-        }}>
-        {mode === "count" && (!limit || limit === 0)
-          ? tSplitter("splitBySymbol")
-          : mode === "cn-paragraph"
-            ? tSplitter("splitByChineseParagraph")
-            : mode === "en-paragraph"
-              ? tSplitter("splitByEnglishParagraph")
-              : tSplitter("splitText")}
-      </Button>
+        {/* 主执行按钮独占一整行，排在两张卡片之后：宽屏横跨全宽，
+            窄屏堆叠时也排在配置卡之后，首次使用的人不会在没见过设置项前就先点到按钮。
+            按 mode 分派到对应的 split 函数。 */}
+        <Col span={24}>
+          <Button
+            type="primary"
+            size="large"
+            block
+            icon={<ScissorOutlined />}
+            onClick={() => {
+              if (mode === "symbol") splitBySymbolMode();
+              else if (mode === "count") splitText();
+              else if (mode === "cn-paragraph") splitByParagraph("cn");
+              else splitByParagraph("en");
+            }}>
+            {mode === "symbol"
+              ? tSplitter("splitBySymbol")
+              : mode === "cn-paragraph"
+                ? tSplitter("splitByChineseParagraph")
+                : mode === "en-paragraph"
+                  ? tSplitter("splitByEnglishParagraph")
+                  : tSplitter("splitText")}
+          </Button>
+        </Col>
+      </Row>
 
       {splittedTexts.length > 0 && (
         <div className="!mt-6">
@@ -444,15 +531,22 @@ const TextSplitter = () => {
             </Space>
           </Divider>
 
-          <Flex justify="center" gap="middle" className="!mb-5">
+          {/* 三个按钮沿「动作 × 形态」两轴命名：复制/导出 × 合并文本/分段文件，
+              差异只落在动词上，便于扫读。窄屏允许换行，避免大号按钮被挤压。 */}
+          <Flex justify="center" gap="middle" wrap className="!mb-5">
+            <Tooltip title={tSplitter("copyMergedTextTooltip")}>
+              <Button type="primary" ghost icon={<CopyOutlined />} onClick={handleCopyMergedText} size="large">
+                {tSplitter("copyMergedText")}
+              </Button>
+            </Tooltip>
             <Tooltip title={tSplitter("mergeText")}>
-              <Button type="primary" ghost icon={<FileTextOutlined />} onClick={handleExportFullText} size="large">
+              <Button icon={<FileTextOutlined />} onClick={handleExportFullText} size="large">
                 {tSplitter("exportMergedText")}
               </Button>
             </Tooltip>
-            <Tooltip title={tSplitter("exportIndividualFiles")}>
+            <Tooltip title={tSplitter("exportIndividualFiles", { zipThreshold: ZIP_THRESHOLD })}>
               <Button icon={<DownloadOutlined />} onClick={handleBatchExport} size="large">
-                {tSplitter("batchExport")}
+                {tSplitter("batchExport")} ({splittedTexts.length})
               </Button>
             </Tooltip>
           </Flex>
@@ -477,7 +571,16 @@ const TextSplitter = () => {
                 <Col xs={24} md={12} xl={8} key={index}>
                   <PageCard
                     size="small"
-                    title={`#${index + 1}`}
+                    title={
+                      // 段长是这个工具存在的理由（喂 AI 的上下文上限、社交平台字数），
+                      // 卡头本来就空着半行，把它摆在序号旁边，省得逐段去数
+                      <Space size={8}>
+                        <span>{`#${index + 1}`}</span>
+                        <Text type="secondary" className="!text-xs !font-normal">
+                          {text.length} {t("charLabel")}
+                        </Text>
+                      </Space>
+                    }
                     extra={
                       <Tooltip title={t("copy")}>
                         <Button
@@ -491,7 +594,7 @@ const TextSplitter = () => {
                     }
                     hoverable
                     style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                    <Paragraph ellipsis={{ rows: 6, expandable: true, symbol: "more" }} className="!m-0 !font-mono !whitespace-pre-wrap">
+                    <Paragraph ellipsis={{ rows: 6, expandable: true, symbol: t("expand") }} className="!m-0 !font-mono !whitespace-pre-wrap">
                       {text}
                     </Paragraph>
                   </PageCard>

@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "Supports escape chars: \\n (newline), \\r (return), \\t (tab), \\s (space), \\\\ (backslash)",
     "skipToContent": "Skip to main content",
     "fileProcessFailed": "Failed to process the file — check its encoding or try another",
     "fileReadFailed": "Failed to read the file",
@@ -48,6 +49,7 @@
     "extractText": "Extract Text",
     "translationResult": "Translation Result",
     "copy": "Copy",
+    "expand": "more",
     "remove": "Remove",
     "exportFile": "Export",
     "exportAllFile": "Export All",
@@ -165,6 +167,7 @@
     "errorHint5xx": "Server error, please retry later",
     "errorHintRelay": "Network error (possibly CORS) — enable \"API Relay\" in API Settings",
     "errorHintRelay403": "The API returned 403 Forbidden — enable \"API Relay\" in API Settings",
+    "errorHintGeminiKey": "Cannot reach Gemini: check your network first (some networks cannot reach Google services directly). If the network is fine, Google has been rejecting unrestricted API keys since June 19, 2026 — regenerate your key in AI Studio (restricted by default) or add a Gemini API restriction to the old key in Google Cloud Console",
     "rateLimitCooldown": "Rate limited — pausing briefly, will retry automatically"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "Error processing text: {error}",
     "zipExported": "Exported as ZIP: {count} → {fileName}",
     "zipExportFailed": "ZIP export failed: {error}",
-    "clientDescription": "Smartly split long text by character count or sentence. Perfect for AI input, social media, and editing. For non-UTF-8 text (e.g., some French files), upload file directly for auto-encoding detection.",
+    "clientDescription": "Four ways to split: by delimiter, by character count, Chinese sentences, and English sentences. Copy or export the merged text, or export one file per segment (over {zipThreshold} segments are packed into a ZIP). For non-UTF-8 files, upload the file directly — the encoding is detected automatically.",
     "noExportableText": "No exportable content detected, please check input",
     "splitCharacterCount": "Split Char Count",
     "exportFileName": "Export Filename",
     "customSplitSymbol": "Separators",
+    "symbolNoMatch": "None of the separators appear in the text, so nothing was split. Use punctuation that matches your language, or switch to “Chinese Paragraph” or “English Paragraph”",
     "chineseEndingSymbol": "CJK (中日韩)",
     "englishEndingSymbol": "English/Latin",
-    "supportEscapeChars": "Supports escape chars: \\n (newline), \\r (return), \\t (tab), \\s (space), \\\\ (backslash)",
-    "emptyForSymbolOnly": "Set to 0 or leave empty: ignore length and split by the delimiter below",
     "splitBySymbol": "Split by Symbol",
+    "splitBySymbolHint": "Split the text at each separator; adjacent segments can be merged into one.",
+    "symbolInterval": "Separators per segment",
+    "symbolIntervalHint": "1 = one segment per separator; 2 = merge every two segments",
     "splitByLength": "By length",
     "splitByLengthHint": "Chunk text into blocks of a character count. If you fill delimiters below, boundaries snap to the nearest one so sentences aren't cut mid-way.",
     "splitByChineseParagraph": "Chinese Paragraph",
-    "splitByChineseParagraphTooltip": "Smart split based on Chinese paragraph rules (newlines)",
+    "splitByChineseParagraphTooltip": "Detect boundaries by Chinese punctuation and paragraph rules, then split",
     "splitByEnglishParagraph": "English Paragraph",
-    "splitByEnglishParagraphTooltip": "Smart split based on English sentence algorithms",
+    "modeSymbol": "Symbol",
+    "modeLength": "Length",
+    "modeChinese": "Chinese",
+    "modeEnglish": "English",
+    "splitByEnglishParagraphTooltip": "Split into English sentences via NLP, one per line",
     "splitText": "Split Text",
     "segment": "Segment",
     "textSplit": "Split Complete",
     "exportedMergedText": "Merged text exported",
     "checkDownloadDirectory": "All split files exported, check download directory",
-    "mergeText": "Merge All Segments (Separated by 2 Newlines)",
+    "copyMergedText": "Copy Merged Text",
+    "copyMergedTextTooltip": "Join all segments with the merge separator and copy the whole text to the clipboard",
+    "mergeSeparator": "Merge Separator",
+    "mergeSeparatorHint": "Joins the segments when copying or exporting merged text. Leave it empty to use the default: two newlines (a blank line)",
+    "mergeText": "Join all segments with the merge separator and export them as a single text file",
     "exportMergedText": "Export Merged Text",
-    "exportIndividualFiles": "Batch Export Segments as Files",
-    "batchExport": "Batch Export"
+    "exportIndividualFiles": "Export each segment as its own text file; more than {zipThreshold} segments are packed into a ZIP",
+    "batchExport": "Export Segment Files"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "Text Splitter",
-      "description": "Smart long text splitter for AI and social media",
+      "description": "Split long text by delimiter, length, or sentence — and merge it back",
       "metaTitle": "Text / TXT File Splitter for ChatGPT, Claude, Gemini, Twitter",
-      "metaDescription": "Split long text or TXT files for ChatGPT, Claude, Gemini, Twitter, Weibo by char count, paragraph, or custom delimiter. GBK/Shift-JIS auto.",
+      "metaDescription": "Split long text or TXT by delimiter, characters, or sentence; copy the merged text or export as ZIP. For ChatGPT, Claude, Gemini, Twitter.",
       "faq": [
+        {
+          "q": "How do I choose among the four split modes, and what does 'delimiters per segment' do?",
+          "a": "Symbol mode cuts at the delimiters you type, every N of them: set 'delimiters per segment' to 1 for one sentence per segment, or 3 to merge three sentences — handy for fixed-size chunks. Length mode cuts by character count; add a delimiter and the cut backs up to the nearest one so sentences stay whole (newlines become spaces first). Chinese and English modes detect sentence boundaries by language rules, one sentence per line — ideal for sentence-by-sentence translation or subtitle drafts."
+        },
         {
           "q": "What are the character limits when splitting text for ChatGPT, Claude, Gemini, and translation tools?",
           "a": "AI model context limits (tokens): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Chinese is ~1-2 chars/token (Claude more generous), English ~4 chars/token. Translation limits: Google Translate and DeepL free both 5000 chars/request. Set 'Split Character Count' with buffer below the target AI's token capacity."
         },
         {
           "q": "How do I split long posts for Twitter/X, Threads, Mastodon, or Bluesky?",
-          "a": "Platform limits: Twitter/X 280 chars, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4096, Reddit posts 40000, Substack notes 500. Use 'English paragraph' mode for Latin scripts — preserves sentence integrity at word boundaries. Batch-export as separate files for sequential posting (1/N, 2/N numbering)."
+          "a": "Platform limits: Twitter/X 280 chars, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4096, Reddit posts 40000, Substack notes 500. Use 'English paragraph' mode for Latin scripts — preserves sentence integrity at word boundaries. Use Export Segment Files for sequential posting (1/N, 2/N); more than 3 segments arrive as a ZIP."
+        },
+        {
+          "q": "Can I merge the segments back into one text? What is the difference between the three result buttons?",
+          "a": "Yes. 'Copy Merged Text' joins every segment into one text on your clipboard; 'Export Merged Text' saves that same text as a single .txt; 'Export Segment Files' writes one file per segment, packing a ZIP beyond 3. The glue is the 'Merge Separator' setting — two newlines by default, with \\n, \\t and \\s escapes; leaving it empty falls back to that default. Note that Length and the sentence modes flatten newlines into spaces and drop blank lines, so the merged text is a fresh join, not the original layout."
         },
         {
           "q": "Once the chunks are split, what tools pair well for translating or further cleaning them?",
@@ -232,7 +253,7 @@
         },
         {
           "q": "How do I handle mixed Chinese/English text or non-UTF-8 files (French GBK, Japanese Shift-JIS)?",
-          "a": "For mixed CJK/English, use Chinese paragraph mode — it recognizes both Chinese (。！？) and English (. ! ?) sentence endings without splitting mid-word. Custom delimiter supports escape chars \\\\n\\\\n and \\\\t. For non-UTF-8 files (French GBK, Japanese Shift-JIS, Korean EUC-KR), **upload the file directly** rather than pasting — encoding is auto-detected to prevent garbled output."
+          "a": "For mixed CJK/English, use Chinese paragraph mode — it recognizes both Chinese (。！？) and English (. ! ?) sentence endings without splitting mid-word. The Delimiter field takes several symbols separated by spaces and supports \\n and \\t escapes; it defines the cut points in Symbol mode and only aligns them in Length mode. For non-UTF-8 files (French GBK, Japanese Shift-JIS, Korean EUC-KR), **upload the file directly** rather than pasting — encoding is auto-detected to prevent garbled output."
         },
         {
           "q": "Is my text uploaded to a server? Is the tool open source?",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "AI model contexts: GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "Social platform templates: Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000",
-        "Smart punctuation detection for mixed CJK (。！？) and Latin (. ! ?) text",
-        "Non-UTF-8 auto-detection (GBK, Shift-JIS, EUC-KR) prevents garbled output",
-        "Custom delimiter with \\\\n\\\\n, \\\\t escape character support",
-        "Batch export numbered 1/N, 2/N for sequential posting"
+        "Four split modes: by delimiter, by character count, Chinese sentences, English sentences",
+        "'Delimiters per segment' merges adjacent sentences into one chunk to control granularity",
+        "Character-count cuts snap to the nearest delimiter so sentences are never cut mid-way",
+        "Copy or export the merged text; the merge separator supports \\n and \\t escapes",
+        "Export one file per segment; larger batches are packed into a ZIP automatically",
+        "Non-UTF-8 files (GBK, Shift-JIS, EUC-KR) are auto-detected to prevent garbled text"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "Batch Data Processor",
       "description": "Excel batch data processing — dedup, column extraction, text merge, custom rules chained in sequence"
+    },
+    "textJoiner": {
+      "title": "Text Joiner",
+      "description": "Merge multiple text columns line by line with templates to batch-generate CSV, SQL, and JSON"
     },
     "jsonValueExtractor": {
       "title": "JSON Field Value Extractor",
@@ -312,7 +337,7 @@
     "textParser": "Text Tools",
     "jsonParser": "JSON Tools",
     "dataParser": "Data Tools",
-    "otherTools": "Other Tools",
+    "otherTools": "More Tools",
     "externalTools": {
       "legendtalk": "AI Thinkers Roundtable",
       "imgprompt": "AI Image Prompts"
@@ -343,6 +368,11 @@
     "reaction4": "Confused",
     "placeholder": "Leave a message (no login required, email optional for reply)",
     "metaDescription": "Feedback for Tools By AI: report bugs, suggest features, share use-case ideas. Built on Waline, anonymous posting allowed, free."
+  },
+  "AppError": {
+    "title": "Page failed to load",
+    "description": "The page could not be loaded — this can happen right after a site update. Please reload.",
+    "reload": "Reload"
   },
   "NotFound": {
     "title": "Page Not Found",

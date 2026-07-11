@@ -1,5 +1,6 @@
 {
   "common": {
+    "supportEscapeChars": "Supporte caractères d'échappement : \\n (nouvelle ligne), \\r (retour), \\t (tab), \\s (espace), \\\\ (antislash)",
     "skipToContent": "Aller au contenu principal",
     "fileProcessFailed": "Échec du traitement du fichier — vérifiez son encodage ou essayez-en un autre",
     "fileReadFailed": "Échec de la lecture du fichier",
@@ -48,6 +49,7 @@
     "extractText": "Extraire le texte",
     "translationResult": "Résultat",
     "copy": "Copier",
+    "expand": "plus",
     "remove": "Supprimer",
     "exportFile": "Exporter",
     "exportAllFile": "Tout exporter",
@@ -165,6 +167,7 @@
     "errorHint5xx": "Erreur serveur, veuillez réessayer plus tard",
     "errorHintRelay": "Erreur réseau (probablement CORS) — activez « Relais API » dans les paramètres API",
     "errorHintRelay403": "L'API a renvoyé 403 Forbidden — activez « Relais API » dans les paramètres API",
+    "errorHintGeminiKey": "Impossible de joindre Gemini : vérifiez d'abord votre réseau (certains réseaux ne peuvent pas atteindre directement les services Google). Si le réseau fonctionne, Google rejette depuis le 19 juin 2026 les clés API sans restriction — régénérez votre clé dans AI Studio (restreinte par défaut) ou ajoutez une restriction Gemini API à l'ancienne clé dans la console Google Cloud",
     "rateLimitCooldown": "Limite de requêtes atteinte — courte pause, nouvelle tentative automatique"
   },
   "TextSplitter": {
@@ -173,31 +176,41 @@
     "processTextError": "Erreur lors du traitement du texte : {error}",
     "zipExported": "Exporté en ZIP : {count} → {fileName}",
     "zipExportFailed": "Échec de l'export ZIP : {error}",
-    "clientDescription": "Découpe intelligemment les textes longs. Par caractères ou phrases. Idéal pour IA, réseaux sociaux, édition. Pour les textes non-UTF-8 (ex: certains fichiers français), téléchargez le fichier directement pour la détection auto de l'encodage.",
+    "clientDescription": "Quatre façons de découper : par séparateur, par nombre de caractères, phrases chinoises, phrases anglaises. Copiez ou exportez le texte fusionné, ou un fichier par segment (au-delà de {zipThreshold} segments, un ZIP est créé). Pour les fichiers non-UTF-8, importez directement le fichier : l'encodage est détecté automatiquement.",
     "noExportableText": "Aucun contenu exportable détecté, vérifiez l'entrée",
     "splitCharacterCount": "Caractères par segment",
     "exportFileName": "Nom fichier export",
     "customSplitSymbol": "Séparateurs",
+    "symbolNoMatch": "Aucun séparateur n'apparaît dans le texte, rien n'a donc été découpé. Utilisez la ponctuation de votre langue ou passez à « Paragraphe chinois » ou « Paragraphe anglais »",
     "chineseEndingSymbol": "CJK (中日韩)",
     "englishEndingSymbol": "Anglais/Latin",
-    "supportEscapeChars": "Supporte caractères d'échappement : \\r\n (nouvelle ligne), \\r (retour), \\t (tab), \\s (espace), \\\\ (antislash)",
-    "emptyForSymbolOnly": "0 ou vide : ignore la longueur et divise par le délimiteur ci-dessous",
     "splitBySymbol": "Diviser par symbole",
+    "splitBySymbolHint": "Découpe le texte à chaque séparateur ; les segments adjacents peuvent être fusionnés en un seul.",
+    "symbolInterval": "Séparateurs par segment",
+    "symbolIntervalHint": "1 = un segment par séparateur ; 2 = fusionner deux segments adjacents",
     "splitByLength": "Par longueur",
     "splitByLengthHint": "Découpe le texte en blocs d'un nombre de caractères. Si vous remplissez des délimiteurs ci-dessous, les coupes s'ajustent au plus proche pour ne pas couper les phrases.",
     "splitByChineseParagraph": "Paragraphe chinois",
-    "splitByChineseParagraphTooltip": "Découpe intelligente basée sur les règles de paragraphe chinois",
+    "splitByChineseParagraphTooltip": "Détecte les limites selon la ponctuation et les règles de paragraphe chinoises, puis découpe",
     "splitByEnglishParagraph": "Paragraphe anglais",
-    "splitByEnglishParagraphTooltip": "Utilise des algorithmes de phrases anglaises pour la détection intelligente",
+    "modeSymbol": "Symbole",
+    "modeLength": "Longueur",
+    "modeChinese": "Chinois",
+    "modeEnglish": "Anglais",
+    "splitByEnglishParagraphTooltip": "Découpe en phrases anglaises via le NLP, une par ligne",
     "splitText": "Diviser",
     "segment": "Segment",
     "textSplit": "Division terminée",
     "exportedMergedText": "Texte fusionné exporté",
     "checkDownloadDirectory": "Fichiers exportés, vérifiez le dossier de téléchargement",
-    "mergeText": "Fusionner tous les segments (séparés par 2 sauts de ligne)",
+    "copyMergedText": "Copier le texte fusionné",
+    "copyMergedTextTooltip": "Relier tous les segments avec le séparateur de fusion et copier le texte complet dans le presse-papiers",
+    "mergeSeparator": "Séparateur de fusion",
+    "mergeSeparatorHint": "Relie les segments lors de la copie ou de l'export. Laissez vide pour la valeur par défaut : deux sauts de ligne (une ligne vide)",
+    "mergeText": "Relier tous les segments avec le séparateur de fusion et les exporter dans un seul fichier texte",
     "exportMergedText": "Exporter texte fusionné",
-    "exportIndividualFiles": "Exporter chaque segment en fichier texte",
-    "batchExport": "Export par lot"
+    "exportIndividualFiles": "Exporter chaque segment dans un fichier texte distinct ; au-delà de {zipThreshold} segments, un ZIP est créé",
+    "batchExport": "Exporter les fichiers de segments"
   },
   "tools": {
     "subtitleTranslator": {
@@ -214,17 +227,25 @@
     },
     "textSplitter": {
       "title": "Découpeur de Texte",
-      "description": "Découpe intelligente de texte long pour IA et réseaux sociaux",
+      "description": "Découper un long texte par séparateur, longueur ou phrase — et le refusionner",
       "metaTitle": "Diviseur Texte / Fichier TXT - ChatGPT, Claude, Gemini, Twitter",
-      "metaDescription": "Diviser long texte ou fichier TXT pour ChatGPT, Claude, Gemini, Twitter, Weibo : caractères, paragraphe, délimiteur. GBK/Shift-JIS auto.",
+      "metaDescription": "Découpez un long texte ou TXT par séparateur, caractères ou phrase ; fusionnez ou exportez en ZIP. Pour ChatGPT, Claude, Gemini.",
       "faq": [
+        {
+          "q": "Comment choisir parmi les quatre modes, et à quoi sert « séparateurs par segment » ?",
+          "a": "Le mode Symbole coupe aux séparateurs saisis, tous les N : à 1, une phrase par segment ; à 3, trois phrases regroupées — pratique pour des blocs réguliers. Le mode Longueur coupe au nombre de caractères ; avec un séparateur, la coupe recule jusqu'au plus proche pour ne pas trancher une phrase (les retours à la ligne deviennent des espaces). Les modes Chinois et Anglais détectent les phrases selon la langue, une par ligne — idéal pour la traduction phrase à phrase ou les sous-titres."
+        },
         {
           "q": "Quelles sont les limites de caractères pour ChatGPT, Claude, Gemini et les outils de traduction ?",
           "a": "Limites de contexte des modèles IA (tokens) : ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Chinois ~1-2 car/token, anglais ~4 car/token. Outils de traduction : Google Translate et DeepL gratuits tous deux 5000 car/requête. Réglez 'Nombre de caractères' avec marge sous la capacité de l'IA cible."
         },
         {
           "q": "Comment découper les longs posts pour Twitter, Threads, Mastodon et LinkedIn ?",
-          "a": "Limites : Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4000. Utilisez mode 'Paragraphe anglais' pour le français et autres langues latines — préserve l'intégrité des phrases. Export groupé en fichiers individuels pour publication séquentielle (1/N, 2/N)."
+          "a": "Limites : Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4000. Utilisez mode 'Paragraphe anglais' pour le français et autres langues latines — préserve l'intégrité des phrases. Utilisez « Exporter les fichiers de segments » pour publier en séquence (1/N, 2/N) ; au-delà de 3 segments, un ZIP est créé."
+        },
+        {
+          "q": "Puis-je refusionner les segments en un seul texte ? Quelle est la différence entre les trois boutons de résultat ?",
+          "a": "Oui. « Copier le texte fusionné » place tous les segments réunis dans le presse-papiers ; « Exporter le texte fusionné » enregistre ce texte dans un seul .txt ; « Exporter les fichiers de segments » écrit un fichier par segment (ZIP au-delà de 3). Le lien est le réglage « Séparateur de fusion » — deux sauts de ligne par défaut, échappements \\n, \\t, \\s ; vide, il revient au défaut. Les modes Longueur et phrases changent les retours à la ligne en espaces et suppriment les lignes vides."
         },
         {
           "q": "Une fois les segments découpés, quels outils s'associent bien pour les traduire ou les nettoyer davantage ?",
@@ -232,7 +253,7 @@
         },
         {
           "q": "Comment gérer le texte mixte ou les fichiers non-UTF-8 (français GBK, japonais Shift-JIS) ?",
-          "a": "Pour texte mixte, le mode Paragraphe chinois reconnaît à la fois les ponctuations chinoise (。！？) et latine (. ! ?) sans couper mi-mot. Les séparateurs personnalisés supportent \\\\n\\\\n et \\\\t. Pour les fichiers non-UTF-8, **importez directement le fichier** plutôt que coller — l'encodage est détecté automatiquement pour éviter les caractères illisibles."
+          "a": "Pour texte mixte, le mode Paragraphe chinois reconnaît à la fois les ponctuations chinoise (。！？) et latine (. ! ?) sans couper mi-mot. Le champ « Séparateur » accepte plusieurs symboles séparés par des espaces et gère \\n et \\t ; il définit les coupes en mode Symbole et sert uniquement à les aligner en mode Longueur. Pour les fichiers non-UTF-8, **importez directement le fichier** plutôt que coller — l'encodage est détecté automatiquement pour éviter les caractères illisibles."
         },
         {
           "q": "Mon texte est-il envoyé sur un serveur ? L'outil est-il open source ?",
@@ -240,12 +261,12 @@
         }
       ],
       "features": [
-        "Contextes IA : GPT-5 400K, Claude 4.6/4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M",
-        "Modèles de plateformes sociales : Twitter 280, Threads 500, Mastodon 500, LinkedIn 3000",
-        "Détection intelligente de la ponctuation mixte CJK (。！？) et latine (. ! ?)",
-        "Détection auto non-UTF-8 (GBK, Shift-JIS, EUC-KR) évite les caractères illisibles",
-        "Séparateurs personnalisés avec échappement \\\\n\\\\n, \\\\t",
-        "Export batch numéroté 1/N, 2/N pour publication séquentielle"
+        "Quatre modes : par séparateur, par nombre de caractères, phrases chinoises, phrases anglaises",
+        "« Séparateurs par segment » regroupe des phrases voisines pour régler la granularité",
+        "En mode longueur, le point de coupe s'aligne sur le séparateur le plus proche",
+        "Copier ou exporter le texte fusionné ; séparateur de fusion avec \\n et \\t",
+        "Un fichier par segment ; les lots plus importants sont livrés en ZIP",
+        "Fichiers non-UTF-8 (GBK, Shift-JIS, EUC-KR) détectés automatiquement"
       ]
     },
     "chineseConversion": {
@@ -263,6 +284,10 @@
     "dataBatch": {
       "title": "Processeur de texte",
       "description": "Traitement par lots de données Excel — déduplication, extraction de colonnes, fusion, règles enchaînées"
+    },
+    "textJoiner": {
+      "title": "Fusionneur de Texte",
+      "description": "Fusionnez plusieurs colonnes de texte ligne par ligne avec des modèles pour générer en lot du CSV, SQL et JSON"
     },
     "jsonValueExtractor": {
       "title": "Extracteur Valeur JSON",
@@ -312,7 +337,7 @@
     "textParser": "Outils Texte",
     "jsonParser": "Outils JSON",
     "dataParser": "Outils Données",
-    "otherTools": "Autres Outils",
+    "otherTools": "Plus d'outils",
     "externalTools": {
       "legendtalk": "Table ronde des penseurs IA",
       "imgprompt": "Prompts d'images IA"
@@ -343,6 +368,11 @@
     "reaction4": "Confus",
     "placeholder": "Laissez un message (pas de connexion requise, email optionnel pour réponse)",
     "metaDescription": "Page de retours pour Tools By AI : signalez bugs, suggérez fonctionnalités, partagez cas d'usage. Basée sur Waline, publication anonyme."
+  },
+  "AppError": {
+    "title": "Échec du chargement de la page",
+    "description": "La page n'a pas pu être chargée — cela peut arriver juste après une mise à jour du site. Veuillez recharger.",
+    "reload": "Recharger"
   },
   "NotFound": {
     "title": "Page introuvable",
