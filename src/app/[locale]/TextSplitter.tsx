@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import PageCard from "@/app/components/styled/PageCard";
 import SourceArea from "@/app/components/SourceArea";
 import { Typography, Upload, Button, Input, InputNumber, App, Form, Tooltip, Space, theme, Flex, Spin, Row, Col, Segmented, Alert, Switch, Divider } from "antd";
-import { FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, SettingOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
+import { SettingOutlined, FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
 import { splitParagraph, downloadFile, parseSpaceSeparatedItems, getErrorMessage, escapeRegExp, getFileTypePresetConfig } from "@/app/utils";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import useFileUpload from "@/app/hooks/useFileUpload";
@@ -275,12 +275,12 @@ const TextSplitter = () => {
 
   return (
     <Spin spinning={isFileProcessing} description={t("pleaseWait")} size="large">
-      <Row gutter={[24, 24]}>
+      <Row gutter={[16, 16]}>
         <Col xs={24} lg={16}>
           <PageCard
             title={
               <Space>
-                <FileTextOutlined />
+                <InboxOutlined />
                 {t("sourceArea")}
               </Space>
             }
@@ -329,12 +329,7 @@ const TextSplitter = () => {
 
         <Col xs={24} lg={8}>
           <PageCard
-            title={
-              <Space>
-                <SettingOutlined />
-                {t("configuration")}
-              </Space>
-            }>
+            title={<Space><SettingOutlined /> {t("configuration")}</Space>}>
             <Form layout="vertical" className="[&_.ant-form-item]:!mb-3">
               {/* 三种模式：
                   - count: 按长度切块；limit>0 时可选"对齐分隔符"使断点落在分隔符上。
