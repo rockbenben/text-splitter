@@ -2,10 +2,11 @@
 ✂️ Text Splitter
 </h1>
 <p align="center">
-    English | <a href="./README-zh.md">中文</a>
+    <em>Split overlong text by length or by Chinese/English sentence boundaries, to feed models with a character cap</em>
 </p>
+
 <p align="center">
-    <em>Powerful long text processing tool for AI model optimization, document editing, and content management</em>
+    <b>English</b> · <a href="./README.zh.md">简体中文</a>
 </p>
 
 <p align="center">
@@ -13,7 +14,7 @@
   <a href="https://tools.newzone.top/en/text-splitter"><img src="https://img.shields.io/badge/Live%20Demo-text--splitter-blue" alt="Live Demo"></a>
 </p>
 
-**Text Splitter** is a powerful long text processing tool designed for scenarios like ChatGPT, DeepSeek, Claude and other AI model optimization, document editing, and social media content management. It offers **three splitting modes** — By Length, Chinese Paragraph, and English Paragraph — selected via a Segmented control, along with delimiter-aware boundaries, escape character support, batch export, and ZIP packaging for efficient text processing. Everything runs entirely in your browser — no servers, no uploads.
+**Text Splitter** cuts one overlong piece of text into chunks you can feed in one at a time — useful for ChatGPT, DeepSeek, Claude and other models with a per-message character cap, and equally for splitting documents or long social posts. Three modes — by length, Chinese paragraph, English paragraph — with delimiter-aware cut points (escapes like `\n` and `\t` supported); download the chunks one by one or as a ZIP. Everything runs entirely in your browser — no servers, no uploads.
 
 👉 **Try it online**: <https://tools.newzone.top/en/text-splitter>
 
@@ -110,7 +111,3 @@ For detailed usage instructions and deployment guides, see the **[Official Docum
 ## Contributing
 
 Contributions are welcome! Feel free to open issues and pull requests.
-
-## License
-
-MIT © 2025 [rockbenben](https://github.com/rockbenben). See [LICENSE](./LICENSE).
