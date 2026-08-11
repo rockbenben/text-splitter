@@ -13,6 +13,7 @@ import { useTextStats } from "@/app/hooks/useTextStats";
 import { useTranslations, useLocale } from "next-intl";
 import { saveAs } from "file-saver";
 import { splitBySymbolsOnly, getDefaultSplitSymbols, CJK_SPLIT_SYMBOLS, LATIN_SPLIT_SYMBOLS } from "./splitBySymbols";
+import { lazyImport } from "@/app/lib/autoReload";
 
 const { Dragger } = Upload;
 const { Title, Paragraph, Text } = Typography;
@@ -280,7 +281,7 @@ const TextSplitter = () => {
   // 导出 ZIP 文件
   const exportAsZip = async (texts: string[], nameWithoutExt: string, ext: string) => {
     try {
-      const JSZip = (await import("jszip")).default;
+      const JSZip = (await lazyImport(() => import("jszip"))).default;
       const zip = new JSZip();
       texts.forEach((text, index) => {
         const fileName = `${nameWithoutExt}_${index + 1}${ext}`;
