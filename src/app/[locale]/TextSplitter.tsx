@@ -387,6 +387,7 @@ const TextSplitter = () => {
               </p>
             </Dragger>
             <SourceArea
+              textDirection="auto"
               sourceText={sourceText}
               setSourceText={setSourceText}
               stats={sourceStats}
@@ -595,7 +596,8 @@ const TextSplitter = () => {
                     }
                     hoverable
                     style={{ height: "100%", display: "flex", flexDirection: "column" }}>
-                    <Paragraph ellipsis={{ rows: 6, expandable: true, symbol: t("expand") }} className="!m-0 !font-mono !whitespace-pre-wrap">
+                    {/* 分段是多行正文:dir=auto 在 div 上只有 isolate,逐行判定要显式 plaintext */}
+                    <Paragraph dir="auto" style={{ unicodeBidi: "plaintext" }} ellipsis={{ rows: 6, expandable: true, symbol: t("expand") }} className="!m-0 !font-mono !whitespace-pre-wrap">
                       {text}
                     </Paragraph>
                   </PageCard>
