@@ -13,7 +13,7 @@ const ClientPage = () => {
   const userGuideUrl = getDocUrl("guide/text/text-splitter.html", locale);
 
   return (
-    <ToolPage icon={<ScissorOutlined />} toolKey="textSplitter" description={tSplitter("clientDescription", { zipThreshold: ZIP_THRESHOLD })} guideUrl={userGuideUrl}>
+    <ToolPage showExportFolder icon={<ScissorOutlined />} toolKey="textSplitter" description={tSplitter("clientDescription", { zipThreshold: ZIP_THRESHOLD })} guideUrl={userGuideUrl}>
       <TextSplitter />
     </ToolPage>
   );

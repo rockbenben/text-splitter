@@ -11,7 +11,6 @@ import { useLocalStorage } from "@/app/hooks/useLocalStorage";
 import { useResetOnSourceChange } from "@/app/hooks/useResetOnSourceChange";
 import { useTextStats } from "@/app/hooks/useTextStats";
 import { useTranslations, useLocale } from "next-intl";
-import { saveAs } from "file-saver";
 import { splitBySymbolsOnly, getDefaultSplitSymbols, CJK_SPLIT_SYMBOLS, LATIN_SPLIT_SYMBOLS } from "./splitBySymbols";
 import { lazyImport } from "@/app/lib/autoReload";
 
@@ -288,9 +287,11 @@ const TextSplitter = () => {
         zip.file(fileName, text);
       });
       const zipContent = await zip.generateAsync({ type: "blob" });
-      saveAs(zipContent, `${nameWithoutExt}_split_files.zip`);
+      // 走 downloadFile 而不是直接 saveAs:否则同一个按钮下,超阈值的 ZIP 落进浏览器
+      // 下载目录、不超阈值的逐个文件却落进用户选的导出目录
+      const written = await downloadFile(zipContent, `${nameWithoutExt}_split_files.zip`);
 
-      message.success(tSplitter("zipExported", { count: texts.length, fileName: `${nameWithoutExt}_split_files.zip` }), 5);
+      message.success(tSplitter("zipExported", { count: texts.length, fileName: written.fileName }), 5);
     } catch (error: unknown) {
       console.error("ZIP export failed: ", error);
       const errMsg = getErrorMessage(error);
@@ -313,7 +314,7 @@ const TextSplitter = () => {
         for (const [index, text] of splittedTexts.entries()) {
           await downloadFile(text, `${nameWithoutExt}_${index + 1}${ext}`);
         }
-        message.success(`${tSplitter("checkDownloadDirectory")}: ${splittedTexts.length}`, 5);
+        message.success(`${tSplitter("allSegmentsExported")}: ${splittedTexts.length}`, 5);
       } catch (error: unknown) {
         console.error("Segment export failed: ", error);
         message.error(tSplitter("processTextError", { error: getErrorMessage(error) }), 10);
@@ -481,6 +482,7 @@ const TextSplitter = () => {
                   <Space.Addon>.txt</Space.Addon>
                 </Space.Compact>
               </Form.Item>
+
 
               {/* 隐藏结果预览是「产物怎么呈现」，归到输出组末尾；夹在切分参数中间时
                   读起来像切分选项（保留导出功能，只是不渲染卡片） */}
