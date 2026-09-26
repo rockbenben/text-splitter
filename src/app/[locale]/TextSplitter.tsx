@@ -1,9 +1,8 @@
 "use client";
 import React, { useState, useRef } from "react";
-import PageCard from "@/app/components/styled/PageCard";
-import SourceArea from "@/app/components/SourceArea";
-import { Typography, Upload, Button, Input, InputNumber, App, Form, Tooltip, Space, theme, Flex, Spin, Row, Col, Segmented, Alert, Switch, Divider } from "antd";
-import { SettingOutlined, FileTextOutlined, DownloadOutlined, InboxOutlined, ClearOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
+import UploadSourceCard from "@/app/components/UploadSourceCard";
+import { Typography, Button, Input, InputNumber, App, Form, Tooltip, Space, theme, Flex, Spin, Row, Col, Segmented, Alert, Switch, Divider, Card } from "antd";
+import { SettingOutlined, FileTextOutlined, DownloadOutlined, CopyOutlined, CheckOutlined, ScissorOutlined } from "@ant-design/icons";
 import { splitParagraph, downloadFile, splitFileName, parseSpaceSeparatedItems, parseEscapeChars, getErrorMessage, getFileTypePresetConfig } from "@/app/utils";
 import { useCopyToClipboard } from "@/app/hooks/useCopyToClipboard";
 import useFileUpload from "@/app/hooks/useFileUpload";
@@ -14,7 +13,6 @@ import { useTranslations, useLocale } from "next-intl";
 import { splitBySymbolsOnly, getDefaultSplitSymbols, CJK_SPLIT_SYMBOLS, LATIN_SPLIT_SYMBOLS } from "./splitBySymbols";
 import { lazyImport } from "@/app/lib/autoReload";
 
-const { Dragger } = Upload;
 const { Title, Paragraph, Text } = Typography;
 
 const uploadFileTypes = getFileTypePresetConfig("richText");
@@ -32,7 +30,6 @@ const DEFAULT_LIMIT = 5000;
 // 分段导出超过这个段数就打 ZIP。文案里的数字通过 zipThreshold 参数注入
 // （clientDescription / exportIndividualFiles），改这里即可，FAQ 里的举例需手动同步。
 export const ZIP_THRESHOLD = 3;
-
 
 const TextSplitter = () => {
   const tSplitter = useTranslations("TextSplitter");
@@ -61,7 +58,8 @@ const TextSplitter = () => {
   // 才显示得出来——与「分割字符数」同一套清空语义，同一个表单不该有两种清空行为。
   const [symbolInterval, setSymbolInterval] = useLocalStorage<number | null>("text-splitter-symbolInterval", 1);
 
-  const { isFileProcessing, fileList, multipleFiles, sourceText, setSourceText, handleFileUpload, handleUploadRemove, handleUploadChange, resetUpload } = useFileUpload();
+  const upload = useFileUpload();
+  const { isFileProcessing, multipleFiles, sourceText } = upload;
 
   const sourceStats = useTextStats(sourceText);
   const [autoHide, setAutoHide] = useState(false);
@@ -346,61 +344,13 @@ const TextSplitter = () => {
     <Spin spinning={isFileProcessing} description={t("pleaseWait")} size="large">
       <Row gutter={[16, 16]}>
         <Col xs={24} lg={16}>
-          <PageCard
-            title={
-              <Space>
-                <InboxOutlined />
-                {t("sourceArea")}
-              </Space>
-            }
-            extra={
-              <Tooltip title={t("resetUploadTooltip")}>
-                <Button
-                  type="text"
-                  danger
-                  onClick={() => {
-                    resetUpload();
-                    // 不依赖 resetUpload 把 sourceText 置空来间接触发软清:源本就为空时
-                    // 那条链路不会触发,而产物三件套里的 copiedIndexes/autoHide 会留在屏上。
-                    clearResults();
-                    message.success(t("resetUploadSuccess"));
-                  }}
-                  icon={<ClearOutlined />}
-                  aria-label={t("clearAll")}>
-                  {t("clearAll")}
-                </Button>
-              </Tooltip>
-            }>
-            <Dragger
-              customRequest={({ file }) => handleFileUpload(file as File)}
-              accept={uploadFileTypes.accept}
-              showUploadList
-              beforeUpload={resetUpload}
-              onRemove={handleUploadRemove}
-              onChange={handleUploadChange}
-              fileList={fileList}>
-              <p className="ant-upload-drag-icon">
-                <InboxOutlined />
-              </p>
-              <p className="ant-upload-text">{t("dragAndDropText")}</p>
-              <p className="ant-upload-hint">
-                {t("supportedFormats")} {uploadFileTypes.formatLabel({ maxVisible: 5 })}
-              </p>
-            </Dragger>
-            <SourceArea
-              textDirection="auto"
-              sourceText={sourceText}
-              setSourceText={setSourceText}
-              stats={sourceStats}
-              placeholder={t("pasteUploadContent")}
-              ariaLabel={t("sourceArea")}
-              className="mt-1"
-            />
-          </PageCard>
+          {/* onClear 不依赖 resetUpload 把 sourceText 置空来间接触发软清:源本就为空时
+              那条链路不会触发,而产物三件套里的 copiedIndexes/autoHide 会留在屏上。 */}
+          <UploadSourceCard upload={upload} stats={sourceStats} fileTypes={uploadFileTypes} formatsHint={uploadFileTypes.formatLabel({ maxVisible: 5 })} textDirection="auto" onClear={clearResults} />
         </Col>
 
         <Col xs={24} lg={8}>
-          <PageCard
+          <Card
             title={<Space><SettingOutlined /> {t("configuration")}</Space>}>
             <Form layout="vertical" className="[&_.ant-form-item]:!mb-3">
               {/* 四种模式：
@@ -483,7 +433,6 @@ const TextSplitter = () => {
                 </Space.Compact>
               </Form.Item>
 
-
               {/* 隐藏结果预览是「产物怎么呈现」，归到输出组末尾；夹在切分参数中间时
                   读起来像切分选项（保留导出功能，只是不渲染卡片） */}
               <Form.Item className="!mb-0">
@@ -495,7 +444,7 @@ const TextSplitter = () => {
                 </Flex>
               </Form.Item>
             </Form>
-          </PageCard>
+          </Card>
         </Col>
 
         {/* 主执行按钮独占一整行，排在两张卡片之后：宽屏横跨全宽，
@@ -573,7 +522,7 @@ const TextSplitter = () => {
             <Row gutter={[16, 16]}>
               {splittedTexts.map((text, index) => (
                 <Col xs={24} md={12} xl={8} key={index}>
-                  <PageCard
+                  <Card
                     size="small"
                     title={
                       // 段长是这个工具存在的理由（喂 AI 的上下文上限、社交平台字数），
@@ -602,7 +551,7 @@ const TextSplitter = () => {
                     <Paragraph dir="auto" style={{ unicodeBidi: "plaintext" }} ellipsis={{ rows: 6, expandable: true, symbol: t("expand") }} className="!m-0 !font-mono !whitespace-pre-wrap">
                       {text}
                     </Paragraph>
-                  </PageCard>
+                  </Card>
                 </Col>
               ))}
             </Row>
