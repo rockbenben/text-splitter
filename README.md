@@ -70,7 +70,7 @@ Detects Chinese paragraph boundaries using punctuation and line-break rules; par
 
 ### 3. English Paragraph
 
-Uses an English sentence algorithm (compromise NLP library) to detect paragraph boundaries. Good for documents, emails, and papers.
+Uses the browser's built-in Intl.Segmenter sentence segmentation to detect paragraph boundaries. Good for documents, emails, and papers.
 
 ## Shared Settings
 
@@ -94,7 +94,7 @@ All modes share these:
 
 ## FAQ
 
-**What's the difference between the three splitting modes?** "By Length" chunks text into blocks of a fixed character count (default 2000) and snaps boundaries to a delimiter if one is provided. "Chinese Paragraph" / "English Paragraph" run language-aware sentence detection — Chinese uses punctuation rules, English uses the compromise NLP library. Pick whichever matches your input language.
+**What's the difference between the three splitting modes?** "By Length" chunks text into blocks of a fixed character count (default 2000) and snaps boundaries to a delimiter if one is provided. "Chinese Paragraph" / "English Paragraph" run language-aware sentence detection — Chinese uses punctuation rules, English uses the browser's built-in Intl.Segmenter. Pick whichever matches your input language.
 
 **Why is there no length toggle for delimiter-only splitting?** Delimiter activation is implicit — purely controlled by whether the delimiter field has a value. Length > 0 + delimiter filled = chunk + snap. Length > 0 + delimiter empty = hard chunk. Length = 0 + delimiter filled = split at every delimiter (length ignored). Length = 0 + delimiter empty = error.
 
