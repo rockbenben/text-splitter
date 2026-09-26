@@ -142,12 +142,10 @@
     "resultToSourceTooltip": "Timpa kotak input dengan teks hasil",
     "readOnlyMode": "Mode Hanya-Baca",
     "readOnlyModeTooltip": "Teks terlalu panjang: editor sementara hanya-baca dan hanya menampilkan pratinjau sebagian. Konten lengkap Anda tidak terpengaruh — pemrosesan dan ekspor tetap menggunakan seluruh teks.",
-    "clearInputTooltip": "Bersihkan konten input dan file yang diunggah",
     "fileExported": "File diekspor: {fileName}",
     "exportFailed": "Gagal mengekspor file: {fileName}",
     "exportedToFolder": "Disimpan ke {dir}: {fileName}",
     "batchDownloaded": "Pemrosesan selesai, file diunduh otomatis",
-    "sourceTextPlaceholder": "Masukkan atau tempel teks yang akan diproses...",
     "smartLineBreak": "Jeda Baris Cerdas",
     "replaceText": "Ganti Teks",
     "generateJson": "Hasilkan JSON",
@@ -204,7 +202,6 @@
     "splitBySymbolHint": "Membagi teks pada setiap pemisah; segmen yang berdekatan dapat digabung menjadi satu.",
     "symbolInterval": "Pemisah per segmen",
     "symbolIntervalHint": "1 = satu segmen per pemisah; 2 = gabungkan setiap dua segmen",
-    "splitByLength": "Berdasarkan panjang",
     "splitByLengthHint": "Membagi teks menjadi blok berdasarkan jumlah karakter. Jika mengisi pemisah di bawah, titik potong menyesuaikan ke pemisah terdekat agar kalimat tidak terpotong.",
     "splitByChineseParagraph": "Paragraf Mandarin",
     "splitByChineseParagraphTooltip": "Deteksi batas berdasarkan tanda baca dan aturan paragraf Tionghoa, lalu bagi",
@@ -243,7 +240,7 @@
     },
     "chineseConversion": {
       "title": "Konversi Karakter Tionghoa",
-      "description": "Konversi batch antara Sederhana, Tradisional Taiwan, Tradisional Hong Kong, dan Aksara Jepang Baru"
+      "description": "Mendukung unggah file dan pemrosesan batch antara Tionghoa Sederhana, Tradisional Taiwan/Hong Kong, dan Shinjitai Jepang"
     },
     "novelProcessor": {
       "title": "Pemformat Novel Web China",
@@ -356,7 +353,9 @@
     "otherTools": "Alat Lainnya",
     "externalTools": {
       "legendtalk": "Meja Bundar Pemikir AI",
-      "imgprompt": "Prompt Gambar AI"
+      "imgprompt": "Prompt Gambar AI",
+      "lives": "Thousand Lives",
+      "learndata": "LearnData Catatan Sumber Terbuka"
     }
   },
   "Metadata": {

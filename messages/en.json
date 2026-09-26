@@ -86,7 +86,6 @@
     "serviceUnavailableSwitched": "{service} is temporarily unreachable — switched automatically to {fallback}. Check it and switch back in settings if you want to keep using it.",
     "noFileUploaded": "Please upload a file to process first.",
     "translationExported": "Translation complete, files exported",
-    "sourceTextPlaceholder": "Enter or paste text to process...",
     "noSourceText": "Please enter or paste text content.",
     "textExtracted": "Text extracted, ",
     "sourceArea": "Input area",
@@ -102,7 +101,6 @@
     "resultToSourceTooltip": "Overwrite input area with result text",
     "readOnlyMode": "Read-only mode",
     "readOnlyModeTooltip": "Text is too long: the editor is temporarily read-only and shows a partial preview only. Your full content is unaffected — processing and export still use the entire text.",
-    "clearInputTooltip": "Clear input content and uploaded files",
     "smartLineBreak": "Smart line break",
     "replaceText": "Replace text",
     "generateJson": "Generate JSON",
@@ -204,7 +202,6 @@
     "splitBySymbolHint": "Split the text at each separator; adjacent segments can be merged into one.",
     "symbolInterval": "Separators per segment",
     "symbolIntervalHint": "1 = one segment per separator; 2 = merge every two segments",
-    "splitByLength": "By length",
     "splitByLengthHint": "Chunk text into blocks of a character count. If you fill delimiters below, boundaries snap to the nearest one so sentences aren't cut mid-way.",
     "splitByChineseParagraph": "Chinese paragraph",
     "splitByChineseParagraphTooltip": "Detect boundaries by Chinese punctuation and paragraph rules, then split",
@@ -287,7 +284,7 @@
     },
     "chineseConversion": {
       "title": "Chinese Conversion",
-      "description": "Bulk convert Simplified, Taiwan Traditional, Hong Kong Traditional, and Japanese New Character Form"
+      "description": "Batch convert Simplified, Taiwan Traditional, Hong Kong Traditional, and Japanese Shinjitai with file upload support"
     },
     "novelProcessor": {
       "title": "Chinese Novel Formatter",
@@ -356,7 +353,9 @@
     "otherTools": "More tools",
     "externalTools": {
       "legendtalk": "AI Thinkers Roundtable",
-      "imgprompt": "AI Image Prompts"
+      "imgprompt": "AI Image Prompts",
+      "lives": "Thousand Lives",
+      "learndata": "LearnData Open Source Notes"
     }
   },
   "Metadata": {

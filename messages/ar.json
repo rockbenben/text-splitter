@@ -142,12 +142,10 @@
     "resultToSourceTooltip": "استبدال نص الإدخال بالنتيجة",
     "readOnlyMode": "وضع القراءة فقط",
     "readOnlyModeTooltip": "النص طويل جدًا: المحرّر للقراءة فقط مؤقتًا ويعرض معاينة جزئية فقط. المحتوى الكامل غير متأثر، وتتم المعالجة والتصدير على النص بالكامل.",
-    "clearInputTooltip": "مسح محتوى الإدخال والملفات المحملة",
     "fileExported": "تم تصدير الملف: {fileName}",
     "exportFailed": "تعذّر تصدير الملف: {fileName}",
     "exportedToFolder": "تم الحفظ في {dir}: {fileName}",
     "batchDownloaded": "اكتملت المعالجة، تم تنزيل الملف تلقائياً",
-    "sourceTextPlaceholder": "أدخل أو الصق النص المراد معالجته...",
     "smartLineBreak": "فاصل أسطر ذكي",
     "replaceText": "استبدال النص",
     "generateJson": "إنشاء JSON",
@@ -204,7 +202,6 @@
     "splitBySymbolHint": "يقسّم النص عند كل فاصل؛ يمكن دمج الأقسام المتجاورة في قسم واحد.",
     "symbolInterval": "الفواصل لكل قسم",
     "symbolIntervalHint": "1 = كل فاصل قسم مستقل؛ 2 = دمج كل قسمين متجاورين",
-    "splitByLength": "حسب الطول",
     "splitByLengthHint": "يقسّم النص إلى كتل بعدد من الأحرف. إن عبّأت الفواصل في الأسفل، تنضبط نقاط القطع إلى أقرب فاصل كي لا تُقطع الجمل.",
     "splitByChineseParagraph": "فقرة صينية",
     "splitByChineseParagraphTooltip": "يكتشف الحدود وفق علامات الترقيم وقواعد الفقرات الصينية ثم يقسّم",
@@ -243,7 +240,7 @@
     },
     "chineseConversion": {
       "title": "تحويل الحروف الصينية",
-      "description": "تحويل بين المبسطة والتقليدية (تايوان وهونج كونج) والأحرف اليابانية الجديدة"
+      "description": "يدعم تحميل الملفات والمعالجة المجمعة للتحويل بين الصينية المبسطة والتقليدية (تايوان وهونغ كونغ) والشينجيتاي الياباني"
     },
     "novelProcessor": {
       "title": "منسّق الروايات الصينية على الويب",
@@ -356,7 +353,9 @@
     "otherTools": "المزيد من الأدوات",
     "externalTools": {
       "legendtalk": "طاولة مفكري الذكاء الاصطناعي",
-      "imgprompt": "موجهات صور الذكاء الاصطناعي"
+      "imgprompt": "موجهات صور الذكاء الاصطناعي",
+      "lives": "Thousand Lives",
+      "learndata": "LearnData ملاحظات مفتوحة المصدر"
     }
   },
   "Metadata": {

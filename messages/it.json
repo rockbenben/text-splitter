@@ -142,12 +142,10 @@
     "resultToSourceTooltip": "Sostituire il testo nella casella di input con il testo del risultato",
     "readOnlyMode": "Modalità Sola Lettura",
     "readOnlyModeTooltip": "Testo troppo lungo: l'editor è temporaneamente di sola lettura e mostra solo un'anteprima parziale. Il contenuto completo non è interessato: elaborazione ed esportazione usano comunque l'intero testo.",
-    "clearInputTooltip": "Cancella contenuto di input e file caricati",
     "fileExported": "File esportato: {fileName}",
     "exportFailed": "Impossibile esportare il file: {fileName}",
     "exportedToFolder": "Salvato in {dir}: {fileName}",
     "batchDownloaded": "Elaborazione completata, file scaricati automaticamente",
-    "sourceTextPlaceholder": "Inserisci o incolla il testo da elaborare...",
     "smartLineBreak": "A capo automatico intelligente",
     "replaceText": "Sostituisci testo",
     "generateJson": "Genera JSON",
@@ -204,7 +202,6 @@
     "splitBySymbolHint": "Divide il testo a ogni separatore; i segmenti adiacenti possono essere uniti in uno.",
     "symbolInterval": "Separatori per segmento",
     "symbolIntervalHint": "1 = un segmento per separatore; 2 = unisci ogni due segmenti",
-    "splitByLength": "Per lunghezza",
     "splitByLengthHint": "Divide il testo in blocchi per numero di caratteri. Se inserisci dei delimitatori sotto, i tagli si allineano al più vicino per non tagliare le frasi.",
     "splitByChineseParagraph": "Paragrafo Cinese",
     "splitByChineseParagraphTooltip": "Rileva i confini in base alla punteggiatura e alle regole dei paragrafi cinesi, poi divide",
@@ -287,7 +284,7 @@
     },
     "chineseConversion": {
       "title": "Conversor Semp/Trad",
-      "description": "Converti in batch semplificato, tradizionale di Taiwan, Hong Kong e caratteri giapponesi"
+      "description": "Supporta caricamento file ed elaborazione in batch per convertire semplificato, tradizionale di Taiwan/Hong Kong e shinjitai giapponese"
     },
     "novelProcessor": {
       "title": "Formattatore di romanzi web cinesi",
@@ -356,7 +353,9 @@
     "otherTools": "Altri strumenti",
     "externalTools": {
       "legendtalk": "Tavola rotonda dei pensatori IA",
-      "imgprompt": "Prompt per immagini IA"
+      "imgprompt": "Prompt per immagini IA",
+      "lives": "Thousand Lives",
+      "learndata": "LearnData Note Open Source"
     }
   },
   "Metadata": {

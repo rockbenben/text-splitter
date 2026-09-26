@@ -142,12 +142,10 @@
     "resultToSourceTooltip": "Giriş kutusunun içeriğini sonuç metniyle değiştir",
     "readOnlyMode": "Salt Okunur Mod",
     "readOnlyModeTooltip": "Metin çok uzun: düzenleyici geçici olarak salt okunur ve yalnızca kısmi bir önizleme gösteriyor. Tüm içeriğiniz etkilenmez; işleme ve dışa aktarma hâlâ metnin tamamını kullanır.",
-    "clearInputTooltip": "Giriş içeriğini ve yüklenen dosyaları temizle",
     "fileExported": "Dışa aktarılan dosya: {fileName}",
     "exportFailed": "Dosya dışa aktarılamadı: {fileName}",
     "exportedToFolder": "{dir} klasörüne kaydedildi: {fileName}",
     "batchDownloaded": "İşlem tamamlandı, dosyalar otomatik olarak indirildi",
-    "sourceTextPlaceholder": "İşlenecek metni girin veya yapıştırın...",
     "smartLineBreak": "Akıllı satır sonu",
     "replaceText": "Metni değiştir",
     "generateJson": "JSON Oluştur",
@@ -204,7 +202,6 @@
     "splitBySymbolHint": "Metni her ayırıcıda böler; bitişik bölümler tek bir bölümde birleştirilebilir.",
     "symbolInterval": "Bölüm başına ayırıcı",
     "symbolIntervalHint": "1 = her ayırıcı ayrı bir bölüm; 2 = her iki bölümü birleştir",
-    "splitByLength": "Uzunluğa göre",
     "splitByLengthHint": "Metni karakter sayısına göre bloklara böler. Aşağıya ayırıcı girerseniz kesim noktaları en yakın ayırıcıya hizalanır ve cümleler ortadan kesilmez.",
     "splitByChineseParagraph": "Çince Paragraf",
     "splitByChineseParagraphTooltip": "Sınırları Çince noktalama ve paragraf kurallarına göre algılayıp böler",
@@ -287,7 +284,7 @@
     },
     "chineseConversion": {
       "title": "Bas/Gel Çince Dönüştürücü",
-      "description": "Basitleştirilmiş, Tayvan geleneksel, Hong Kong geleneksel ve Japonca karakterleri toplu dönüştür"
+      "description": "Dosya yükleme ve toplu işlem desteğiyle Basitleştirilmiş, Tayvan/Hong Kong Geleneksel Çince ve Japon Shinjitai dönüştürme"
     },
     "novelProcessor": {
       "title": "Çince Web Roman Düzenleyici",
@@ -356,7 +353,9 @@
     "otherTools": "Daha Fazla Araç",
     "externalTools": {
       "legendtalk": "AI Düşünürler Yuvarlak Masası",
-      "imgprompt": "AI Görsel İstemleri"
+      "imgprompt": "AI Görsel İstemleri",
+      "lives": "Thousand Lives",
+      "learndata": "LearnData Açık Kaynak Notlar"
     }
   },
   "Metadata": {

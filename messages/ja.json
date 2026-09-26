@@ -142,12 +142,10 @@
     "resultToSourceTooltip": "結果テキストを入力欄に上書き",
     "readOnlyMode": "読み取り専用モード",
     "readOnlyModeTooltip": "テキストが長すぎるため、エディターは一時的に読み取り専用となり、一部のみをプレビュー表示しています。完全な内容は影響を受けず、処理と書き出しは全文に対して行われます。",
-    "clearInputTooltip": "入力内容とアップロードされたファイルをクリア",
     "fileExported": "ファイルをエクスポートしました：{fileName}",
     "exportFailed": "ファイルをエクスポートできませんでした：{fileName}",
     "exportedToFolder": "{dir} に保存しました：{fileName}",
     "batchDownloaded": "処理完了、ファイルを自動ダウンロードしました",
-    "sourceTextPlaceholder": "処理するテキストを入力または貼り付けてください...",
     "smartLineBreak": "スマート改行",
     "replaceText": "テキスト置換",
     "generateJson": "JSON生成",
@@ -204,7 +202,6 @@
     "splitBySymbolHint": "各区切り文字でテキストを分割；隣接する複数の段を1段に結合できます。",
     "symbolInterval": "1段あたりの区切り文字数",
     "symbolIntervalHint": "1 = 区切り文字ごとに1段；2 = 隣接する2段を1段に結合",
-    "splitByLength": "長さで分割",
     "splitByLengthHint": "文字数でテキストをブロックに分割。下の区切り記号を入力すると、切断点が最寄りの区切り記号に揃えられ、文が途中で切れません。",
     "splitByChineseParagraph": "中国語段落",
     "splitByChineseParagraphTooltip": "中国語の句読点と段落ルールで境界を判定してから分割",
@@ -287,7 +284,7 @@
     },
     "chineseConversion": {
       "title": "繁体・簡体字変換",
-      "description": "簡体字・台湾繁体字・香港繁体字・日本新字体を一括変換"
+      "description": "ファイルアップロードと一括処理に対応、簡体字・台湾繁体字・香港繁体字・日本新字体を高精度変換"
     },
     "novelProcessor": {
       "title": "中国語小説テキスト整理ツール",
@@ -356,7 +353,9 @@
     "otherTools": "その他のツール",
     "externalTools": {
       "legendtalk": "AI思想家ラウンドテーブル",
-      "imgprompt": "AI画像プロンプト"
+      "imgprompt": "AI画像プロンプト",
+      "lives": "千世書 人生シミュレーター",
+      "learndata": "LearnData オープンソースノート"
     }
   },
   "Metadata": {
