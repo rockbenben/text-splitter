@@ -131,7 +131,7 @@
     "customExportFilenameTooltip": "'{'name'}' = Originalname, '{'lang'}' = Sprache, '{'ext'}' = Endung, '{'date'}' = Datum, '{'time'}' = Zeit; im Mehrsprachenmodus wird '{'lang'}' automatisch hinzugefügt, um Namenskonflikte zu vermeiden",
     "partialFailureTitle": "{count} Zeile(n) fehlgeschlagen",
     "partialFailureDesc": "Diese Zeilen behalten den Originaltext, die Dateistruktur bleibt intakt. Der erneute Versuch sendet nur sie, der Rest kommt aus dem Cache.",
-    "partialFailureWhy": "Häufig bei kostenlosen und selbst gehosteten Diensten — meist liegt es nicht an deiner Konfiguration.",
+    "partialFailureWhy": "Häufig bei kostenlosen und selbst gehosteten Diensten — meist liegt es nicht an Ihrer Konfiguration.",
     "retryFailedLines": "Fehlgeschlagene Zeilen wiederholen",
     "viewFailedLines": "Fehlgeschlagene Zeilen anzeigen",
     "failedLinesModalTitle": "{count} fehlgeschlagene Zeile(n)",
@@ -141,7 +141,7 @@
     "failedLanguagesDesc": "Alle Batches für diese Sprachen sind fehlgeschlagen — meist durch lokale LLM-Störungen, API-Ratenbegrenzungen oder Modellverweigerung einer bestimmten Sprache. Codes kopieren und nur damit erneut ausführen (in 'Mehrsprachige Einstellungen' einfügen); die anderen werden aus dem Cache übersprungen.",
     "copyAllFailedLanguages": "Sprachcodes kopieren",
     "apiStatusFreeApi": "Free API",
-    "apiStatusNeedsConfig": "Konfig. erforderlich",
+    "apiStatusNeedsConfig": "Konfiguration erforderlich",
     "apiStatusConfigured": "Konfiguriert",
     "apiStatusTesting": "Teste",
     "apiStatusConnected": "✓ Verbunden",
@@ -149,7 +149,7 @@
     "apiStatusTimeout": "Zeitüberschreitung der Verbindung",
     "testConnection": "Verbindung testen",
     "moreProviderSettings": "Weitere Provider-Einstellungen",
-    "networkUnavailable": "Der Übersetzungsdienst ist vorübergehend nicht erreichbar — möglicherweise ein Netzwerkproblem oder der Dienst hat einen kurzen Aussetzer. Versuche es später erneut oder wechsle zu einem anderen Übersetzungsdienst.",
+    "networkUnavailable": "Der Übersetzungsdienst ist vorübergehend nicht erreichbar — möglicherweise ein Netzwerkproblem oder der Dienst hat einen kurzen Aussetzer. Versuchen Sie es später erneut oder wechseln Sie zu einem anderen Übersetzungsdienst.",
     "translationTimeout": "Die Übersetzungsanfrage hat das Zeitlimit überschritten — möglicherweise ein langsames Netzwerk oder der Dienst braucht zu lange zum Antworten. Versuche es später erneut oder wechsle zu einem anderen Übersetzungsdienst.",
     "translationTimeoutLocal": "Zeitüberschreitung bei der Übersetzung mit dem lokalen Modell. Häufige Ursachen: Die Parallelität übersteigt die parallelen Slots deines lokalen Servers, sodass Anfragen dort bis zur Zeitüberschreitung warten; oder das Modell hängt in einer Wiederholungsschleife (meist falsche Ausgangssprache). Verringere bei diesem Dienst „Aufrufparameter → Parallele Zeilen“ oder erhöhe „Erweiterte Einstellungen → Zeitüberschreitung“, und prüfe, ob die gewählte Ausgangssprache zum Text passt.",
     "langGroupCommon": "Häufig",
@@ -182,7 +182,22 @@
     "errorHintRelay403": "Die API hat 403 Forbidden zurückgegeben — aktivieren Sie „API-Relay“ unter „Weitere Provider-Einstellungen“",
     "errorHintCors": "Diese Adresse ist nicht erreichbar — prüfen Sie die Adresse und ob der Dienst Cross-Origin-Anfragen (CORS) erlaubt. Eigene Gateways und lokale Modelle müssen das selbst aktivieren, oder nutzen Sie Ihr eigenes API-Relay",
     "errorHintGeminiKey": "Gemini nicht erreichbar: Prüfen Sie zuerst Ihr Netzwerk (manche Netzwerke erreichen Google-Dienste nicht direkt). Ist das Netzwerk in Ordnung, lehnt Google seit dem 19.06.2026 uneingeschränkte API-Schlüssel ab — erstellen Sie Ihren Schlüssel in AI Studio neu (standardmäßig eingeschränkt) oder fügen Sie dem alten Schlüssel in der Google Cloud Console eine Gemini-API-Einschränkung hinzu",
-    "rateLimitCooldown": "Anfragelimit erreicht — kurze Pause, automatischer neuer Versuch"
+    "rateLimitCooldown": "Anfragelimit erreicht — kurze Pause, automatischer neuer Versuch",
+    "faqHeading": "Häufige Fragen",
+    "homeIndexEyebrow": "Index",
+    "homeCategoryEyebrow": "{n} Kategorien",
+    "openNavigation": "Navigation öffnen",
+    "goHome": "Zur Startseite",
+    "primaryNav": "Hauptnavigation",
+    "toggleTheme": "Design wechseln",
+    "communityLinks": "Community-Links",
+    "viewOnGitHub": "Auf GitHub ansehen",
+    "toolCategories": "Werkzeugkategorien",
+    "searchLanguage": "Sprache suchen",
+    "selectLanguage": "Sprache auswählen",
+    "noMatchFound": "Kein Treffer",
+    "backToTop": "Zurück nach oben",
+    "exportOptions": "Exportoptionen"
   },
   "TextSplitter": {
     "resultTooLarge": "Ergebnis zu groß (>500), Vorschau aus Leistungsgründen ausgeblendet",
@@ -192,17 +207,17 @@
     "zipExportFailed": "ZIP-Export fehlgeschlagen: {error}",
     "clientDescription": "Vier Wege zum Teilen: nach Trennzeichen, nach Zeichenzahl, chinesische Sätze, englische Sätze. Den zusammengeführten Text kopieren oder exportieren, oder eine Datei je Segment (mehr als {zipThreshold} Segmente automatisch als ZIP). Nicht-UTF-8-Dateien laden Sie am besten direkt hoch — die Kodierung wird automatisch erkannt.",
     "noExportableText": "Kein exportierbarer Inhalt erkannt, bitte Eingabe prüfen",
-    "splitCharacterCount": "Trennzeichenanzahl",
+    "splitCharacterCount": "Zeichenzahl pro Segment",
     "exportFileName": "Export-Dateiname",
     "customSplitSymbol": "Trennzeichen",
     "symbolNoMatch": "Keines der Trennzeichen kommt im Text vor, daher wurde nichts geteilt. Verwende Satzzeichen deiner Sprache oder wechsle zu „Chinesische Absätze“ bzw. „Englische Absätze“",
-    "chineseEndingSymbol": "CJK (中日韩)",
+    "chineseEndingSymbol": "CJK (Chinesisch/Japanisch/Koreanisch)",
     "englishEndingSymbol": "Englisch/Latein",
     "splitBySymbol": "Nach Symbol teilen",
     "splitBySymbolHint": "Text an jedem Trennzeichen aufteilen; benachbarte Segmente lassen sich zu einem zusammenführen.",
     "symbolInterval": "Trennzeichen pro Segment",
     "symbolIntervalHint": "1 = ein Segment je Trennzeichen; 2 = je zwei Segmente zusammenführen",
-    "splitByLengthHint": "Text nach Zeichenanzahl in Blöcke aufteilen. Wenn Sie unten Trennzeichen eingeben, rasten die Trennstellen am nächstgelegenen ein, damit Sätze nicht abgeschnitten werden.",
+    "splitByLengthHint": "Text nach Zeichenanzahl in Blöcke aufteilen. Wenn Sie unten Trennzeichen eingeben, rasten die Trennstellen am nächstgelegenen Trennzeichen ein, damit Sätze nicht abgeschnitten werden.",
     "splitByChineseParagraph": "Chinesische Absätze",
     "splitByChineseParagraphTooltip": "Grenzen anhand chinesischer Satzzeichen und Absatzregeln erkennen und dann aufteilen",
     "splitByEnglishParagraph": "Englische Absätze",
@@ -240,7 +255,7 @@
     },
     "textSplitter": {
       "title": "Text-Splitter",
-      "description": "Lange Texte nach Trenner, Länge oder Satz teilen — und wieder zusammenführen",
+      "description": "Lange Texte nach Trennzeichen, Länge oder Satz teilen — und wieder zusammenführen",
       "metaTitle": "Text / TXT-Datei Splitter - ChatGPT, Claude, Gemini, Twitter",
       "metaDescription": "Lange Texte/TXT nach Trennzeichen, Zeichenzahl oder Satz teilen; zusammenführen oder als ZIP. Für ChatGPT, Claude, Gemini, Twitter.",
       "faq": [
@@ -250,7 +265,7 @@
         },
         {
           "q": "Welche Zeichenlimits gelten für ChatGPT, Claude, Gemini und Übersetzungstools?",
-          "a": "KI-Modell-Kontextlimits (Tokens): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Chinesisch ~1-2 Zeichen/Token, Englisch ~4 Zeichen/Token. Übersetzungslimits: Google Translate und DeepL kostenlos beide 5000 Zeichen/Anfrage. Stellen Sie 'Split-Zeichenanzahl' mit Puffer unter dem Token-Limit des Ziel-KI ein."
+          "a": "KI-Modell-Kontextlimits (Tokens): 200K-1M. Chinesisch ~1-2 Zeichen/Token, Englisch ~4 Zeichen/Token. Übersetzungslimits: Google Translate und DeepL kostenlos beide 5000 Zeichen/Anfrage. Stellen Sie 'Split-Zeichenanzahl' mit Puffer unter dem Token-Limit der Ziel-KI ein."
         },
         {
           "q": "Wie teile ich lange Posts für Twitter, Threads, Mastodon und LinkedIn?",
@@ -265,7 +280,7 @@
           "a": "Wenn die Abschnitte i18n-JSON-Fragmente sind (eine Sprachdatei nach Schlüssel geteilt), nutzen Sie [JSON-Übersetzer](../json-translate) für Stapelübersetzung unter Erhalt der Schlüssel. Für Markdown-Langform (nach Kapiteln geteilte Blogposts) verwenden Sie [Markdown-Übersetzer](../md-translator) — er bewahrt Codeblöcke und Front Matter. Für stärkere Bereinigung (Dedup, Regex-Extraktion, URL-Extraktion) vor KI-Eingabe nutzen Sie zuerst die [Text-Toolbox](../text-toolbox)."
         },
         {
-          "q": "Wie behandle ich gemischten Text oder Nicht-UTF-8-Dateien (Französisch GBK, Japanisch Shift-JIS)?",
+          "q": "Wie behandle ich gemischten Text oder Nicht-UTF-8-Dateien (Französisch ISO-8859-1, Japanisch Shift-JIS)?",
           "a": "Für gemischten CJK/Latin-Text nutzen Sie Chinesische-Absätze-Modus — erkennt sowohl chinesische (。！？) als auch lateinische (. ! ?) Satzzeichen ohne Wortmitte-Split. Das Feld „Trennzeichen“ nimmt mehrere, durch Leerzeichen getrennte Symbole und unterstützt \\n und \\t; im Symbol-Modus bestimmt es die Schnitte, im Längen-Modus nur deren Ausrichtung. Für Nicht-UTF-8-Dateien **Datei direkt hochladen** (nicht einfügen) — Encoding wird automatisch erkannt."
         },
         {
@@ -295,7 +310,7 @@
       "description": "Regex-Matching, Sortierung, Filterung und mehr für die Massentextverarbeitung"
     },
     "dataBatch": {
-      "title": "Textprozessor",
+      "title": "Batch-Datenprozessor",
       "description": "Excel-Stapelverarbeitung — Deduplizierung, Spaltenextraktion, Textverbindung, mehrere Regeln in Reihenfolge"
     },
     "textJoiner": {
@@ -303,7 +318,7 @@
       "description": "Mehrere Textspalten zeilenweise per Vorlage zusammenführen, um im Batch CSV, SQL und JSON zu erzeugen"
     },
     "jsonValueExtractor": {
-      "title": "JSON Wert-Extraktor",
+      "title": "JSON-Wertextraktor",
       "description": "JSON-Werte im Batch extrahieren, formatierte Ausgabe"
     },
     "jsonNodeEdit": {
@@ -311,19 +326,19 @@
       "description": "JSON-Knoten im Batch bearbeiten, Präfix/Suffix/Ersetzen"
     },
     "jsonValueTransformer": {
-      "title": "JSON Wert-Mapper",
+      "title": "JSON-Wertemapper",
       "description": "Feldwert-Mapping und Migration mit JSONPath"
     },
     "jsonValueSwapper": {
-      "title": "JSON Wert-Tauscher",
+      "title": "JSON-Wertetauscher",
       "description": "Werte zweier Felder per Klick tauschen"
     },
     "jsonNodeInserter": {
-      "title": "JSON Knoten-Inserter",
+      "title": "JSON-Knoten-Inserter",
       "description": "Neue Knoten an Position im Batch einfügen"
     },
     "jsonSortClassify": {
-      "title": "JSON Sort & Classify",
+      "title": "JSON-Sortierung & Gruppierung",
       "description": "Arrays sortieren und gruppieren, benutzerdefinierte Regeln"
     },
     "jsonMatchUpdate": {
@@ -354,8 +369,8 @@
     "externalTools": {
       "legendtalk": "KI-Denkerrunde",
       "imgprompt": "KI-Bild-Prompts",
-      "lives": "Thousand Lives",
-      "learndata": "LearnData Open-Source-Notizen"
+      "learndata": "LearnData Open-Source-Notizen",
+      "hub365": "365 Open Source"
     }
   },
   "Metadata": {

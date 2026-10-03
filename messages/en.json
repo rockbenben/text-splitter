@@ -56,7 +56,7 @@
     "multiLanguageMode": "Multi-language mode",
     "multiLanguageModeTooltip": "Translate to multiple languages simultaneously, saved as separate files",
     "translate": "Translate",
-    "totalLanguages": "Total Languages:",
+    "totalLanguages": "Target languages:",
     "resetUploadTooltip": "Clear current input and uploaded files",
     "resetUploadSuccess": "Cleared",
     "extractText": "Extract text",
@@ -78,8 +78,8 @@
     "translateDoneIncomplete": "Some items were not completed",
     "multiTranslating": "Translating, total target languages:",
     "model": "Model",
-    "sameLanguageTarget": "Source and target languages are the same; automatically adjusted target to",
-    "sameLanguageSource": "Source and target languages are the same; automatically adjusted source to",
+    "sameLanguageTarget": "Source and target languages are the same; automatically adjusted the target to",
+    "sameLanguageSource": "Source and target languages are the same; automatically adjusted the source to",
     "enterApiKey": "Enter API key or switch to Free API.",
     "enterApiUrl": "Please configure the API URL in 'More provider settings'.",
     "serviceUnavailable": "{service} is temporarily unreachable — check your network and the service address, try again later, or switch to a different translation service.",
@@ -182,7 +182,22 @@
     "errorHintRelay403": "The API returned 403 Forbidden — enable \"API relay\" under \"More provider settings\"",
     "errorHintCors": "Can't reach this endpoint — check the address, and make sure the service allows cross-origin requests (CORS). Self-hosted gateways and local models have to enable it themselves, or use your own API relay",
     "errorHintGeminiKey": "Cannot reach Gemini: check your network first (some networks cannot reach Google services directly). If the network is fine, Google has been rejecting unrestricted API keys since June 19, 2026 — regenerate your key in AI Studio (restricted by default) or add a Gemini API restriction to the old key in Google Cloud Console",
-    "rateLimitCooldown": "Rate limited — pausing briefly, will retry automatically"
+    "rateLimitCooldown": "Rate limited — pausing briefly, will retry automatically",
+    "faqHeading": "FAQ",
+    "homeIndexEyebrow": "Index",
+    "homeCategoryEyebrow": "{n} categories",
+    "openNavigation": "Open navigation",
+    "goHome": "Go to homepage",
+    "primaryNav": "Primary navigation",
+    "toggleTheme": "Toggle theme",
+    "communityLinks": "Community links",
+    "viewOnGitHub": "View on GitHub",
+    "toolCategories": "Tool categories",
+    "searchLanguage": "Search language",
+    "selectLanguage": "Select language",
+    "noMatchFound": "No match",
+    "backToTop": "Back to top",
+    "exportOptions": "Export options"
   },
   "TextSplitter": {
     "resultTooLarge": "Result too large (>500), preview hidden for performance",
@@ -196,7 +211,7 @@
     "exportFileName": "Export filename",
     "customSplitSymbol": "Separators",
     "symbolNoMatch": "None of the separators appear in the text, so nothing was split. Use punctuation that matches your language, or switch to “Chinese paragraph” or “English paragraph”",
-    "chineseEndingSymbol": "CJK (中日韩)",
+    "chineseEndingSymbol": "CJK (Chinese/Japanese/Korean)",
     "englishEndingSymbol": "English/Latin",
     "splitBySymbol": "Split by symbol",
     "splitBySymbolHint": "Split the text at each separator; adjacent segments can be merged into one.",
@@ -228,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Subtitle Translator",
-      "description": "Batch translate SRT, ASS, VTT, SBV, LRC subtitles. 120+ languages."
+      "description": "Batch translate SRT, ASS, VTT, SBV, LRC subtitles. 120+ languages"
     },
     "jsonTranslate": {
       "title": "JSON Multi-Language Translator",
@@ -245,12 +260,12 @@
       "metaDescription": "Split long text or TXT by delimiter, characters, or sentence; copy the merged text or export as ZIP. For ChatGPT, Claude, Gemini, Twitter.",
       "faq": [
         {
-          "q": "How do I choose among the four split modes, and what does 'delimiters per segment' do?",
-          "a": "Symbol mode cuts at the delimiters you type, every N of them: set 'delimiters per segment' to 1 for one sentence per segment, or 3 to merge three sentences — handy for fixed-size chunks. Length mode cuts by character count; add a delimiter and the cut backs up to the nearest one so sentences stay whole (newlines become spaces first). Chinese and English modes detect sentence boundaries by language rules, one sentence per line — ideal for sentence-by-sentence translation or subtitle drafts."
+          "q": "How do I choose among the four split modes, and what does 'separators per segment' do?",
+          "a": "Symbol mode cuts at the delimiters you type, every N of them: set 'separators per segment' to 1 for one sentence per segment, or 3 to merge three sentences — handy for fixed-size chunks. Length mode cuts by character count; add a delimiter and the cut backs up to the nearest one so sentences stay whole (newlines become spaces first). Chinese and English modes detect sentence boundaries by language rules, one sentence per line — ideal for sentence-by-sentence translation or subtitle drafts."
         },
         {
           "q": "What are the character limits when splitting text for ChatGPT, Claude, Gemini, and translation tools?",
-          "a": "AI model context limits (tokens): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Chinese is ~1-2 chars/token (Claude more generous), English ~4 chars/token. Translation limits: Google Translate and DeepL free both 5000 chars/request. Set 'Split Character Count' with buffer below the target AI's token capacity."
+          "a": "AI model context limits (tokens): 200K-1M. Chinese is ~1-2 chars/token (Claude more generous), English ~4 chars/token. Translation limits: Google Translate and DeepL free both 5000 chars/request. Set 'Split char count' with buffer below the target AI's token capacity."
         },
         {
           "q": "How do I split long posts for Twitter/X, Threads, Mastodon, or Bluesky?",
@@ -265,8 +280,8 @@
           "a": "If the chunks are i18n JSON fragments (a language file split by key), use [JSON Translator](../json-translate) to batch-translate while preserving keys. For Markdown long-form (blog posts split by chapter), use [Markdown Translator](../md-translator) — it preserves code blocks and Front Matter. For heavier cleanup (dedup, regex extraction, URL pulling) before feeding chunks to AI, run them through the [Text Toolbox](../text-toolbox) first."
         },
         {
-          "q": "How do I handle mixed Chinese/English text or non-UTF-8 files (French GBK, Japanese Shift-JIS)?",
-          "a": "For mixed CJK/English, use Chinese paragraph mode — it recognizes both Chinese (。！？) and English (. ! ?) sentence endings without splitting mid-word. The Delimiter field takes several symbols separated by spaces and supports \\n and \\t escapes; it defines the cut points in Symbol mode and only aligns them in Length mode. For non-UTF-8 files (French GBK, Japanese Shift-JIS, Korean EUC-KR), **upload the file directly** rather than pasting — encoding is auto-detected to prevent garbled output."
+          "q": "How do I handle mixed Chinese/English text or non-UTF-8 files (French ISO-8859-1, Japanese Shift-JIS)?",
+          "a": "For mixed CJK/English, use Chinese paragraph mode — it recognizes both Chinese (。！？) and English (. ! ?) sentence endings without splitting mid-word. The Separators field takes several symbols separated by spaces and supports \\n and \\t escapes; it defines the cut points in Symbol mode and only aligns them in Length mode. For non-UTF-8 files (French ISO-8859-1, Japanese Shift-JIS, Korean EUC-KR), **upload the file directly** rather than pasting — encoding is auto-detected to prevent garbled output."
         },
         {
           "q": "Is my text uploaded to a server? Is the tool open source?",
@@ -275,7 +290,7 @@
       ],
       "features": [
         "Four split modes: by delimiter, by character count, Chinese sentences, English sentences",
-        "'Delimiters per segment' merges adjacent sentences into one chunk to control granularity",
+        "'Separators per segment' merges adjacent sentences into one chunk to control granularity",
         "Character-count cuts snap to the nearest delimiter so sentences are never cut mid-way",
         "Copy or export the merged text; the merge separator supports \\n and \\t escapes",
         "Export one file per segment; larger batches are packed into a ZIP automatically",
@@ -288,7 +303,7 @@
     },
     "novelProcessor": {
       "title": "Chinese Novel Formatter",
-      "description": "One-click formatting for downloaded Chinese web novels — smart line breaks, chapter splitting, and clean layout."
+      "description": "One-click formatting for downloaded Chinese web novels — smart line breaks, chapter splitting, and clean layout"
     },
     "textToolbox": {
       "title": "Multi-Function Text Processor",
@@ -320,7 +335,7 @@
     },
     "jsonNodeInserter": {
       "title": "JSON Node Bulk Insert",
-      "description": "Batch insert new nodes at specified position"
+      "description": "Batch insert new nodes at a specified position"
     },
     "jsonSortClassify": {
       "title": "JSON Sort & Group",
@@ -340,7 +355,7 @@
     },
     "textDiff": {
       "title": "Text Diff",
-      "description": "Compare two texts or files side by side and pinpoint the first difference."
+      "description": "Compare two texts or files side by side and pinpoint the first difference"
     }
   },
   "navigation": {
@@ -354,17 +369,17 @@
     "externalTools": {
       "legendtalk": "AI Thinkers Roundtable",
       "imgprompt": "AI Image Prompts",
-      "lives": "Thousand Lives",
-      "learndata": "LearnData Open Source Notes"
+      "learndata": "LearnData Open Source Notes",
+      "hub365": "365 Open Source"
     }
   },
   "Metadata": {
     "title": "ToolsByAI | Free Open Source AI Translation & Data Tools",
-    "description": "ToolsByAI: 19 free open-source tools for subtitle, Markdown, JSON i18n translation and text/JSON batch processing. 25+ AI engines.",
+    "description": "ToolsByAI: 19 free open-source tools for subtitle, Markdown, JSON i18n translation and text/JSON batch processing. 30+ AI engines.",
     "homeTitle": "ToolsByAI Toolset",
     "homeDescription": "19 tools for translation, text, JSON, and data conversion. Boost efficiency for developers and creators.",
     "ogTitle": "ToolsByAI | Free Open Source AI Translation & Data Tools",
-    "ogDescription": "ToolsByAI: 19 free open-source tools for subtitle, Markdown, JSON i18n translation and text/JSON batch processing. 25+ AI engines."
+    "ogDescription": "ToolsByAI: 19 free open-source tools for subtitle, Markdown, JSON i18n translation and text/JSON batch processing. 30+ AI engines."
   },
   "CopyToClipboard": {
     "empty": "Content empty, nothing to copy",
@@ -382,7 +397,7 @@
     "reaction3": "What?",
     "reaction4": "Confused",
     "placeholder": "Leave a message (no login required, email optional for reply)",
-    "metaDescription": "Feedback for Tools By AI: report bugs, suggest features, share use-case ideas. Built on Waline, anonymous posting allowed, free."
+    "metaDescription": "Feedback for ToolsByAI: report bugs, suggest features, share use-case ideas. Built on Waline, anonymous posting allowed, free."
   },
   "AppError": {
     "title": "Page failed to load",

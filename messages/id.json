@@ -31,12 +31,12 @@
     "noTargetLanguage": "Pilih setidaknya satu bahasa target.",
     "translationError": "Terjemahan gagal",
     "translationCancelled": "Terjemahan dibatalkan",
-    "translationStopped": "Berhenti",
+    "translationStopped": "Dihentikan",
     "resumeFromCache": "Baris yang sudah diterjemahkan tersimpan di cache — terjemahkan lagi untuk melanjutkan dari titik berhenti",
-    "cancelKeepsProgress": "Membatalkan tetap menyimpan hasil yang sudah ada",
+    "cancelKeepsProgress": "Pembatalan tetap menyimpan hasil yang sudah ada",
     "dismiss": "Tutup",
     "translationAPI": "API Terjemahan",
-    "enter": "Masuk",
+    "enter": "Masukkan",
     "getApiKey": "Dapatkan Kunci API",
     "charLabel": "Karakter",
     "lineLabel": "Baris",
@@ -118,14 +118,14 @@
     "customExportFilenameTooltip": "'{'name'}' = nama file asli, '{'lang'}' = bahasa, '{'ext'}' = ekstensi, '{'date'}' = tanggal, '{'time'}' = waktu; dalam mode multibahasa, '{'lang'}' ditambahkan otomatis untuk mencegah bentrokan nama",
     "partialFailureTitle": "{count} baris gagal diterjemahkan",
     "partialFailureDesc": "Baris-baris itu tetap berisi teks asli, jadi struktur berkas utuh. Coba lagi hanya mengirim ulang baris tersebut; sisanya dari cache.",
-    "partialFailureWhy": "Umum pada layanan gratis dan swa-inang — biasanya bukan masalah pengaturan Anda.",
+    "partialFailureWhy": "Umum pada layanan gratis dan self-hosted — biasanya bukan masalah pengaturan Anda.",
     "retryFailedLines": "Coba lagi baris yang gagal",
     "viewFailedLines": "Lihat baris yang gagal",
     "failedLinesModalTitle": "{count} baris yang gagal",
     "copyAllFailed": "Salin semua",
     "closeFailedLinesModal": "Tutup",
     "failedLanguagesTitle": "{count} bahasa target gagal",
-    "failedLanguagesDesc": "Semua batch untuk bahasa-bahasa ini gagal — biasanya karena masalah LLM lokal, batas tingkat API, atau penolakan model terhadap bahasa tertentu. Salin kode dan jalankan ulang hanya untuk mereka (tempelkan di 'Pengaturan Multi-Bahasa'); yang lain akan dilewati dari cache.",
+    "failedLanguagesDesc": "Semua batch untuk bahasa-bahasa ini gagal — biasanya karena masalah LLM lokal, batas laju API, atau penolakan model terhadap bahasa tertentu. Salin kode dan jalankan ulang hanya untuk mereka (tempelkan di 'Pengaturan Multi-Bahasa'); yang lain akan dilewati dari cache.",
     "copyAllFailedLanguages": "Salin kode bahasa",
     "apiStatusFreeApi": "Free API",
     "apiStatusNeedsConfig": "Perlu konfig.",
@@ -182,7 +182,22 @@
     "errorHintRelay403": "API mengembalikan 403 Forbidden — aktifkan \"Relay API\" di \"Pengaturan Provider lain\"",
     "errorHintCors": "Tidak dapat terhubung ke alamat ini — periksa alamatnya dan pastikan layanan mengizinkan permintaan lintas-asal (CORS). Gateway mandiri dan model lokal harus mengaktifkannya sendiri, atau gunakan Relay API milik Anda",
     "errorHintGeminiKey": "Tidak dapat terhubung ke Gemini: periksa jaringan Anda terlebih dahulu (beberapa jaringan tidak dapat mengakses layanan Google secara langsung). Jika jaringan baik-baik saja, sejak 19 Juni 2026 Google menolak kunci API tanpa pembatasan — buat ulang kunci di AI Studio (dibatasi secara default) atau tambahkan pembatasan Gemini API pada kunci lama di Google Cloud Console",
-    "rateLimitCooldown": "Batas permintaan tercapai — jeda sejenak, akan dicoba ulang otomatis"
+    "rateLimitCooldown": "Batas permintaan tercapai — jeda sejenak, akan dicoba ulang otomatis",
+    "faqHeading": "Pertanyaan umum",
+    "homeIndexEyebrow": "Indeks",
+    "homeCategoryEyebrow": "{n} kategori",
+    "openNavigation": "Buka navigasi",
+    "goHome": "Kembali ke beranda",
+    "primaryNav": "Navigasi utama",
+    "toggleTheme": "Ganti tema",
+    "communityLinks": "Tautan komunitas",
+    "viewOnGitHub": "Lihat di GitHub",
+    "toolCategories": "Kategori alat",
+    "searchLanguage": "Cari bahasa",
+    "selectLanguage": "Pilih bahasa",
+    "noMatchFound": "Tidak ada hasil",
+    "backToTop": "Kembali ke atas",
+    "exportOptions": "Opsi ekspor"
   },
   "TextSplitter": {
     "resultTooLarge": "Hasil terlalu besar (>500), pratinjau disembunyikan demi performa",
@@ -190,13 +205,13 @@
     "processTextError": "Kesalahan saat memproses teks: {error}",
     "zipExported": "Diekspor sebagai ZIP: {count} → {fileName}",
     "zipExportFailed": "Ekspor ZIP gagal: {error}",
-    "clientDescription": "Empat cara membagi: per pemisah, per jumlah karakter, kalimat Cina, dan kalimat Inggris. Salin atau ekspor teks gabungan, atau satu file per segmen (lebih dari {zipThreshold} segmen otomatis jadi ZIP). Untuk file non-UTF-8, unggah filenya langsung — pengkodean terdeteksi otomatis.",
+    "clientDescription": "Empat cara membagi: per pemisah, per jumlah karakter, kalimat Mandarin, dan kalimat Inggris. Salin atau ekspor teks gabungan, atau satu file per segmen (lebih dari {zipThreshold} segmen otomatis jadi ZIP). Untuk file non-UTF-8, unggah filenya langsung — pengkodean terdeteksi otomatis.",
     "noExportableText": "Tidak ada konten yang dapat diekspor terdeteksi, periksa input",
     "splitCharacterCount": "Karakter per Segmen",
     "exportFileName": "Nama File Ekspor",
     "customSplitSymbol": "Pemisah",
     "symbolNoMatch": "Tidak ada pemisah yang muncul dalam teks, jadi tidak ada yang dibagi. Gunakan tanda baca bahasa Anda atau beralih ke mode «Paragraf Mandarin» atau «Paragraf Inggris»",
-    "chineseEndingSymbol": "CJK (中日韩)",
+    "chineseEndingSymbol": "CJK (Tionghoa/Jepang/Korea)",
     "englishEndingSymbol": "Inggris/Latin",
     "splitBySymbol": "Bagi Berdasarkan Simbol",
     "splitBySymbolHint": "Membagi teks pada setiap pemisah; segmen yang berdekatan dapat digabung menjadi satu.",
@@ -251,7 +266,7 @@
       "description": "Pencocokan regex, pengurutan, penyaringan, dan pemrosesan teks batch"
     },
     "dataBatch": {
-      "title": "Pemrosesan Teks Pribadi",
+      "title": "Pemrosesan Data Batch",
       "description": "Pemrosesan data Excel batch — deduplikasi, ekstraksi kolom, gabung teks, aturan berurutan"
     },
     "textJoiner": {
@@ -266,11 +281,11 @@
       "faq": [
         {
           "q": "Bagaimana memilih di antara empat mode, dan apa fungsi «pemisah per segmen»?",
-          "a": "Mode Simbol memotong di pemisah yang Anda isi, setiap N sekali: isi 1 berarti satu kalimat satu segmen, isi 3 menggabungkan tiga kalimat — praktis untuk blok seragam. Mode Panjang memotong per jumlah karakter; bila ada pemisah, titik potong mundur ke yang terdekat agar kalimat tidak terbelah (baris baru jadi spasi dulu). Mode Cina dan Inggris mendeteksi batas kalimat menurut bahasa, satu kalimat per baris — cocok untuk terjemahan per kalimat atau subtitel."
+          "a": "Mode Simbol memotong di pemisah yang Anda isi, setiap N sekali: isi 1 berarti satu kalimat satu segmen, isi 3 menggabungkan tiga kalimat — praktis untuk blok seragam. Mode Panjang memotong per jumlah karakter; bila ada pemisah, titik potong mundur ke yang terdekat agar kalimat tidak terbelah (baris baru jadi spasi dulu). Mode Mandarin dan Inggris mendeteksi batas kalimat menurut bahasa, satu kalimat per baris — cocok untuk terjemahan per kalimat atau subtitel."
         },
         {
           "q": "Berapa batas karakter untuk ChatGPT, Claude, Gemini, dan alat terjemahan?",
-          "a": "Batas konteks model AI (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target."
+          "a": "Batas konteks model AI (token): 200K-1M. Cina ~1-2 karakter/token, Inggris ~4 karakter/token. Terjemahan: Google Translate dan DeepL gratis keduanya 5000 karakter/permintaan. Atur 'Jumlah Karakter Pembagian' dengan buffer di bawah kapasitas AI target."
         },
         {
           "q": "Bagaimana membagi post panjang untuk Twitter, Threads, LinkedIn?",
@@ -278,14 +293,14 @@
         },
         {
           "q": "Bisakah segmen digabung kembali jadi satu teks? Apa beda ketiga tombol hasil?",
-          "a": "Bisa. «Salin Teks Gabungan» menaruh seluruh segmen tersambung ke papan klip; «Ekspor Teks Gabungan» menyimpannya sebagai satu .txt; «Ekspor File Segmen» menulis satu file per segmen (ZIP bila lebih dari 3). Perekatnya adalah «Pemisah Gabungan» — default dua baris baru, mendukung \\n, \\t, \\s; dikosongkan berarti kembali ke default. Mode Panjang dan mode kalimat mengubah baris baru jadi spasi dan membuang baris kosong."
+          "a": "Bisa. «Salin Teks Gabungan» menaruh seluruh segmen tersambung ke papan klip; «Ekspor Teks Gabungan» menyimpannya sebagai satu .txt; «Ekspor File Segmen» menulis satu file per segmen (ZIP bila lebih dari 3). Penghubungnya adalah «Pemisah Gabungan» — default dua baris baru, mendukung \\n, \\t, \\s; dikosongkan berarti kembali ke default. Mode Panjang dan mode kalimat mengubah baris baru jadi spasi dan membuang baris kosong."
         },
         {
           "q": "Ingin langsung menerjemahkan blok teks yang dipotong, ada alat pendamping yang direkomendasikan?",
           "a": "Jika blok teks dalam format JSON i18n (potongan paket bahasa per key), gunakan [Terjemahan JSON](../json-translate) untuk terjemah batch sambil mempertahankan struktur key; untuk dokumen Markdown (blog panjang per bab), [Terjemahan Markdown](../md-translator) mempertahankan blok kode dan Front Matter. Butuh pembersihan lebih (dedup, ekstraksi regex, ekstraksi URL) sebelum diberikan ke AI, gunakan [Pemroses Teks](../text-toolbox) untuk pra-pemrosesan."
         },
         {
-          "q": "Bagaimana menangani teks campuran atau file non-UTF-8 (Prancis GBK, Jepang Shift-JIS)?",
+          "q": "Bagaimana menangani teks campuran atau file non-UTF-8 (Prancis ISO-8859-1, Jepang Shift-JIS)?",
           "a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Kolom «Pemisah» menerima beberapa simbol yang dipisah spasi dan mendukung \\n serta \\t; di mode Simbol ia menentukan titik potong, di mode Panjang hanya menyelaraskannya. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
         },
         {
@@ -354,8 +369,8 @@
     "externalTools": {
       "legendtalk": "Meja Bundar Pemikir AI",
       "imgprompt": "Prompt Gambar AI",
-      "lives": "Thousand Lives",
-      "learndata": "LearnData Catatan Sumber Terbuka"
+      "learndata": "LearnData Catatan Sumber Terbuka",
+      "hub365": "365 Sumber Terbuka"
     }
   },
   "Metadata": {
@@ -363,7 +378,7 @@
     "description": "ToolsByAI: 19 alat open source untuk menerjemahkan subtitle, Markdown, dan JSON i18n. Tanpa instalasi, berbasis browser.",
     "homeTitle": "Suite ToolsByAI",
     "homeDescription": "19 alat untuk terjemahan, teks, JSON, dan konversi data. Tingkatkan efisiensi pengembang dan kreator.",
-    "ogTitle": "ToolsByAI - Alat Dev AI Gratis dan Open Source",
+    "ogTitle": "ToolsByAI - Peralatan Data & Terjemahan AI untuk Developer",
     "ogDescription": "ToolsByAI: 19 alat open source untuk menerjemahkan subtitle, Markdown, dan JSON i18n. Tanpa instalasi, berbasis browser."
   },
   "CopyToClipboard": {
@@ -382,7 +397,7 @@
     "reaction3": "Apa?",
     "reaction4": "Bingung",
     "placeholder": "Tinggalkan pesan (tidak perlu login, email opsional untuk balasan)",
-    "metaDescription": "Halaman feedback Tools By AI: laporkan bug, sarankan fitur, atau bagikan ide. Berbasis Waline, posting anonim, gratis."
+    "metaDescription": "Halaman Umpan Balik Tools By AI: laporkan bug, sarankan fitur, atau bagikan ide. Berbasis Waline, posting anonim, gratis."
   },
   "AppError": {
     "title": "Halaman gagal dimuat",

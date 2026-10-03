@@ -2,7 +2,7 @@
   "common": {
     "exportFolder": "Exportálási mappa",
     "exportFolderDefault": "Az exportálások az alapértelmezett letöltési mappába kerülnek.",
-    "exportFolderBlocked": "A böngésző nem fogadja el magát az Asztalt, a Dokumentumokat, a Letöltéseket vagy a felhasználói mappát — válassz egy alappalát vagy bármilyen más mappát.",
+    "exportFolderBlocked": "A böngésző nem fogadja el magát az Asztalt, a Dokumentumokat, a Letöltéseket vagy a felhasználói mappát — válassz egy almappát vagy bármilyen más mappát.",
     "exportFolderCurrent": "Az exportálások ide kerülnek: {dir}",
     "exportFolderReset": "Vissza a letöltési mappához",
     "exportFolderFailed": "Nem sikerült beállítani az exportálási mappát.",
@@ -33,7 +33,7 @@
     "translationCancelled": "A fordítás megszakítva",
     "translationStopped": "Leállítva",
     "resumeFromCache": "A kész sorok gyorsítótárban vannak — fordítsd újra a folytatáshoz",
-    "cancelKeepsProgress": "A megszakítás megőrzi a már lefordítottrészt",
+    "cancelKeepsProgress": "A megszakítás megőrzi a már lefordított részt",
     "dismiss": "Elvetés",
     "translationAPI": "Fordítási API",
     "enter": "Bevitel",
@@ -130,7 +130,7 @@
     "customExportFilename": "Exportálandó fájlnév mintája",
     "customExportFilenameTooltip": "'{'name'}' = eredeti fájlnév, '{'lang'}' = nyelv, '{'ext'}' = kiterjesztés, '{'date'}' = dátum, '{'time'}' = idő; többnyelvű módban a '{'lang'}' automatikusan hozzáadódik a névütközések elkerülése érdekében",
     "partialFailureTitle": "{count} sor sikertelen",
-    "partialFailureDesc": "Ezek a sorok megtartották az eredeti szövegüket, így a fájl szerkezete sértetlen marad. Az újrapróbálkozás csak ezeket küldi újra; a többi a gyorsítótárbóljön.",
+    "partialFailureDesc": "Ezek a sorok megtartották az eredeti szövegüket, így a fájl szerkezete sértetlen marad. Az újrapróbálkozás csak ezeket küldi újra; a többi a gyorsítótárból jön.",
     "partialFailureWhy": "Gyakori az ingyenes és saját üzemeltetésű végpontoknál — általában nem jelent problémát a beállításaidban.",
     "retryFailedLines": "Hibás sorok újrapóbálása",
     "viewFailedLines": "Hibás sorok megtekintése",
@@ -182,7 +182,22 @@
     "errorHintRelay403": "Az API 403-as tiltott hibát adott vissza — engedélyezd az \"API-továbbítást (relay)\" a \"További szolgáltatói beállítások\" alatt",
     "errorHintCors": "Nem érhető el ez a végpont — ellenőrizd a címet, és győződj meg arról, hogy a szolgáltatás engedélyezi a cross-origin (CORS) kéréseket. A saját üzemeltetésű átjáróknak és a helyi modelleknek ezt saját maguknak kell engedélyezniük, vagy használnod kell a saját API-továbbítódat",
     "errorHintGeminiKey": "A Gemini nem érhető el: először ellenőrizd a hálózatot (egyes hálózatok nem érik el közvetlenül a Google szolgáltatásait). Ha a hálózat rendben van, a Google 2026. június 19. óta elutasítja a korlátozás nélküli API-kulcsokat — generálj újra kulcsot az AI Studio-ban (alapértelmezetten korlátozott), vagy adj hozzá Gemini API korlátozást a régi kulcshoz a Google Cloud Console-ban",
-    "rateLimitCooldown": "Sebességhatár elérve — rövid szünet, automatikus újrapróbálkozás következik"
+    "rateLimitCooldown": "Sebességhatár elérve — rövid szünet, automatikus újrapróbálkozás következik",
+    "faqHeading": "Gyakori kérdések",
+    "homeIndexEyebrow": "Mutató",
+    "homeCategoryEyebrow": "{n} kategória",
+    "openNavigation": "Navigáció megnyitása",
+    "goHome": "Ugrás a kezdőlapra",
+    "primaryNav": "Fő navigáció",
+    "toggleTheme": "Téma váltása",
+    "communityLinks": "Közösségi linkek",
+    "viewOnGitHub": "Megtekintés a GitHubon",
+    "toolCategories": "Eszközkategóriák",
+    "searchLanguage": "Nyelv keresése",
+    "selectLanguage": "Nyelv kiválasztása",
+    "noMatchFound": "Nincs találat",
+    "backToTop": "Vissza a tetejére",
+    "exportOptions": "Exportálási beállítások"
   },
   "TextSplitter": {
     "resultTooLarge": "Túl sok az eredmény (>500), az előnézet a teljesítmény érdekében el van rejtve",
@@ -242,7 +257,7 @@
       "title": "Szövegfelosztó",
       "description": "Hosszú szöveg felosztása elválasztójel, hossz vagy mondat szerint — majd összefűzése",
       "metaTitle": "Szöveg- és TXT-fájldaraboló ChatGPT, Claude, Gemini és Twitter használatához",
-      "metaDescription": "Hosszú szöveg vagy TXT darabolása elválasztó, karakterszám vagy mondat alapján; az összefűzött szöveg másolható vagy ZIP-be exportálható. ChatGPT, Claude, Gemini és Twitter használatához.",
+      "metaDescription": "Hosszú szöveg vagy TXT darabolása elválasztó, karakterszám vagy mondat alapján. ZIP export. ChatGPT, Claude, Gemini és Twitter használatához.",
       "faq": [
         {
           "q": "Hogyan válasszak a négy darabolási mód közül, és mit csinál a „szakaszonkénti elválasztójelek”?",
@@ -250,11 +265,11 @@
         },
         {
           "q": "Mekkora a karakterlimit, ha ChatGPT, Claude, Gemini vagy fordítóeszközök számára darabolok szöveget?",
-          "a": "Az AI modellek kontextuslimitjei (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. A kínai nagyjából 1-2 karakter/token (a Claude bőkezűbb), az angol ~4 karakter/token. Fordítási limitek: a Google Translate és a DeepL ingyenes csomagja is 5000 karakter/kérés. A „Felosztási karakterszám” értékét a cél-AI tokenkapacitása alá állítsd be, némi tartalékkal."
+          "a": "Az AI modellek kontextuslimitjei (token): 200K-1M. A kínai nagyjából 1-2 karakter/token (a Claude bőkezűbb), az angol ~4 karakter/token. Fordítási limitek: a Google Translate és a DeepL ingyenes csomagja is 5000 karakter/kérés. A „Felosztási karakterszám” értékét a cél-AI tokenkapacitása alá állítsd be, némi tartalékkal."
         },
         {
           "q": "Hogyan daraboljam fel a hosszú bejegyzéseket Twitter/X, Threads, Mastodon vagy Bluesky számára?",
-          "a": "Platformlimitek: Twitter/X 280 karakter, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4096, Reddit-bejegyzés 40000, Substack-jegyzet 500. Latin betűs szövegekhez az „angol bekezdés” módot használd — ez szóhatároknál őrzi meg a mondatok épségét. Sorrendben való posztoláshoz (1/N, 2/N) az Export Segment Files opciót válaszd; három szakasznál több ZIP-ben érkezik."
+          "a": "Platformlimitek: Twitter/X 280 karakter, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4096, Reddit-bejegyzés 40000, Substack-jegyzet 500. Latin betűs szövegekhez az „angol bekezdés” módot használd — ez szóhatároknál őrzi meg a mondatok épségét. Sorrendben való posztoláshoz (1/N, 2/N) az „Szakaszfájlok exportálása” opciót válaszd; három szakasznál több ZIP-ben érkezik."
         },
         {
           "q": "Vissza tudom fűzni a szakaszokat egyetlen szöveggé? Mi a különbség a három eredménygomb között?",
@@ -265,8 +280,8 @@
           "a": "Ha a csomók i18n JSON-töredékek (kulcs szerint darabolt nyelvi fájl), a [JSON többnyelvű fordító](../json-translate) eszközzel kötegelt fordítás közben megőrizhetők a kulcsok. Markdown hosszú szövegnél (fejezetenként darabolt blogbejegyzés) a [Markdown fordító](../md-translator) használható — ez megőrzi a kódblokkokat és a Front Mattert. Nagyobb tisztításhoz (duplikátumok szűrése, regex-kinyerés, URL-ek kigyűjtése), mielőtt a csomókat az AI-nak adnád, előbb futtasd át a [Többfunkciós szövegfeldolgozó](../text-toolbox) eszközön."
         },
         {
-          "q": "Hogyan kezeljem a vegyes kínai/angol szöveget vagy a nem UTF-8 fájlokat (francia GBK, japán Shift-JIS)?",
-          "a": "Vegyes kínai/angol szöveghez a kínai bekezdés módot használd — ez felismeri a kínai (。！？) és az angol (. ! ?) mondatvégeket is, szó közepén nem vág. Az Elválasztó mező több, szóközzel elválasztott szimbólumot fogad, és támogatja a \\n és \\t escape-eket; a szimbólum módban ez adja a vágási pontokat, a hossz módban csak ezekhez igazít. A nem UTF-8 fájloknál (francia GBK, japán Shift-JIS, koreai EUC-KR) **töltsd fel közvetlenül a fájlt**, ne illeszd be a szöveget — a kódolás automatikusan felismerésre kerül, így elkerülhető a karakterhiba."
+          "q": "Hogyan kezeljem a vegyes kínai/angol szöveget vagy a nem UTF-8 fájlokat (francia ISO-8859-1, japán Shift-JIS)?",
+          "a": "Vegyes kínai/angol szöveghez a kínai bekezdés módot használd — ez felismeri a kínai (。！？) és az angol (. ! ?) mondatvégeket is, szó közepén nem vág. Az Elválasztó mező több, szóközzel elválasztott szimbólumot fogad, és támogatja a \\n és \\t escape-eket; a szimbólum módban ez adja a vágási pontokat, a hossz módban csak ezekhez igazít. A nem UTF-8 fájloknál (francia ISO-8859-1, japán Shift-JIS, koreai EUC-KR) **töltsd fel közvetlenül a fájlt**, ne illeszd be a szöveget — a kódolás automatikusan felismerésre kerül, így elkerülhető a karakterhiba."
         },
         {
           "q": "Feltöltődik a szövegem valamilyen szerverre? Nyílt forráskódú az eszköz?",
@@ -354,17 +369,17 @@
     "externalTools": {
       "legendtalk": "AI gondolkodók kerekasztala",
       "imgprompt": "AI képpromptok",
-      "lives": "Ezer élet",
-      "learndata": "LearnData nyílt forráskódú jegyzetek"
+      "learndata": "LearnData nyílt forráskódú jegyzetek",
+      "hub365": "365 Nyílt forráskód"
     }
   },
   "Metadata": {
     "title": "ToolsByAI | Ingyenes nyílt forráskódú AI fordító és adateszközök",
-    "description": "ToolsByAI: 19 ingyenes nyílt forráskódú eszköz feliratok, Markdown, JSON i18n fordításhoz, valamint szöveg- és JSON-kötegelt feldolgozáshoz. 25+ AI motor.",
+    "description": "ToolsByAI: 19 ingyenes nyílt forráskódú eszköz feliratok, Markdown, JSON i18n fordításhoz, valamint szöveg- és JSON-kötegelt feldolgozáshoz. 30+ AI motor.",
     "homeTitle": "ToolsByAI eszközkészlet",
     "homeDescription": "19 eszköz fordításhoz, szöveghez, JSON-hoz és adatkonverzióhoz. Növeld a fejlesztők és alkotók hatékonyságát.",
     "ogTitle": "ToolsByAI | Ingyenes nyílt forráskódú AI fordító és adateszközök",
-    "ogDescription": "ToolsByAI: 19 ingyenes nyílt forráskódú eszköz feliratok, Markdown, JSON i18n fordításhoz, valamint szöveg- és JSON-kötegelt feldolgozáshoz. 25+ AI motor."
+    "ogDescription": "ToolsByAI: 19 ingyenes nyílt forráskódú eszköz feliratok, Markdown, JSON i18n fordításhoz, valamint szöveg- és JSON-kötegelt feldolgozáshoz. 30+ AI motor."
   },
   "CopyToClipboard": {
     "empty": "A tartalom üres, nincs mit másolni",

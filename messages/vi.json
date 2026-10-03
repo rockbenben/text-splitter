@@ -182,7 +182,22 @@
     "errorHintRelay403": "API trả về 403 Forbidden — hãy bật \"Chuyển tiếp API\" trong \"Thêm cài đặt Provider\"",
     "errorHintCors": "Không thể kết nối tới địa chỉ này — hãy kiểm tra địa chỉ và xem dịch vụ có cho phép yêu cầu khác nguồn (CORS) hay không. Cổng tự dựng và mô hình cục bộ phải tự bật, hoặc dùng Chuyển tiếp API của riêng bạn",
     "errorHintGeminiKey": "Không thể kết nối Gemini: hãy kiểm tra mạng trước (một số mạng không thể truy cập trực tiếp dịch vụ Google). Nếu mạng bình thường, từ 19/06/2026 Google từ chối các API key không giới hạn — hãy tạo lại key trong AI Studio (mặc định đã giới hạn) hoặc thêm giới hạn Gemini API cho key cũ trong Google Cloud Console",
-    "rateLimitCooldown": "Đạt giới hạn yêu cầu — tạm dừng một lát rồi tự động thử lại"
+    "rateLimitCooldown": "Đạt giới hạn yêu cầu — tạm dừng một lát rồi tự động thử lại",
+    "faqHeading": "Câu hỏi thường gặp",
+    "homeIndexEyebrow": "Mục lục",
+    "homeCategoryEyebrow": "{n} danh mục",
+    "openNavigation": "Mở điều hướng",
+    "goHome": "Về trang chủ",
+    "primaryNav": "Điều hướng chính",
+    "toggleTheme": "Đổi giao diện",
+    "communityLinks": "Liên kết cộng đồng",
+    "viewOnGitHub": "Xem trên GitHub",
+    "toolCategories": "Danh mục công cụ",
+    "searchLanguage": "Tìm ngôn ngữ",
+    "selectLanguage": "Chọn ngôn ngữ",
+    "noMatchFound": "Không có kết quả",
+    "backToTop": "Lên đầu trang",
+    "exportOptions": "Tùy chọn xuất"
   },
   "TextSplitter": {
     "resultTooLarge": "Kết quả quá lớn (>500), đã ẩn xem trước để đảm bảo hiệu năng",
@@ -196,7 +211,7 @@
     "exportFileName": "Tên tệp xuất",
     "customSplitSymbol": "Dấu phân cách",
     "symbolNoMatch": "Không có dấu phân tách nào xuất hiện trong văn bản nên chưa chia được. Hãy dùng dấu câu của ngôn ngữ đó hoặc chuyển sang chế độ «Đoạn văn tiếng Trung» hoặc «Đoạn văn tiếng Anh»",
-    "chineseEndingSymbol": "CJK (中日韩)",
+    "chineseEndingSymbol": "CJK (Trung/Nhật/Hàn)",
     "englishEndingSymbol": "Tiếng Anh/Latin",
     "splitBySymbol": "Chia theo ký hiệu",
     "splitBySymbolHint": "Cắt văn bản tại mỗi dấu phân cách; các đoạn liền kề có thể gộp thành một.",
@@ -227,15 +242,15 @@
   },
   "tools": {
     "subtitleTranslator": {
-      "title": "Dịch giả Phụ đề",
+      "title": "Trình Dịch Phụ Đề",
       "description": "Dịch hàng loạt SRT, ASS, VTT, SBV, LRC. 120+ ngôn ngữ."
     },
     "jsonTranslate": {
-      "title": "Dịch giả JSON i18n",
+      "title": "Trình Dịch JSON i18n",
       "description": "Dịch tệp ngôn ngữ i18n hàng loạt, với đối sánh JSONPath và ánh xạ khóa"
     },
     "mdTranslator": {
-      "title": "Dịch giả Markdown",
+      "title": "Trình Dịch Markdown",
       "description": "Dịch Markdown hàng loạt, giữ định dạng và mã"
     },
     "textSplitter": {
@@ -250,7 +265,7 @@
         },
         {
           "q": "Giới hạn ký tự của ChatGPT, Claude, Gemini và công cụ dịch là bao nhiêu?",
-          "a": "Giới hạn ngữ cảnh mô hình AI (token): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Số ký tự chia' với đệm dưới dung lượng AI mục tiêu."
+          "a": "Giới hạn ngữ cảnh mô hình AI (token): 200K-1M. Tiếng Trung ~1-2 ký tự/token, tiếng Anh ~4 ký tự/token. Dịch: Google Translate và DeepL miễn phí đều 5000 ký tự/yêu cầu. Đặt 'Ký tự mỗi đoạn' với đệm dưới dung lượng AI mục tiêu."
         },
         {
           "q": "Làm sao chia bài đăng dài cho Twitter, Threads, Facebook và LinkedIn?",
@@ -265,7 +280,7 @@
           "a": "Nếu các đoạn là mảnh JSON i18n (tệp ngôn ngữ chia theo khóa), dùng [Dịch JSON](../json-translate) để dịch hàng loạt và giữ nguyên khóa. Với văn bản Markdown dài (bài blog chia theo chương), dùng [Dịch Markdown](../md-translator) — giữ nguyên khối code và Front Matter. Để làm sạch nặng hơn (loại trùng, trích xuất regex, kéo URL) trước khi đưa vào AI, chạy các đoạn qua [Hộp Công Cụ Văn Bản](../text-toolbox) trước."
         },
         {
-          "q": "Xử lý văn bản hỗn hợp hoặc tệp không phải UTF-8 (tiếng Pháp GBK, tiếng Nhật Shift-JIS) thế nào?",
+          "q": "Xử lý văn bản hỗn hợp hoặc tệp không phải UTF-8 (tiếng Pháp ISO-8859-1, tiếng Nhật Shift-JIS) thế nào?",
           "a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Ô «Dấu phân tách» nhận nhiều ký hiệu cách nhau bằng khoảng trắng và hỗ trợ \\n, \\t; ở chế độ Ký hiệu nó quyết định chỗ cắt, ở chế độ Độ dài chỉ dùng để canh điểm cắt. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
         },
         {
@@ -295,7 +310,7 @@
       "description": "Tích hợp regex, sắp xếp, lọc và nhiều tính năng xử lý văn bản hàng loạt"
     },
     "dataBatch": {
-      "title": "Xử lý văn bản",
+      "title": "Xử lý dữ liệu hàng loạt",
       "description": "Xử lý dữ liệu Excel hàng loạt — loại bỏ trùng, trích xuất cột, hợp nhất văn bản, quy tắc nối tiếp"
     },
     "textJoiner": {
@@ -327,7 +342,7 @@
       "description": "Sắp xếp và nhóm mảng, quy tắc tùy chỉnh"
     },
     "jsonMatchUpdate": {
-      "title": "Cập nhật JSON Match",
+      "title": "Khớp & Cập Nhật JSON",
       "description": "Cập nhật hàng loạt dựa trên khớp trường"
     },
     "dataParserFlare": {
@@ -339,7 +354,7 @@
       "description": "Tạo dữ liệu JSON IMGPrompt hàng loạt"
     },
     "textDiff": {
-      "title": "Text Diff",
+      "title": "So Sánh Văn Bản",
       "description": "So sánh hai văn bản hoặc tệp song song và xác định điểm khác biệt đầu tiên."
     }
   },
@@ -354,17 +369,17 @@
     "externalTools": {
       "legendtalk": "Bàn tròn nhà tư tưởng AI",
       "imgprompt": "Câu lệnh tạo ảnh AI",
-      "lives": "Thousand Lives",
-      "learndata": "LearnData Ghi chú nguồn mở"
+      "learndata": "LearnData Ghi chú nguồn mở",
+      "hub365": "365 Nguồn mở"
     }
   },
   "Metadata": {
     "title": "ToolsByAI - Bộ Công Cụ Dịch Thuật & Dữ Liệu AI Online",
-    "description": "ToolsByAI: 19 công cụ mã nguồn mở miễn phí cho dịch phụ đề, Markdown, JSON i18n và xử lý văn bản/JSON. 25+ engine AI.",
+    "description": "ToolsByAI: 19 công cụ mã nguồn mở miễn phí cho dịch phụ đề, Markdown, JSON i18n và xử lý văn bản/JSON. 30+ engine AI.",
     "homeTitle": "Bộ ToolsByAI",
     "homeDescription": "19 công cụ cho dịch, văn bản, JSON và chuyển đổi dữ liệu. Tăng cường hiệu quả cho nhà phát triển và người sáng tạo.",
-    "ogTitle": "ToolsByAI - Công Cụ Dev AI Miễn Phí & Mã Nguồn Mở",
-    "ogDescription": "ToolsByAI: 19 công cụ mã nguồn mở miễn phí cho dịch phụ đề, Markdown, JSON i18n và xử lý văn bản/JSON. 25+ engine AI."
+    "ogTitle": "ToolsByAI - Bộ Công Cụ Dịch Thuật & Dữ Liệu AI Online",
+    "ogDescription": "ToolsByAI: 19 công cụ mã nguồn mở miễn phí cho dịch phụ đề, Markdown, JSON i18n và xử lý văn bản/JSON. 30+ engine AI."
   },
   "CopyToClipboard": {
     "empty": "Nội dung trống, không có gì để sao chép",

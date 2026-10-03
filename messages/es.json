@@ -46,7 +46,7 @@
     "hideResultsTooltip": "Ocultar vista previa de resultados para evitar retrasos por contenido extenso",
     "hideResults": "Ocultar Vista Previa",
     "directExportTooltip": "Descargar automáticamente tras procesar, omitir vista previa",
-    "directExport": "Auto Exportar",
+    "directExport": "Exportación automática",
     "useCache": "Usar Caché",
     "useCacheTooltip": "Reutilizar caché de traducción anterior para acelerar el proceso",
     "cacheOff": "Caché desactivada",
@@ -81,7 +81,7 @@
     "sameLanguageTarget": "Idiomas origen y destino iguales; destino ajustado automáticamente a",
     "sameLanguageSource": "Idiomas origen y destino iguales; origen ajustado automáticamente a",
     "enterApiKey": "Introduce clave API o cambia a API Gratuita.",
-    "enterApiUrl": "Por favor configure la URL de API en «Más ajustes del Provider».",
+    "enterApiUrl": "Por favor, configura la URL de API en «Más ajustes del Provider».",
     "serviceUnavailable": "{service} no está disponible temporalmente: comprueba la red y la dirección del servicio, inténtalo más tarde o cambia a otro servicio de traducción.",
     "serviceUnavailableSwitched": "{service} no está disponible temporalmente: se cambió automáticamente a {fallback}. Compruébalo y vuelve a seleccionarlo en los ajustes si quieres seguir usándolo.",
     "noFileUploaded": "Por favor sube un archivo primero.",
@@ -138,7 +138,7 @@
     "copyAllFailed": "Copiar todo",
     "closeFailedLinesModal": "Cerrar",
     "failedLanguagesTitle": "{count} idioma(s) de destino fallaron",
-    "failedLanguagesDesc": "Todos los lotes de estos idiomas fallaron — generalmente por fallos de LLM local, límites de tasa de API o rechazo del modelo a un idioma específico. Copie los códigos y vuelva a ejecutar solo con ellos (pegue en 'Configuración multilingüe'); los demás usarán caché y se omitirán.",
+    "failedLanguagesDesc": "Todos los lotes de estos idiomas fallaron — generalmente por fallos de LLM local, límites de frecuencia de la API o rechazo del modelo a un idioma específico. Copia los códigos y vuelve a ejecutar solo con ellos (pega en 'Configuración multilingüe'); los demás usarán caché y se omitirán.",
     "copyAllFailedLanguages": "Copiar códigos de idioma",
     "apiStatusFreeApi": "Free API",
     "apiStatusNeedsConfig": "Requiere config.",
@@ -175,14 +175,29 @@
     "errorHint408": "La solicitud expiró, vuelva a intentarlo",
     "errorHint413": "Texto demasiado grande — reduzca el tamaño del bloque o divida el texto",
     "errorHint422": "Un parámetro no es compatible con este modelo — a menudo opciones de razonamiento",
-    "errorHint429": "Límite de solicitudes superado, inténtelo más tarde",
+    "errorHint429": "Límite de solicitudes superado, inténtalo más tarde",
     "errorHint456": "Cuota de traducción agotada para este período",
     "errorHint5xx": "Error del servidor, inténtelo más tarde",
     "errorHintRelay": "Error de red (posiblemente CORS): active \"Relé API\" en «Más ajustes del Provider»",
     "errorHintRelay403": "La API devolvió 403 Forbidden: active \"Relé API\" en «Más ajustes del Provider»",
     "errorHintCors": "No se puede conectar con esta dirección: compruebe la dirección y que el servicio permita solicitudes de origen cruzado (CORS). Las pasarelas autoalojadas y los modelos locales deben habilitarlo, o use su propio Relé API",
     "errorHintGeminiKey": "No se puede conectar con Gemini: compruebe primero su red (algunas redes no pueden acceder directamente a los servicios de Google). Si la red funciona, desde el 19 de junio de 2026 Google rechaza las claves API sin restricciones — regenere su clave en AI Studio (restringida por defecto) o añada una restricción de Gemini API a la clave antigua en la consola de Google Cloud",
-    "rateLimitCooldown": "Límite de solicitudes alcanzado — pausa breve, se reintentará automáticamente"
+    "rateLimitCooldown": "Límite de solicitudes alcanzado — pausa breve, se reintentará automáticamente",
+    "faqHeading": "Preguntas frecuentes",
+    "homeIndexEyebrow": "Índice",
+    "homeCategoryEyebrow": "{n} categorías",
+    "openNavigation": "Abrir navegación",
+    "goHome": "Ir a la página de inicio",
+    "primaryNav": "Navegación principal",
+    "toggleTheme": "Cambiar tema",
+    "communityLinks": "Enlaces de la comunidad",
+    "viewOnGitHub": "Ver en GitHub",
+    "toolCategories": "Categorías de herramientas",
+    "searchLanguage": "Buscar idioma",
+    "selectLanguage": "Seleccionar idioma",
+    "noMatchFound": "Sin resultados",
+    "backToTop": "Volver arriba",
+    "exportOptions": "Opciones de exportación"
   },
   "TextSplitter": {
     "resultTooLarge": "Resultado demasiado grande (>500), vista previa oculta por rendimiento",
@@ -196,13 +211,13 @@
     "exportFileName": "Nombre Archivo Export",
     "customSplitSymbol": "Separadores",
     "symbolNoMatch": "Ninguno de los separadores aparece en el texto, así que no se dividió nada. Usa signos de puntuación de tu idioma o cambia a «Párrafo Chino» o «Párrafo Inglés»",
-    "chineseEndingSymbol": "CJK (中日韩)",
+    "chineseEndingSymbol": "CJK (chino/japonés/coreano)",
     "englishEndingSymbol": "Inglés/Latín",
     "splitBySymbol": "Dividir por Símbolo",
     "splitBySymbolHint": "Divide el texto en cada separador; los segmentos adyacentes pueden fusionarse en uno.",
     "symbolInterval": "Separadores por segmento",
     "symbolIntervalHint": "1 = un segmento por separador; 2 = fusionar cada dos segmentos",
-    "splitByLengthHint": "Divide el texto en bloques por número de caracteres. Si rellenas delimitadores abajo, los cortes se ajustan al más cercano para no partir frases.",
+    "splitByLengthHint": "Divide el texto en bloques por número de caracteres. Si rellenas los separadores más abajo, los cortes se ajustan al más cercano para no partir frases.",
     "splitByChineseParagraph": "Párrafo Chino",
     "splitByChineseParagraphTooltip": "Detecta los límites según la puntuación y las reglas de párrafo del chino y luego divide",
     "splitByEnglishParagraph": "Párrafo Inglés",
@@ -250,7 +265,7 @@
         },
         {
           "q": "¿Qué límites de caracteres tienen ChatGPT, Claude, Gemini y las herramientas de traducción?",
-          "a": "Límites de contexto de modelos IA (tokens): ChatGPT GPT-5 ~400K, Claude Sonnet 4.6 / Opus 4.7 1M, Gemini 3 Pro 1M, DeepSeek V4 1M. Chino ~1-2 car/token, inglés ~4 car/token. Traducción: Google Translate y DeepL gratis ambos 5000 car/solicitud. Configure 'Número de caracteres' con margen bajo la capacidad del IA objetivo."
+          "a": "Límites de contexto de modelos IA (tokens): 200K-1M. Chino ~1-2 car/token, inglés ~4 car/token. Traducción: Google Translate y DeepL gratis ambos 5000 car/solicitud. Configure 'Número de caracteres' con margen bajo la capacidad del modelo de IA objetivo."
         },
         {
           "q": "¿Cómo dividir posts largos para Twitter, Threads, Mastodon y LinkedIn?",
@@ -265,7 +280,7 @@
           "a": "Si los segmentos son fragmentos JSON i18n (un archivo de idioma dividido por clave), use el [Traductor JSON](../json-translate) para traducir en lote preservando las claves. Para Markdown largo (artículos divididos por capítulo), use el [Traductor Markdown](../md-translator) — preserva bloques de código y Front Matter. Para limpieza más profunda (dedup, extracción regex, extracción de URL) antes de la IA, pase primero por la [Caja de herramientas de texto](../text-toolbox)."
         },
         {
-          "q": "¿Cómo manejar texto mixto o archivos no-UTF-8 (francés GBK, japonés Shift-JIS)?",
+          "q": "¿Cómo manejar texto mixto o archivos no-UTF-8 (francés ISO-8859-1, japonés Shift-JIS)?",
           "a": "Para texto mixto, use modo Párrafo chino — reconoce puntuación china (。！？) e inglesa (. ! ?) sin cortar palabras. El campo «Separador» admite varios símbolos separados por espacios y acepta \\n y \\t; en modo Símbolo define los cortes y en modo Longitud solo los alinea. Para archivos no-UTF-8, **cargue el archivo directamente** en lugar de pegar — la codificación se detecta automáticamente."
         },
         {
@@ -295,7 +310,7 @@
       "description": "Coincidencia regex, ordenación, filtrado y más para el procesamiento masivo de texto"
     },
     "dataBatch": {
-      "title": "Procesador de texto",
+      "title": "Procesador de datos por lotes",
       "description": "Procesamiento por lotes de datos Excel — deduplicación, extracción por columnas, fusión, reglas encadenadas"
     },
     "textJoiner": {
@@ -354,8 +369,8 @@
     "externalTools": {
       "legendtalk": "Mesa redonda de pensadores IA",
       "imgprompt": "Prompts de imágenes IA",
-      "lives": "Thousand Lives",
-      "learndata": "LearnData Notas de Código Abierto"
+      "learndata": "LearnData Notas de Código Abierto",
+      "hub365": "365 Código Abierto"
     }
   },
   "Metadata": {
