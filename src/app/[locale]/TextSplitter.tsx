@@ -21,11 +21,10 @@ const uploadFileTypes = getFileTypePresetConfig("richText");
 const DEFAULT_MERGE_SEPARATOR = "\\n\\n";
 // 长度模式的默认块大小。取 5000 = Google Translate / DeepL 免费版单次 5000 字符
 // 上限（见 FAQ），是本工具服务的场景里唯一还成立、且以字符计的硬限制——超了 API
-// 直接拒。旧值 2000 的理由是「LLM 上下文典型块大小」，那是 4k-token 模型时代的
-// 说法：如今 GPT-5 约 400K、Claude / Gemini / DeepSeek 均 1M token，2000 字符占
-// 不到 1%，切了等于没切。社交平台那一侧也不归它管（Twitter 280 / 微博 140 /
-// 小红书 1000 全都更小，且 FAQ 把分段发布导向「中文/英文分段」模式）。
-// 输入框留空即回落到它（三处引用统一走这个常量，别再写字面量）。
+// 直接拒。别改用「LLM 上下文比例」来定这个值：模型上下文早已远大于任何一段要发的
+// 文本，按它切等于没切。社交平台那一侧也不归它管（各家字数上限小得多，
+// 且 FAQ 把那种需求导向「中文/英文分段」模式）。
+// 输入框留空即回落到它（所有引用统一走这个常量，别在别处写字面量）。
 const DEFAULT_LIMIT = 5000;
 // 分段导出超过这个段数就打 ZIP。文案里的数字通过 zipThreshold 参数注入
 // （clientDescription / exportIndividualFiles），改这里即可，FAQ 里的举例需手动同步。
@@ -137,7 +136,7 @@ const TextSplitter = () => {
     splitSeq.current++; // 同步路径也要作废在途的分段请求，否则它回来会盖掉这次结果
     const units = splitBySymbolsOnly(sourceText, symbols, symbolInterval ?? 1);
     // 一个分隔符都没在文本里出现：结果就是原文本身。对句末标点既非全角也非 ASCII
-    // 的语种（阿拉伯语 ؟、印地语 ۔、泰语等，站点共 18 个 locale），默认值不可能猜中，
+    // 的语种（阿拉伯语 ؟、印地语 ۔、泰语等），默认值不可能猜中，
     // 若照常报「分割完成」，用户看到的是绿色成功提示 + 一张装着全文的卡片。
     if (!symbols.some((symbol) => sourceText.includes(symbol))) {
       setSplittedTexts(units);
@@ -329,7 +328,7 @@ const TextSplitter = () => {
   const renderSymbolsField = (value: string, onChange: (next: string) => void, placeholder?: string) => (
     <Form.Item label={tSplitter("customSplitSymbol")} tooltip={t("supportEscapeChars")}>
       <Input value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} aria-label={tSplitter("customSplitSymbol")} allowClear />
-      <Space size="small" className="!mt-2">
+      <Space size="small" wrap className="!mt-2">
         <Button size="small" onClick={() => onChange(CJK_SPLIT_SYMBOLS)}>
           {tSplitter("chineseEndingSymbol")}
         </Button>
@@ -455,7 +454,7 @@ const TextSplitter = () => {
             type="primary"
             size="large"
             block
-            icon={<ScissorOutlined />}
+            icon={<ScissorOutlined aria-hidden />}
             onClick={() => {
               if (mode === "symbol") splitBySymbolMode();
               else if (mode === "count") splitText();
@@ -488,17 +487,17 @@ const TextSplitter = () => {
               差异只落在动词上，便于扫读。窄屏允许换行，避免大号按钮被挤压。 */}
           <Flex justify="center" gap="middle" wrap className="!mb-5">
             <Tooltip title={tSplitter("copyMergedTextTooltip")}>
-              <Button type="primary" ghost icon={<CopyOutlined />} onClick={handleCopyMergedText} size="large">
+              <Button type="primary" ghost icon={<CopyOutlined aria-hidden />} onClick={handleCopyMergedText} size="large">
                 {tSplitter("copyMergedText")}
               </Button>
             </Tooltip>
             <Tooltip title={tSplitter("mergeText")}>
-              <Button icon={<FileTextOutlined />} onClick={handleExportFullText} size="large">
+              <Button icon={<FileTextOutlined aria-hidden />} onClick={handleExportFullText} size="large">
                 {tSplitter("exportMergedText")}
               </Button>
             </Tooltip>
             <Tooltip title={tSplitter("exportIndividualFiles", { zipThreshold: ZIP_THRESHOLD })}>
-              <Button icon={<DownloadOutlined />} onClick={handleBatchExport} size="large">
+              <Button icon={<DownloadOutlined aria-hidden />} onClick={handleBatchExport} size="large">
                 {tSplitter("batchExport")} ({splittedTexts.length})
               </Button>
             </Tooltip>
