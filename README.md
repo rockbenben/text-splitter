@@ -14,7 +14,7 @@
   <a href="https://tools.newzone.top/en/text-splitter"><img src="https://img.shields.io/badge/Live%20Demo-text--splitter-blue" alt="Live Demo"></a>
 </p>
 
-**Text Splitter** cuts one overlong piece of text into chunks you can feed in one at a time — useful for ChatGPT, DeepSeek, Claude and other models with a per-message character cap, and equally for splitting documents or long social posts. Three modes — by length, Chinese paragraph, English paragraph — with delimiter-aware cut points (escapes like `\n` and `\t` supported); download the chunks one by one or as a ZIP. Everything runs entirely in your browser — no servers, no uploads.
+**Text Splitter** cuts one overlong piece of text into chunks you can feed in one at a time — useful for ChatGPT, DeepSeek, Claude and other models with a per-message character cap, and equally for splitting documents or long social posts. Four modes — by symbol, by length, Chinese paragraph, English paragraph — with delimiter-aware cut points (escapes like `\n` and `\t` supported); download the chunks one by one or as a ZIP. Everything runs entirely in your browser — no servers, no uploads.
 
 👉 **Try it online**: <https://tools.newzone.top/en/text-splitter>
 
@@ -22,9 +22,9 @@
 
 ## Key Features
 
-- **Three Splitting Modes**: By Length, Chinese Paragraph, and English Paragraph, switched with a Segmented control that only shows the active mode's settings
-- **Delimiter-Aware Boundaries**: An always-visible delimiter field (no toggle) snaps length-based cuts to sentence boundaries so text isn't cut mid-sentence
-- **Quick Delimiter Presets**: One-click "CJK" (`。 ？ ！`) and "Latin" (`. ? !`) buttons
+- **Four Splitting Modes**: By Symbol, By Length, Chinese Paragraph, and English Paragraph, switched with a Segmented control that only shows the active mode's settings
+- **Delimiter-Aware Boundaries**: in By Length mode the optional alignment-delimiter field snaps cuts to sentence boundaries so text isn't cut mid-sentence; in By Symbol mode the delimiter field itself decides where to cut
+- **Quick Delimiter Presets**: One-click "CJK (Chinese/Japanese/Korean)" (`。 ？ ！`) and "English/Latin" (`. ? !`) buttons
 - **Escape Character Support**: `\n` (newline), `\r` (carriage return), `\t` (tab), `\s` (space), `\\` (backslash)
 - **Batch Export**: ≤ 3 segments download individually; > 3 are automatically packaged as a ZIP
 - **Merged Export**: Combine all segments into one file separated by double newlines
@@ -36,26 +36,20 @@
 
 1. Paste or upload your long text (drag in a text file).
 2. Pick a **mode**:
-   - Fixed-size chunks (for AI input) → **By Length**
+   - Split at delimiters (the default) → **By Symbol**
+- Fixed-size chunks (for AI input) → **By Length**
    - Long Chinese text by paragraph → **Chinese Paragraph**
    - English text by sentence → **English Paragraph**
-3. To align cuts to delimiters (`. ? !` etc.), fill in the delimiter field.
-4. Click **Process** — segments download as individual files (≤ 3) or a ZIP bundle (> 3).
+3. To align cuts to delimiters (`. ? !` etc.), fill in the alignment-delimiter field in By Length mode; in By Symbol mode the delimiter field decides the cut points.
+4. Click **Split by symbol** (the button label follows the selected mode) — segments download as individual files (≤ 3) or a ZIP bundle (> 3).
 
-## Three Splitting Modes
+## Four Splitting Modes
 
 Modes are picked via the Segmented control at the top of the Configuration card. Each mode shows only its own settings, so the panel stays focused.
 
-### 1. By Length
+### 1. By Symbol
 
-Chunks text into blocks of a given character count (default: 2000 — a reasonable size for LLM context windows). The **delimiter** input is **always visible**, and whether it activates is purely determined by whether the field has a value — no extra toggle needed:
-
-- **Length > 0 + delimiter filled**: chunk by length, snapping boundaries to the nearest delimiter so sentences aren't cut mid-way
-- **Length > 0 + delimiter empty**: hard chunk by length, ignoring sentence boundaries
-- **Length = 0 (or empty) + delimiter filled**: ignore length entirely — split at every delimiter occurrence (delimiter is required)
-- **Length = 0 + delimiter empty**: invalid — at least one must be set
-
-The delimiter input accepts:
+Splits on delimiters alone — every Nth delimiter starts a new segment (default 1 = one segment per separator, 2 = merge every two). The **delimiter** field is pre-filled per locale (`。 ？ ！` for Chinese, `. ? !` for Latin) and accepts:
 
 - Manual entry, e.g. `。 ？ ！` (separate multiple delimiters with a space)
 - Click **CJK** to fill `。 ？ ！`
@@ -64,11 +58,15 @@ The delimiter input accepts:
 
 Delimiter splits keep the delimiter at the end of each segment.
 
-### 2. Chinese Paragraph
+### 2. By Length
+
+Chunks text into blocks of a given character count (default 5000 — the per-request cap of the free Google Translate / DeepL tiers, and a comfortable size for LLM context windows). The optional **alignment delimiter** field snaps chunk boundaries to the nearest delimiter so sentences aren't cut mid-way; leave it empty and the text is hard-chunked by length. The character count can never be 0 — it falls back to the default.
+
+### 3. Chinese Paragraph
 
 Detects Chinese paragraph boundaries using punctuation and line-break rules; paragraph interiors are preserved. Designed for Chinese articles, blog posts, and other content where paragraph integrity matters.
 
-### 3. English Paragraph
+### 4. English Paragraph
 
 Uses the browser's built-in Intl.Segmenter sentence segmentation to detect paragraph boundaries. Good for documents, emails, and papers.
 
@@ -87,16 +85,16 @@ All modes share these:
 
 ## Common Patterns
 
-- **LLM Context Prep**: length 2000–4000 with delimiters `。 ？ ！` or `. ? !` — boundaries auto-snap to sentence ends
-- **Sentence-Level Split**: length 0 + delimiters `。 ？ ！` (or `. ? !`) — one split at each delimiter
+- **LLM Context Prep**: length 2000–4000 with the alignment delimiter `。 ？ ！` or `. ? !` — boundaries auto-snap to sentence ends
+- **Sentence-Level Split**: use **By Symbol** mode with delimiters `。 ？ ！` (or `. ? !`) — one split at each delimiter
 - **Paragraph-Level Split**: use Chinese Paragraph or English Paragraph mode
-- **Code / Markdown Split**: By Length mode with delimiter `\n\n` (literal `\n` supported)
+- **Code / Markdown Split**: By Length mode with the alignment delimiter `\n\n` (literal `\n` supported)
 
 ## FAQ
 
-**What's the difference between the three splitting modes?** "By Length" chunks text into blocks of a fixed character count (default 2000) and snaps boundaries to a delimiter if one is provided. "Chinese Paragraph" / "English Paragraph" run language-aware sentence detection — Chinese uses punctuation rules, English uses the browser's built-in Intl.Segmenter. Pick whichever matches your input language.
+**What's the difference between the four splitting modes?** "By Symbol" cuts at delimiters alone; "By Length" cuts into fixed-size blocks (default 5000) and optionally snaps the boundaries to a delimiter; "Chinese Paragraph" / "English Paragraph" run language-aware sentence detection — Chinese uses punctuation rules, English uses the browser's built-in Intl.Segmenter. Pick whichever matches your input language.
 
-**Why is there no length toggle for delimiter-only splitting?** Delimiter activation is implicit — purely controlled by whether the delimiter field has a value. Length > 0 + delimiter filled = chunk + snap. Length > 0 + delimiter empty = hard chunk. Length = 0 + delimiter filled = split at every delimiter (length ignored). Length = 0 + delimiter empty = error.
+**Do the two delimiter fields do the same thing?** No — each mode has its own field and they are independent. **By Symbol** uses the *delimiter* to decide where to cut (every Nth one). **By Length** uses the optional *alignment delimiter* only to snap the boundaries of a length-based chunk; leave it empty and the text is hard-chunked.
 
 **When does batch export package as ZIP?** Above 3 segments. ≤ 3 segments download as individual files; > 3 are bundled into a single `<filename>_split_files.zip` to avoid spamming your downloads folder.
 
