@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Trình Dịch Phụ Đề",
-      "description": "Dịch hàng loạt SRT, ASS, VTT, SBV, LRC. 120+ ngôn ngữ."
+      "description": "Dịch hàng loạt SRT, ASS, SSA, VTT, SBV, LRC. 120+ ngôn ngữ."
     },
     "jsonTranslate": {
       "title": "Trình Dịch JSON i18n",
@@ -284,8 +284,8 @@
           "a": "Với văn bản hỗn hợp, dùng chế độ Đoạn tiếng Trung — nhận diện cả dấu câu tiếng Trung (。！？) và tiếng Anh (. ! ?) không cắt giữa từ. Ô «Dấu phân tách» nhận nhiều ký hiệu cách nhau bằng khoảng trắng và hỗ trợ \\n, \\t; ở chế độ Ký hiệu nó quyết định chỗ cắt, ở chế độ Độ dài chỉ dùng để canh điểm cắt. Với tệp không phải UTF-8, **tải tệp trực tiếp** thay vì dán — mã hóa tự phát hiện."
         },
         {
-          "q": "Văn bản của tôi có được tải lên máy chủ không? Công cụ có mã nguồn mở không?",
-          "a": "100% phía client: đọc, chia và xuất văn bản đều diễn ra trong trình duyệt — không có gì được tải lên máy chủ, nội dung nhạy cảm vẫn an toàn. Mã nguồn mở trên GitHub (rockbenben/text-splitter) để tự host hoặc kiểm tra."
+          "q": "Văn bản của tôi có được tải lên máy chủ không?",
+          "a": "100% phía client: đọc, chia và xuất văn bản đều diễn ra trong trình duyệt — không có gì được tải lên máy chủ, nội dung nhạy cảm vẫn an toàn."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Trình chuyển đổi Flare",
-      "description": "Chuyển đổi bookmark trình duyệt và định dạng Flare"
+      "description": "Bookmark HTML sang Flare YAML (làm phẳng)"
     },
     "dataParserImgPrompt": {
       "title": "Trình tạo dữ liệu IMGPrompt",

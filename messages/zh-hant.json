@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "字幕翻譯器",
-      "description": "批次翻譯 SRT、ASS、VTT、SBV、LRC 字幕，支援 120+ 語言"
+      "description": "批次翻譯 SRT、ASS、SSA、VTT、SBV、LRC 字幕，支援 120+ 語言"
     },
     "jsonTranslate": {
       "title": "JSON 多語言翻譯",
@@ -284,8 +284,8 @@
           "a": "中英混排用「中文分段」模式可同時識別中文（。！？）和英文（. ! ?）句末標點，不會在單詞中間切斷。「分隔符」欄位填多個符號時用空格隔開，支援 \\n、\\t 等轉義；它在「符號」模式是切分依據，在「長度」模式只用於對齊切點。法語（ISO-8859-1）、日語（Shift-JIS）、韓語（EUC-KR）等非 UTF-8 檔案請直接上傳（而非貼上），工具會自動偵測編碼避免亂碼。"
         },
         {
-          "q": "上傳文字會儲存到伺服器嗎？工具是否開源？",
-          "a": "完全前端處理：文字讀取、分割、匯出都在瀏覽器內完成，原文不上傳任何伺服器，敏感內容也可放心使用。原始碼開源在 GitHub（rockbenben/text-splitter），可自部署或審查實作細節。"
+          "q": "上傳文字會儲存到伺服器嗎？",
+          "a": "完全前端處理：文字讀取、分割、匯出都在瀏覽器內完成，原文不上傳任何伺服器，敏感內容也可放心使用。"
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Flare 書籤轉換",
-      "description": "瀏覽器書籤與 Flare 格式互轉"
+      "description": "瀏覽器書籤轉 Flare YAML（扁平化匯入）"
     },
     "dataParserImgPrompt": {
       "title": "IMGPrompt 資料產生",

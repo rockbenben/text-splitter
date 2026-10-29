@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "字幕翻译器",
-      "description": "批量翻译 SRT、ASS、VTT、SBV、LRC 字幕，支持 120+ 语言"
+      "description": "批量翻译 SRT、ASS、SSA、VTT、SBV、LRC 字幕，支持 120+ 语言"
     },
     "jsonTranslate": {
       "title": "JSON 多语言翻译",
@@ -284,8 +284,8 @@
           "a": "中英混排用「中文分段」模式可同时识别中文（。！？）和英文（. ! ?）句末标点，不会在单词中间切断。「分隔符」字段填多个符号时用空格隔开，支持 \\n、\\t 等转义；它在「符号」模式是切分依据，在「长度」模式只用于对齐切点。法语（ISO-8859-1）、日语（Shift-JIS）、韩语（EUC-KR）等非 UTF-8 文件请直接上传（而非粘贴），工具会自动检测编码避免乱码。"
         },
         {
-          "q": "上传文本会保存到服务器吗？工具是否开源？",
-          "a": "完全前端处理：文本读取、分割、导出都在浏览器内完成，原文不上传任何服务器，敏感内容也可放心使用。源代码开源在 GitHub（rockbenben/text-splitter），可自部署或审查实现细节。"
+          "q": "上传文本会保存到服务器吗？",
+          "a": "完全前端处理：文本读取、分割、导出都在浏览器内完成，原文不上传任何服务器，敏感内容也可放心使用。"
         }
       ],
       "features": [
@@ -351,7 +351,7 @@
     },
     "dataParserFlare": {
       "title": "Flare 书签转换",
-      "description": "浏览器书签与 Flare 格式互转"
+      "description": "浏览器书签转 Flare YAML（扁平化导入）"
     },
     "dataParserImgPrompt": {
       "title": "IMGPrompt 数据生成",

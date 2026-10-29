@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Feliratfordító",
-      "description": "SRT, ASS, VTT, SBV, LRC feliratok kötegelt fordítása. 120+ nyelv."
+      "description": "SRT, ASS, SSA, VTT, SBV, LRC feliratok kötegelt fordítása. 120+ nyelv."
     },
     "jsonTranslate": {
       "title": "JSON többnyelvű fordító",
@@ -284,8 +284,8 @@
           "a": "Vegyes kínai/angol szöveghez a kínai bekezdés módot használd — ez felismeri a kínai (。！？) és az angol (. ! ?) mondatvégeket is, szó közepén nem vág. Az Elválasztó mező több, szóközzel elválasztott szimbólumot fogad, és támogatja a \\n és \\t escape-eket; a szimbólum módban ez adja a vágási pontokat, a hossz módban csak ezekhez igazít. A nem UTF-8 fájloknál (francia ISO-8859-1, japán Shift-JIS, koreai EUC-KR) **töltsd fel közvetlenül a fájlt**, ne illeszd be a szöveget — a kódolás automatikusan felismerésre kerül, így elkerülhető a karakterhiba."
         },
         {
-          "q": "Feltöltődik a szövegem valamilyen szerverre? Nyílt forráskódú az eszköz?",
-          "a": "100%-ban kliensoldali: a szöveg beolvasása, darabolása és exportálása is a böngésződben történik — semmi nem kerül fel szerverre, így a bizalmas tartalom biztonságban van. A forráskód nyílt a GitHubon (rockbenben/text-splitter) saját üzemeltetéshez vagy ellenőrzéshez."
+          "q": "Feltöltődik a szövegem valamilyen szerverre?",
+          "a": "100%-ban kliensoldali: a szöveg beolvasása, darabolása és exportálása is a böngésződben történik — semmi nem kerül fel szerverre, így a bizalmas tartalom biztonságban van."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Flare könyvjelző-konverter",
-      "description": "Könyvjelzők konvertálása Flare formátumba és abból vissza"
+      "description": "Könyvjelző HTML-ből Flare YAML (lapos)"
     },
     "dataParserImgPrompt": {
       "title": "IMGPrompt adatgenerátor",

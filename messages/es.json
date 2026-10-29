@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Traductor Subtítulos",
-      "description": "Traducción por lote SRT, ASS, VTT, SBV, LRC. 120+ idiomas."
+      "description": "Traducción por lote SRT, ASS, SSA, VTT, SBV, LRC. 120+ idiomas."
     },
     "jsonTranslate": {
       "title": "Traductor JSON i18n",
@@ -284,8 +284,8 @@
           "a": "Para texto mixto, use modo Párrafo chino — reconoce puntuación china (。！？) e inglesa (. ! ?) sin cortar palabras. El campo «Separador» admite varios símbolos separados por espacios y acepta \\n y \\t; en modo Símbolo define los cortes y en modo Longitud solo los alinea. Para archivos no-UTF-8, **cargue el archivo directamente** en lugar de pegar — la codificación se detecta automáticamente."
         },
         {
-          "q": "¿Se sube mi texto a un servidor? ¿Es la herramienta de código abierto?",
-          "a": "100% del lado del cliente: lectura, división y exportación ocurren totalmente en tu navegador — nada se sube, así que el contenido sensible está seguro. Código abierto en GitHub (rockbenben/text-splitter) para auto-hospedaje o auditoría."
+          "q": "¿Se sube mi texto a un servidor?",
+          "a": "100% del lado del cliente: lectura, división y exportación ocurren totalmente en tu navegador — nada se sube, así que el contenido sensible está seguro."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Convertidor Flare",
-      "description": "Conversión marcadores navegador y formato Flare"
+      "description": "Marcadores HTML a Flare YAML (aplanado)"
     },
     "dataParserImgPrompt": {
       "title": "Generador Datos IMGPrompt",

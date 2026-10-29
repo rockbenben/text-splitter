@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Altyazı Çevirici",
-      "description": "Toplu SRT, ASS, VTT, SBV, LRC çevirisi. 120+ dil."
+      "description": "Toplu SRT, ASS, SSA, VTT, SBV, LRC çevirisi. 120+ dil."
     },
     "jsonTranslate": {
       "title": "i18n JSON Çevirici",
@@ -284,8 +284,8 @@
           "a": "Karışık metin için Çince Paragraf modunu kullanın — hem Çince (。！？) hem İngilizce (. ! ?) noktalama işaretlerini tanır, kelimeyi ortadan bölmez. «Ayırıcı» alanına boşlukla ayrılmış birden çok sembol yazılabilir ve \\n ile \\t desteklenir; Sembol modunda kesme ölçütü, Uzunluk modunda yalnızca hizalama içindir. UTF-8 olmayan dosyalar için yapıştırmak yerine **dosyayı doğrudan yükleyin** — kodlama otomatik algılanır."
         },
         {
-          "q": "Metnim bir sunucuya yükleniyor mu? Araç açık kaynak mı?",
-          "a": "%100 istemci tarafında: metin okuma, bölme ve dışa aktarım hepsi tarayıcınızda olur — hiçbir şey sunucuya yüklenmez, hassas içerik güvende. Kaynak kod GitHub'da (rockbenben/text-splitter) açık, kendi sunucunuza kurabilir veya inceleyebilirsiniz."
+          "q": "Metnim bir sunucuya yükleniyor mu?",
+          "a": "%100 istemci tarafında: metin okuma, bölme ve dışa aktarım hepsi tarayıcınızda olur — hiçbir şey sunucuya yüklenmez, hassas içerik güvende."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Flare Dönüştürücü",
-      "description": "Tarayıcı yer imleri ve Flare formatı dönüşümü"
+      "description": "Yer imi HTML'ini Flare YAML'ye dönüştür (düz)"
     },
     "dataParserImgPrompt": {
       "title": "IMGPrompt Veri Oluşturucu",

@@ -435,7 +435,7 @@ const TextSplitter = () => {
               {/* 隐藏结果预览是「产物怎么呈现」，归到输出组末尾；夹在切分参数中间时
                   读起来像切分选项（保留导出功能，只是不渲染卡片） */}
               <Form.Item className="!mb-0">
-                <Flex justify="space-between" align="center">
+                <Flex component="label" className="cursor-pointer" justify="space-between" align="center">
                   <Tooltip title={t("hideResultsTooltip")}>
                     <span>{t("hideResults")}</span>
                   </Tooltip>

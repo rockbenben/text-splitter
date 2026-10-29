@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Penerjemah Subtitle",
-      "description": "Terjemahan batch SRT, ASS, VTT, SBV, LRC. 120+ bahasa."
+      "description": "Terjemahan batch SRT, ASS, SSA, VTT, SBV, LRC. 120+ bahasa."
     },
     "jsonTranslate": {
       "title": "Penerjemah JSON i18n",
@@ -304,8 +304,8 @@
           "a": "Untuk teks campuran, gunakan mode Paragraf Cina — mengenali tanda baca Cina (。！？) dan Inggris (. ! ?) tanpa memotong tengah kata. Kolom «Pemisah» menerima beberapa simbol yang dipisah spasi dan mendukung \\n serta \\t; di mode Simbol ia menentukan titik potong, di mode Panjang hanya menyelaraskannya. Untuk file non-UTF-8, **unggah file langsung** bukan tempel — pengkodean terdeteksi otomatis."
         },
         {
-          "q": "Apakah teks yang diunggah disimpan di server? Apakah alat ini open source?",
-          "a": "Pemrosesan frontend 100%: pembacaan teks, pemisahan, ekspor semua di browser, teks asli tidak diunggah ke server mana pun, konten sensitif aman. Kode sumber open source di GitHub (rockbenben/text-splitter), bisa self-deploy atau audit."
+          "q": "Apakah teks yang diunggah disimpan di server?",
+          "a": "Pemrosesan frontend 100%: pembacaan teks, pemisahan, ekspor semua di browser, teks asli tidak diunggah ke server mana pun, konten sensitif aman."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Konverter Flare",
-      "description": "Konversi bookmark browser dan format Flare"
+      "description": "Bookmark HTML ke Flare YAML (rata)"
     },
     "dataParserImgPrompt": {
       "title": "Generator Data IMGPrompt",

@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Untertitel-Übersetzer",
-      "description": "Batch-Übersetzung für SRT, ASS, VTT, SBV, LRC. 120+ Sprachen."
+      "description": "Batch-Übersetzung für SRT, ASS, SSA, VTT, SBV, LRC. 120+ Sprachen."
     },
     "jsonTranslate": {
       "title": "i18n JSON-Übersetzer",
@@ -284,8 +284,8 @@
           "a": "Für gemischten CJK/Latin-Text nutzen Sie Chinesische-Absätze-Modus — erkennt sowohl chinesische (。！？) als auch lateinische (. ! ?) Satzzeichen ohne Wortmitte-Split. Das Feld „Trennzeichen“ nimmt mehrere, durch Leerzeichen getrennte Symbole und unterstützt \\n und \\t; im Symbol-Modus bestimmt es die Schnitte, im Längen-Modus nur deren Ausrichtung. Für Nicht-UTF-8-Dateien **Datei direkt hochladen** (nicht einfügen) — Encoding wird automatisch erkannt."
         },
         {
-          "q": "Wird mein Text auf einen Server hochgeladen? Ist das Tool Open Source?",
-          "a": "100% clientseitig: Textlesen, Teilen und Export laufen vollständig in Ihrem Browser — nichts wird hochgeladen, sodass sensible Inhalte sicher sind. Quellcode auf GitHub (rockbenben/text-splitter) für Self-Hosting oder Audits."
+          "q": "Wird mein Text auf einen Server hochgeladen?",
+          "a": "100% clientseitig: Textlesen, Teilen und Export laufen vollständig in Ihrem Browser — nichts wird hochgeladen, sodass sensible Inhalte sicher sind."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Flare Lesezeichen-Konverter",
-      "description": "Browser-Lesezeichen und Flare-Format konvertieren"
+      "description": "Lesezeichen-HTML zu Flare-YAML (flachgestellt)"
     },
     "dataParserImgPrompt": {
       "title": "IMGPrompt Datengenerator",

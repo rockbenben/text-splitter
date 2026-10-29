@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Subtitle Translator",
-      "description": "Batch translate SRT, ASS, VTT, SBV, LRC subtitles. 120+ languages"
+      "description": "Batch translate SRT, ASS, SSA, VTT, SBV, LRC subtitles. 120+ languages"
     },
     "jsonTranslate": {
       "title": "JSON Multi-Language Translator",
@@ -284,8 +284,8 @@
           "a": "For mixed CJK/English, use Chinese paragraph mode — it recognizes both Chinese (。！？) and English (. ! ?) sentence endings without splitting mid-word. The Separators field takes several symbols separated by spaces and supports \\n and \\t escapes; it defines the cut points in Symbol mode and only aligns them in Length mode. For non-UTF-8 files (French ISO-8859-1, Japanese Shift-JIS, Korean EUC-KR), **upload the file directly** rather than pasting — encoding is auto-detected to prevent garbled output."
         },
         {
-          "q": "Is my text uploaded to a server? Is the tool open source?",
-          "a": "100% client-side: text reading, splitting, and export all happen in your browser — nothing is uploaded to any server, so sensitive content is safe. Source code is open on GitHub (rockbenben/text-splitter) for self-hosting or auditing."
+          "q": "Is my text uploaded to a server?",
+          "a": "100% client-side: text reading, splitting, and export all happen in your browser — nothing is uploaded to any server, so sensitive content is safe."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Flare Bookmark Converter",
-      "description": "Convert bookmarks to/from Flare format"
+      "description": "Convert bookmark HTML to Flare YAML (flattened)"
     },
     "dataParserImgPrompt": {
       "title": "IMGPrompt Data Gen",

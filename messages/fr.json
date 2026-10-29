@@ -243,7 +243,7 @@
   "tools": {
     "subtitleTranslator": {
       "title": "Traducteur Sous-titres",
-      "description": "Traduction par lot SRT, ASS, VTT, SBV, LRC. 120+ langues."
+      "description": "Traduction par lot SRT, ASS, SSA, VTT, SBV, LRC. 120+ langues."
     },
     "jsonTranslate": {
       "title": "Traducteur JSON i18n",
@@ -269,7 +269,7 @@
         },
         {
           "q": "Comment découper les longs posts pour Twitter, Threads, Mastodon et LinkedIn ?",
-          "a": "Limites : Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4000. Utilisez le mode 'Paragraphe anglais' pour le français et autres langues latines — préserve l'intégrité des phrases. Utilisez « Exporter les fichiers de segments » pour publier en séquence (1/N, 2/N) ; au-delà de 3 segments, un ZIP est créé."
+          "a": "Limites : Twitter 280, Threads 500, Mastodon 500, Bluesky 300, LinkedIn 3000, Tumblr 4096. Utilisez le mode 'Paragraphe anglais' pour le français et autres langues latines — préserve l'intégrité des phrases. Utilisez « Exporter les fichiers de segments » pour publier en séquence (1/N, 2/N) ; au-delà de 3 segments, un ZIP est créé."
         },
         {
           "q": "Puis-je refusionner les segments en un seul texte ? Quelle est la différence entre les trois boutons de résultat ?",
@@ -284,8 +284,8 @@
           "a": "Pour texte mixte, le mode Paragraphe chinois reconnaît à la fois les ponctuations chinoise (。！？) et latine (. ! ?) sans couper mi-mot. Le champ « Séparateur » accepte plusieurs symboles séparés par des espaces et gère \\n et \\t ; il définit les coupes en mode Symbole et sert uniquement à les aligner en mode Longueur. Pour les fichiers non-UTF-8, **importez directement le fichier** plutôt que coller — l'encodage est détecté automatiquement pour éviter les caractères illisibles."
         },
         {
-          "q": "Mon texte est-il envoyé sur un serveur ? L'outil est-il open source ?",
-          "a": "100% côté client : lecture, découpage et export se passent entièrement dans votre navigateur — rien n'est envoyé, donc les contenus sensibles sont protégés. Code source ouvert sur GitHub (rockbenben/text-splitter) pour auto-hébergement ou audit."
+          "q": "Mon texte est-il envoyé sur un serveur ?",
+          "a": "100% côté client : lecture, découpage et export se passent entièrement dans votre navigateur — rien n'est envoyé, donc les contenus sensibles sont protégés."
         }
       ],
       "features": [
@@ -347,7 +347,7 @@
     },
     "dataParserFlare": {
       "title": "Convertisseur Flare",
-      "description": "Conversion favoris navigateur et format Flare"
+      "description": "Favoris HTML vers Flare YAML (aplati)"
     },
     "dataParserImgPrompt": {
       "title": "Générateur Données IMGPrompt",
